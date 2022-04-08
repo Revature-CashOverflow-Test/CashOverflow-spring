@@ -1,3 +1,10 @@
-FROM openjdk:11-jdk
-COPY CashOverflow/target/CashOverflow-0.0.1-SNAPSHOT.jar /usr/local/lib/CashOverflow-0.0.1-SNAPSHOT.jar
-ENTRYPOINT [ "java", "-jar", "/usr/local/lib/CashOverflow-0.0.1-SNAPSHOT.jar" ]
+FROM openjdk:8-jdk-alpine
+
+# copy the generated JAR into the container to run
+COPY /target/CashOverflow.jar CashOverflow.jar
+
+# Expose port 5000 of the container
+EXPOSE 5000
+
+# Run the JAR when we run the container, thus executing the app
+ENTRYPOINT ["java", "-jar", "CashOverflow.jar"]

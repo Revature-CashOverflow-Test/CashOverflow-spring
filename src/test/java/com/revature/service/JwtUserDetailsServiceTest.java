@@ -23,6 +23,7 @@ import com.revature.model.UserAccount;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
+//@ContextConfiguration(locations = { "classpath:WEB-INF/application-context.xml" })
 class JwtUserDetailsServiceTest {
 
 	@Mock
@@ -41,15 +42,15 @@ class JwtUserDetailsServiceTest {
 		User expected = new User("tlyer", "pas", new ArrayList<>());
 		initial.setUsername("tlyer");
 		initial.setPassword("pas");
-		
-		
+
+
 		when(userRepo.findByUsername(initial.getUsername())).thenReturn(initial);
-		
+
 		UserDetails result = serv.loadUserByUsername(initial.getUsername());
 		verify(userRepo, times(1)).findByUsername(initial.getUsername());
 		assertEquals(expected, result);
 	}
-	
+
 	@Test
 	void testUsernameNotFound() {
 		UserAccount initial = new UserAccount();
@@ -58,7 +59,7 @@ class JwtUserDetailsServiceTest {
 		initial.setPassword("pas");
 		expected.setUsername("tyler");
 		expected.setPassword("pas");
-		
+
 		when(userRepo.findByUsername(initial.getUsername())).thenReturn(null);
 		String usernameForSonar = initial.getUsername();
 		assertThrows(UsernameNotFoundException.class, () -> serv.loadUserByUsername(usernameForSonar));
