@@ -1,12 +1,16 @@
 package com.revature.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.dto.EmailSettingsDto;
 import com.revature.dto.SettingsDto;
 import com.revature.service.SettingsService;
 
@@ -29,9 +33,8 @@ public class SettingsController {
 		this.settingsServ = settingsServ;
 	}
 	
-	
 	@PutMapping("/changePassword")
-	public boolean  changePassword(@RequestBody SettingsDto dto) {
+	public boolean changePassword(@RequestBody SettingsDto dto) {
 		
 		boolean success = false;
 		
@@ -42,5 +45,10 @@ public class SettingsController {
 		}
 		return success;
 	}
-
+	
+	@PutMapping("/changeEmailSettings")
+	@ResponseStatus(HttpStatus.OK)
+	public boolean changeEmailSettings(Authentication auth, @RequestBody EmailSettingsDto dto) {
+		return settingsServ.changeEmailSettings(auth.getName(), dto.isEmailToggle(), dto.getEmailValue());
+	}
 }
