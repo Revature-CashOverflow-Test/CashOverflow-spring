@@ -2,6 +2,8 @@ package com.revature.dto;
 
 import java.time.Instant;
 
+import com.revature.model.UserAccount;
+
 import lombok.Data;
 
 /**
@@ -17,4 +19,5 @@ public class BankAccountDto {
 	String description;
 	Instant creationDate;
 	Integer accountTypeId;
+	UserAccountDto user;
 }
