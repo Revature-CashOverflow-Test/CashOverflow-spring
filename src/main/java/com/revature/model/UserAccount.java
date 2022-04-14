@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * Model for user accounts
- * 
+ *
  * @author Colin Knox, Parker Mace, Tyler Rondeau
  */
 @Entity
@@ -27,7 +27,11 @@ import lombok.NoArgsConstructor;
 public class UserAccount {
 
 	@Id
+	//	@SequenceGenerator(name = "generator", sequenceName = "ID_SEQUENCE", allocationSize = 1)
+	//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	// Perhaps this will fix the id is null?
+	//	@Column(name = "id", updatable = false, nullable = false)
 	Integer id;
 	String email;
 	String username;
@@ -35,12 +39,12 @@ public class UserAccount {
 	String lastName;
 	String password;
 	Instant creationDate;
-	
+	boolean authAccount = false;
+
 	public UserAccount(String username, String password) {
-		super();
 		this.username = username;
 		this.password = password;
 	}
 
-	
+
 }

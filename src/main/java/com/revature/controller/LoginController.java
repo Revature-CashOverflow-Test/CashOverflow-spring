@@ -18,7 +18,7 @@ import com.revature.service.UserAccountService;
 
 /**
  * This Class is use to handle login functionality
- * 
+ *
  * @author Emmanuel Sosa, Liliya Sherstobitova, Delane Chen
  */
 @RestController
@@ -38,21 +38,21 @@ public class LoginController {
 
 	/**
 	 * Checks if the User name & password matches credential in the database
-	 * 
+	 *
 	 * @param username
 	 * @param password
 	 * @return login User
-	 * 
+	 *
 	 * @author Emmanuel Sosa, Liliya Sherstobitova, Delane Chen
 	 */
 	@SuppressWarnings("deprecation")
 	@PostMapping(value = "/login")
 	public ResponseEntity<JwtResponse> login(@RequestBody LoginRequestDto req) {
-		if (req.getUsername() == null || req.getPassword() == null) {
+		if ((req.getUsername() == null) || (req.getPassword() == null)) {
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "missing Credential");
 		}
 		UserAccount user = serv.getUserFromUsername(req.getUsername());
-		if (user == null || !enc.matches(req.getPassword(), user.getPassword())) {
+		if ((user == null) || !enc.matches(req.getPassword(), user.getPassword())) {
 			throw new ResponseStatusException(HttpStatus.METHOD_FAILURE);
 		} else {
 			return jwtServ.createAuthenticationToken(user.getUsername(), req.getPassword());

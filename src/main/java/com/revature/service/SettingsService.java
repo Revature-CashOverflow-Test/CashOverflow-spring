@@ -7,13 +7,24 @@ import com.revature.dao.SettingsRepo;
 
 @Service
 public class SettingsService {
-	
+
 	@Autowired
 	private SettingsRepo settingsRepo;
-	
+
 	public int changePassword(String username, String password) {
-		int value = settingsRepo.changePassword(username, password);
-		return value;
+		return settingsRepo.changePassword(username, password);
+	}
+
+	public int changeFirstName(String username, String firstName) {
+		return settingsRepo.changeFirstName(username, firstName);
+	}
+
+	public int changeLastName(String username, String lastName) {
+		return settingsRepo.changeLastName(username, lastName);
+	}
+
+	public int changeEmail(String username, String Email) {
+		return settingsRepo.changeEmail(username, Email);
 	}
 
 }
