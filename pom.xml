@@ -82,6 +82,9 @@
 	</dependencies>
 
 	<build>
+		
+		<!-- the final JAR that's produced in mvn package will be called CashOverflow.jar -->
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
