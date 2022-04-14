@@ -40,11 +40,24 @@ public class UserAccount {
 	String password;
 	Instant creationDate;
 	boolean authAccount = false;
-
+	Boolean emailToggle = false;
+	Double emailValue = 0.0;
 	public UserAccount(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
+
+	public UserAccount(Integer id, String email, String username, String firstName, String lastName, String password,
+			Instant creationDate) {
+		this.id = id;
+		this.email = email;
+		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.creationDate = creationDate;
+	}
+
 
 
 }

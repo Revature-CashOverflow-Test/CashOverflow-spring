@@ -1,11 +1,11 @@
-DROP TABLE notifications;
-DROP TABLE noti_entity;
-DROP TABLE transactions;
-DROP TABLE bank_accounts;
-DROP TABLE account_types;
-DROP TABLE tx_types;
-DROP TABLE noti_messages;
-DROP TABLE user_accounts;
+DROP TABLE IF EXISTS notifications;
+DROP TABLE IF EXISTS noti_entity;
+DROP TABLE IF EXISTS transactions;
+DROP TABLE IF EXISTS bank_accounts;
+DROP TABLE IF EXISTS account_types;
+DROP TABLE IF EXISTS tx_types;
+DROP TABLE IF EXISTS noti_messages;
+DROP TABLE IF EXISTS user_accounts;
 
 CREATE TABLE user_accounts (
 	id SERIAL PRIMARY KEY,
@@ -14,7 +14,9 @@ CREATE TABLE user_accounts (
 	first_name VARCHAR(50) NOT NULL,
 	last_name VARCHAR(50) NOT NULL,
 	"password" VARCHAR(100) NOT NULL,
-	creation_date TIMESTAMP NOT NULL
+	creation_date TIMESTAMP NOT NULL,
+	email_toggle BOOLEAN NOT NULL,
+	email_value INTEGER NOT NULL
 );
 
 CREATE TABLE noti_messages (
@@ -60,7 +62,6 @@ CREATE TABLE noti_entity (
 	tx_id INTEGER,
 	account_id INTEGER,
 	FOREIGN KEY (tx_id) REFERENCES transactions (id),
-	FOREIGN KEY (account_id) REFERENCES bank_accounts (id),
 	CONSTRAINT entity_chk CHECK (tx_id IS NOT NULL OR account_id IS NOT NULL)
 );
 
@@ -83,3 +84,8 @@ INSERT INTO tx_types VALUES(DEFAULT, 'expense');
 INSERT INTO tx_types VALUES(DEFAULT, 'income');
 
 INSERT INTO noti_messages VALUES(DEFAULT, 'test noti');
+
+--UPDATE bank_accounts SET balance = 100 WHERE id = 1;
+--UPDATE bank_accounts SET balance = 100 WHERE id = 2;
+--
+--SELECT * FROM bank_accounts;
