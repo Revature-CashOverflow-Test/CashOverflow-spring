@@ -20,6 +20,6 @@ public interface SettingsRepo extends JpaRepository<UserAccount, Integer> {
     @Transactional
     @Modifying
     @Query("UPDATE UserAccount SET email_toggle = :emailToggle, email_value = :emailValue WHERE username = :username")
-    public boolean changeEmailSettings(@Param("username") String username, @Param("emailToggle") boolean emailToggle, @Param("emailValue") double emailValue);
+    public int changeEmailSettings(@Param("username") String username, @Param("emailToggle") boolean emailToggle, @Param("emailValue") double emailValue);
 
 }

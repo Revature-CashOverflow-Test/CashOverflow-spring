@@ -17,7 +17,7 @@ public class SettingsService {
 	}
 	
 	public boolean changeEmailSettings(String username, boolean emailToggle, double emailValue) {
-		return settingsRepo.changeEmailSettings(username, emailToggle, emailValue);
+		return settingsRepo.changeEmailSettings(username, emailToggle, emailValue) == 1;
 	}
 
 }
