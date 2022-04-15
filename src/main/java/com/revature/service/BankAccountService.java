@@ -21,6 +21,6 @@ public interface BankAccountService {
 
 	public List<BetweenUsers> getBetweenUsers(UserAccount user);
 
-	void completeTransfer(BetweenUsers between);
+	public List<BankAccount> completeTransfer(BetweenUsers between);
 
 }

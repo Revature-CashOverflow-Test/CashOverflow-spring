@@ -34,6 +34,7 @@ import com.revature.dao.BankAccountRepo;
 import com.revature.dao.UserAccountRepo;
 import com.revature.dto.BankAccountDto;
 import com.revature.model.BankAccount;
+import com.revature.model.BetweenUsers;
 import com.revature.model.FundTransfer;
 import com.revature.model.UserAccount;
 
@@ -238,6 +239,5 @@ class AccountControllerIntegrationTest {
 		assertEquals(49.99, actualAccts.get(0).getBalance());
 		assertEquals(50.01, actualAccts.get(1).getBalance());
 	}
-	
 	
 }

@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import java.io.Console;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +26,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 	private TransactionRepo txRepo;
 	private UserAccountService userAccServ;
 	private RequestRepo reqRepo;
+	
 
 	@Autowired
 	protected BankAccountServiceImpl(BankAccountRepo bankRepo, TransactionRepo txRepo, UserAccountService userAccServ, RequestRepo reqRepo) {
@@ -33,7 +35,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 		this.reqRepo = reqRepo;
 		this.userAccServ = userAccServ;
 	}
-
+	
 	/**
 	 * @return BankAccount
 	 *
@@ -115,7 +117,9 @@ public class BankAccountServiceImpl implements BankAccountService {
 		
 		UserAccount otherUser = userAccServ.getUserFromUsername(between.getUser());
 		BankAccount originBank = bankRepo.getById(between.getTransferAccount());
+		System.out.println("BetweenUsersMethod: "+otherUser);
 		if (otherUser == null) {
+			System.out.println("What the actual fuck");
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT);
 		}
 
@@ -130,13 +134,15 @@ public class BankAccountServiceImpl implements BankAccountService {
 	}
 	
 	@Override
-	public void completeTransfer(BetweenUsers between) {
+	public List<BankAccount> completeTransfer(BetweenUsers between) {
+		System.out.println("Between: " + between);
 		BankAccount account1 = bankRepo.getById(between.getTransferAccount());
 		BankAccount account2 = bankRepo.getById(between.getReceiveAccount());
 		
 		List<BankAccount> accounts = Arrays.asList(account1, account2);
 		
 		if (between.getSendOrReceive() == 1) {
+			System.out.println("Account One Info: " + account1); 
 			account1.setBalance(account1.getBalance() - between.getTransferAmount());
 			account2.setBalance(account2.getBalance() + between.getTransferAmount());
 		} else if (between.getSendOrReceive() == 2) {
@@ -145,6 +151,8 @@ public class BankAccountServiceImpl implements BankAccountService {
 		}
 		bankRepo.saveAll(accounts);
 		
+		//redundant line for testing purposes
+		return accounts;
 	}
 	
 	@Override

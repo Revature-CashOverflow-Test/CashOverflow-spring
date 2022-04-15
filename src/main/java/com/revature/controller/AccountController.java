@@ -48,11 +48,11 @@ public class AccountController {
 	@PostMapping("/api/account/createBankAccount")
 	@ResponseStatus(HttpStatus.CREATED)
 	public BankAccountDto createBankAccount(Authentication auth, @RequestBody BankAccountDto dtoAccount) {
-		
+
 		BankAccount account = convertToEntity(dtoAccount);
-		
+
 		account.setUser(userAccServ.getUserFromUsername(auth.getName()));
-		
+
 		return convertToDto(bankAccServ.createAccount(account));
 	}
 
@@ -70,11 +70,8 @@ public class AccountController {
 	}
 
 	/**
-	 * @param FundTransfer { 
-	 * 				transferFromAccount: String account,
-	 * 				transferToAccount: String account,
-	 * 				transferAmount: Double amount 
-	 * 			}
+	 * @param FundTransfer { transferFromAccount: String account, transferToAccount:
+	 *                     String account, transferAmount: Double amount }
 	 * 
 	 * @return List<BankAccountDto>
 	 * 
@@ -91,32 +88,14 @@ public class AccountController {
 				.collect(Collectors.toList());
 
 	}
-	
+
 	@PostMapping("/api/account/betweenUsers")
 	@ResponseStatus(HttpStatus.OK)
 	public void transferFundsBetweenUsers(Authentication auth, @RequestBody BetweenUsers between) {
-		
 		UserAccount user = userAccServ.getUserFromUsername(auth.getName());
-				
+
 		bankAccServ.betweenUsers(user, between);
 
-	}
-	
-	@PostMapping("/api/account/completeTransfer")
-	@ResponseStatus(HttpStatus.OK)
-	public void completeTransfer(Authentication auth, @RequestBody BetweenUsers between) {
-		
-		
-				
-		bankAccServ.completeTransfer(between);
-
-	}
-	
-	@GetMapping("/api/account/retrieveRequest")
-	@ResponseStatus(HttpStatus.OK)
-	public List<BetweenUsers> retrieveRequests(Authentication auth) {
-		UserAccount user = userAccServ.getUserFromUsername(auth.getName());
-		return bankAccServ.getBetweenUsers(user);
 	}
 
 	protected BankAccount convertToEntity(BankAccountDto dtoAccount) {
