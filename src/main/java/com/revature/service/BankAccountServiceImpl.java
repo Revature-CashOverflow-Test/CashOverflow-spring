@@ -26,16 +26,16 @@ public class BankAccountServiceImpl implements BankAccountService {
 	private TransactionRepo txRepo;
 	private UserAccountService userAccServ;
 	private RequestRepo reqRepo;
-	
 
 	@Autowired
-	protected BankAccountServiceImpl(BankAccountRepo bankRepo, TransactionRepo txRepo, UserAccountService userAccServ, RequestRepo reqRepo) {
+	protected BankAccountServiceImpl(BankAccountRepo bankRepo, TransactionRepo txRepo, UserAccountService userAccServ,
+			RequestRepo reqRepo) {
 		this.bankRepo = bankRepo;
 		this.txRepo = txRepo;
 		this.reqRepo = reqRepo;
 		this.userAccServ = userAccServ;
 	}
-	
+
 	/**
 	 * @return BankAccount
 	 *
@@ -114,35 +114,33 @@ public class BankAccountServiceImpl implements BankAccountService {
 
 	@Override
 	public void betweenUsers(UserAccount user, BetweenUsers between) {
-		
+
 		UserAccount otherUser = userAccServ.getUserFromUsername(between.getUser());
 		BankAccount originBank = bankRepo.getById(between.getTransferAccount());
-		System.out.println("BetweenUsersMethod: "+otherUser);
-		if (otherUser == null) {
-			System.out.println("What the actual fuck");
+
+		if (otherUser == null || otherUser.getId() == null) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT);
 		}
 
 		if (between.getSendOrReceive() == 1) {
+			System.out.println("testing");
 			if (originBank.getBalance() < between.getTransferAmount()) {
 				throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT);
 			}
 		}
 		between.setOriginUser(user.getUsername());
 		reqRepo.save(between);
-		
+
 	}
-	
+
 	@Override
 	public List<BankAccount> completeTransfer(BetweenUsers between) {
-		System.out.println("Between: " + between);
 		BankAccount account1 = bankRepo.getById(between.getTransferAccount());
 		BankAccount account2 = bankRepo.getById(between.getReceiveAccount());
-		
+
 		List<BankAccount> accounts = Arrays.asList(account1, account2);
-		
+
 		if (between.getSendOrReceive() == 1) {
-			System.out.println("Account One Info: " + account1); 
 			account1.setBalance(account1.getBalance() - between.getTransferAmount());
 			account2.setBalance(account2.getBalance() + between.getTransferAmount());
 		} else if (between.getSendOrReceive() == 2) {
@@ -150,11 +148,11 @@ public class BankAccountServiceImpl implements BankAccountService {
 			account1.setBalance(account1.getBalance() + between.getTransferAmount());
 		}
 		bankRepo.saveAll(accounts);
-		
-		//redundant line for testing purposes
+
+		// redundant line for testing purposes
 		return accounts;
 	}
-	
+
 	@Override
 	public List<BetweenUsers> getBetweenUsers(UserAccount user) {
 		return reqRepo.findAllByUser(user.getUsername());
