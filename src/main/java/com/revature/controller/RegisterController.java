@@ -16,12 +16,14 @@ import org.springframework.web.server.ResponseStatusException;
 import com.revature.dto.RegUserAccountDto;
 import com.revature.model.UserAccount;
 import com.revature.service.RegisterService;
+import com.revature.service.UserAccountService;
 
 @CrossOrigin(value = { "http://localhost:4200", "http://dostz94b44kp0.cloudfront.net" })
 @Controller
 public class RegisterController {
 
 	private RegisterService regServ;
+	private UserAccountService serv;
 	private ModelMapper mapper;
 
 	private PasswordEncoder enc;
@@ -49,6 +51,12 @@ public class RegisterController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void newUser(@RequestBody RegUserAccountDto dto) {
 
+		// Might be better to instead of caling a new function, to just run the if and
+		// set passwords inside the if statement. But this should be fine
+		if (dto.isAuth0User()) {
+			newAuthUser(dto);
+			return;
+		}
 		Pattern ptr = Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
 		if ((dto.getEmail() == null) || dto.getEmail().isEmpty() || (dto.getUsername() == null)
 				|| dto.getUsername().isEmpty() || (dto.getFirstName() == null) || dto.getFirstName().isEmpty()
@@ -58,6 +66,25 @@ public class RegisterController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing registration info");
 		}
 		dto.setPassword(enc.encode(dto.getPassword()));
+		UserAccount user = convertToEntity(dto);
+		regServ.insertUserAccount(user);
+	}
+
+	public void newAuthUser(@RequestBody RegUserAccountDto dto) {
+
+		// The only difference here from the top is it doesn't check the password
+		// Might be better to spread this out for more accurate responses.
+		Pattern ptr = Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
+		if ((dto.getEmail() == null) || dto.getEmail().isEmpty() || (dto.getUsername() == null)
+				|| dto.getUsername().isEmpty() || (dto.getFirstName() == null) || dto.getFirstName().isEmpty()
+				|| (dto.getLastName() == null) || dto.getLastName().isEmpty()
+				|| !ptr.matcher(dto.getEmail()).matches()) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing registration info");
+		}
+
+		// We encode this to allow bcrypt to check a value so we can have a token
+		// This is the same value as in login controller for auth users.
+		dto.setPassword(enc.encode("auth0User"));
 		UserAccount user = convertToEntity(dto);
 		regServ.insertUserAccount(user);
 	}

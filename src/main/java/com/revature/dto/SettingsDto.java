@@ -14,7 +14,6 @@ public class SettingsDto {
 
 	String username;
 	String newPassword;
-
 	String newFirstName;
 	String newLastName;
 	String newEmail;

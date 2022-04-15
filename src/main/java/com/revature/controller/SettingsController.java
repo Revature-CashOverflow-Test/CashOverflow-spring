@@ -32,54 +32,45 @@ public class SettingsController {
 	public SettingsController(SettingsService settingsServ) {
 		this.settingsServ = settingsServ;
 	}
-	<<<<<<< HEAD
+
 
 
 	@PutMapping("/changePassword")
-	public boolean  changePassword(@RequestBody SettingsDto dto) {
+	public boolean changePassword(@RequestBody SettingsDto dto) {
+		boolean success = false;
 
-		=======
+		int value = settingsServ.changePassword(dto.getUsername(), encoder.encode(dto.getNewPassword()));
 
-				@PutMapping("/changePassword")
-		public boolean changePassword(@RequestBody SettingsDto dto) {
-
-			>>>>>>> c7657090d10adfba2c1060062b81988b2d97de04
-	boolean success = false;
-
-	int value = settingsServ.changePassword(dto.getUsername(), encoder.encode(dto.getNewPassword()));
-
-	if(value == 1) {
-		success = true;
+		if (value == 1) {
+			success = true;
+		}
+		return success;
 	}
-	return success;
-		}
 
 
-		@PutMapping("/changeFirstName")
-		public boolean changeFirstName(@RequestBody SettingsDto dto) {
-			int value = settingsServ.changeFirstName(dto.getUsername(), dto.getNewFirstName());
-			return (value >= 1);
-		}
-
-		@PutMapping("/changeLastName")
-		public boolean changeLastName(@RequestBody SettingsDto dto) {
-			System.out.println("In Last name");
-			int value = settingsServ.changeLastName(dto.getUsername(), dto.getNewLastName());
-			return (value >= 1);
-		}
-
-		@PutMapping("/changeEmail")
-		public boolean changeEmail(@RequestBody SettingsDto dto) {
-			int value = settingsServ.changeEmail(dto.getUsername(), dto.getNewEmail());
-			return (value >= 1);
-		}
-
-
-
-		@PutMapping("/changeEmailSettings")
-		@ResponseStatus(HttpStatus.OK)
-		public boolean changeEmailSettings(Authentication auth, @RequestBody EmailSettingsDto dto) {
-			return settingsServ.changeEmailSettings(auth.getName(), dto.isEmailToggle(), dto.getEmailValue());
-		}
-
+	@PutMapping("/changeFirstName")
+	public boolean changeFirstName(@RequestBody SettingsDto dto) {
+		int value = settingsServ.changeFirstName(dto.getUsername(), dto.getNewFirstName());
+		return (value >= 1);
 	}
+
+	@PutMapping("/changeLastName")
+	public boolean changeLastName(@RequestBody SettingsDto dto) {
+		System.out.println("In Last name");
+		int value = settingsServ.changeLastName(dto.getUsername(), dto.getNewLastName());
+		return (value >= 1);
+	}
+
+	@PutMapping("/changeEmail")
+	public boolean changeEmail(@RequestBody SettingsDto dto) {
+		int value = settingsServ.changeEmail(dto.getUsername(), dto.getNewEmail());
+		return (value >= 1);
+	}
+
+	@PutMapping("/changeEmailSettings")
+	@ResponseStatus(HttpStatus.OK)
+	public boolean changeEmailSettings(Authentication auth, @RequestBody EmailSettingsDto dto) {
+		return settingsServ.changeEmailSettings(auth.getName(), dto.isEmailToggle(), dto.getEmailValue());
+	}
+
+}

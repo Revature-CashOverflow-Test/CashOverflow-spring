@@ -7,7 +7,7 @@ import lombok.Setter;
 
 /**
  * Model for user accounts to send to the client
- * 
+ *
  * @author Colin Knox, Parker Mace, Tyler Rondeau
  */
 @Data
@@ -18,5 +18,6 @@ public class LoginRequestDto {
 
 	String username;
 	String password;
+	boolean auth0User;
 
 }

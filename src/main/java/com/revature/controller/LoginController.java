@@ -48,14 +48,40 @@ public class LoginController {
 	@SuppressWarnings("deprecation")
 	@PostMapping(value = "/login")
 	public ResponseEntity<JwtResponse> login(@RequestBody LoginRequestDto req) {
+		// If a user is a Auth0 user, we don't want to check the password
+		// So we go a different route instead of complexifying the rest of the
+		// login info
+		if (req.isAuth0User()) {
+			return auth0Login(req);
+		}
 		if ((req.getUsername() == null) || (req.getPassword() == null)) {
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "missing Credential");
 		}
 		UserAccount user = serv.getUserFromUsername(req.getUsername());
+		// Don't let an authuser sign in the normal way
+		if (user.isAuthAccount()) {
+			throw new ResponseStatusException(HttpStatus.METHOD_FAILURE);
+		}
 		if ((user == null) || !enc.matches(req.getPassword(), user.getPassword())) {
 			throw new ResponseStatusException(HttpStatus.METHOD_FAILURE);
 		} else {
 			return jwtServ.createAuthenticationToken(user.getUsername(), req.getPassword());
+		}
+	}
+
+	private ResponseEntity<JwtResponse> auth0Login(@RequestBody LoginRequestDto req) {
+
+		// Only checks the username since that is the only method that matters
+		if ((req.getUsername() == null)) {
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "missing Credential");
+		}
+		UserAccount user = serv.getUserFromUsername(req.getUsername());
+		if (user == null) {
+			throw new ResponseStatusException(HttpStatus.METHOD_FAILURE);
+		} else {
+			// Password has to exists, so set it to the same as what is put in the
+			// Register controller for auth users
+			return jwtServ.createAuthenticationToken(user.getUsername(), "auth0User");
 		}
 	}
 }

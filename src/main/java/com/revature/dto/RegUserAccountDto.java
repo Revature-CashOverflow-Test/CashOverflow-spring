@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * Dto object that creates a buffer between input data and the database
- * 
+ *
  * @author Cameron, Amir, Chandra
  */
 @Data
@@ -17,5 +17,6 @@ public class RegUserAccountDto {
 	String firstName;
 	String lastName;
 	String password;
+	boolean auth0User;
 
 }
