@@ -12,7 +12,12 @@ public class SettingsService {
 	private SettingsRepo settingsRepo;
 
 	public int changePassword(String username, String password) {
-		return settingsRepo.changePassword(username, password);
+
+		if ((username == null) || (password == null)) {
+			return 0;
+		} else {
+			return settingsRepo.changePassword(username, password);
+		}
 	}
 
 	public int changeFirstName(String username, String firstName) {
@@ -26,7 +31,7 @@ public class SettingsService {
 	public int changeEmail(String username, String Email) {
 		return settingsRepo.changeEmail(username, Email);
 	}
-	
+
 	public boolean changeEmailSettings(String username, boolean emailToggle, double emailValue) {
 		return settingsRepo.changeEmailSettings(username, emailToggle, emailValue) == 1;
 	}

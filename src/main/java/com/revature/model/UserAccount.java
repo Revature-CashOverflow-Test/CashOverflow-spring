@@ -36,6 +36,7 @@ public class UserAccount {
 	Integer id;
 
 	String email;
+
 	@Column(unique = true)
 	String username;
 	String firstName;

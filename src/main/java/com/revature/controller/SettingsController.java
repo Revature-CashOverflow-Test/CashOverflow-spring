@@ -29,8 +29,9 @@ public class SettingsController {
 	private PasswordEncoder encoder;
 
 	@Autowired
-	public SettingsController(SettingsService settingsServ) {
+	public SettingsController(SettingsService settingsServ, PasswordEncoder encoder) {
 		this.settingsServ = settingsServ;
+		this.encoder = encoder;
 	}
 
 

@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.dao.BankAccountRepo;
+import com.revature.dao.RequestRepo;
 import com.revature.dao.TransactionRepo;
 import com.revature.model.BankAccount;
 import com.revature.model.FundTransfer;
@@ -35,10 +36,16 @@ class BankAccountServiceImplTest {
 	private TransactionRepo txDao;
 
 	private BankAccountService serv;
-
+	
+	@Mock
+	private UserAccountService userAccServ;
+	
+	@Mock
+	private RequestRepo reqRepo;
+	
 	@BeforeEach
 	void setUp() throws Exception {
-		serv = new BankAccountServiceImpl(dao, txDao);
+		serv = new BankAccountServiceImpl(dao, txDao, userAccServ, reqRepo);
 	}
 
 	/**
