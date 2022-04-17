@@ -68,27 +68,27 @@ class RegisterControllerIntegrationTest {
 	void testNullInputValue() throws Exception {
 		mvc.perform(post("/register")
 				.content(mapper.writeValueAsString(
-						new RegUserAccountDto(null, "username", "first", "last", "password", false)))
+						new RegUserAccountDto(null, "username", "first", "last", "password")))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
 		mvc.perform(post("/register")
 				.content(mapper.writeValueAsString(
-						new RegUserAccountDto("email@gmail.com", null, "first", "last", "password", false)))
+						new RegUserAccountDto("email@gmail.com", null, "first", "last", "password")))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
 		mvc.perform(post("/register")
 				.content(mapper.writeValueAsString(
-						new RegUserAccountDto("email@gmail.com", "username", null, "last", "password", false)))
+						new RegUserAccountDto("email@gmail.com", "username", null, "last", "password")))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
 		mvc.perform(post("/register")
 				.content(mapper.writeValueAsString(
-						new RegUserAccountDto("email@gmail.com", "username", "first", null, "password", false)))
+						new RegUserAccountDto("email@gmail.com", "username", "first", null, "password")))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
 		mvc.perform(post("/register")
 				.content(mapper.writeValueAsString(
-						new RegUserAccountDto("email@gmail.com", "username", "first", "last", null, false)))
+						new RegUserAccountDto("email@gmail.com", "username", "first", "last", null)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 	}
 
@@ -96,27 +96,27 @@ class RegisterControllerIntegrationTest {
 	void testBlankInputValue() throws Exception {
 		mvc.perform(post("/register")
 				.content(mapper
-						.writeValueAsString(new RegUserAccountDto("", "username", "first", "last", "password", false)))
+						.writeValueAsString(new RegUserAccountDto("", "username", "first", "last", "password")))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
 		mvc.perform(post("/register")
 				.content(mapper.writeValueAsString(
-						new RegUserAccountDto("email@gmail.com", "", "first", "last", "password", false)))
+						new RegUserAccountDto("email@gmail.com", "", "first", "last", "password")))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
 		mvc.perform(post("/register")
 				.content(mapper.writeValueAsString(
-						new RegUserAccountDto("email@gmail.com", "username", "", "last", "password", false)))
+						new RegUserAccountDto("email@gmail.com", "username", "", "last", "password")))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
 		mvc.perform(post("/register")
 				.content(mapper.writeValueAsString(
-						new RegUserAccountDto("email@gmail.com", "username", "first", "", "password", false)))
+						new RegUserAccountDto("email@gmail.com", "username", "first", "", "password")))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 
 		mvc.perform(post("/register")
 				.content(mapper.writeValueAsString(
-						new RegUserAccountDto("email@gmail.com", "username", "first", "last", "", false)))
+						new RegUserAccountDto("email@gmail.com", "username", "first", "last", "")))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 	}
 
@@ -124,7 +124,7 @@ class RegisterControllerIntegrationTest {
 	void testInvalidEmailString() throws Exception {
 		mvc.perform(post("/register")
 				.content(mapper.writeValueAsString(
-						new RegUserAccountDto("email", "username", "first", "last", "password", false)))
+						new RegUserAccountDto("email", "username", "first", "last", "password")))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 	}
 
@@ -132,7 +132,7 @@ class RegisterControllerIntegrationTest {
 	void testRegisterSuccess() throws Exception {
 		mvc.perform(post("/register")
 				.content(mapper.writeValueAsString(
-						new RegUserAccountDto("email@gmail.com", "username", "first", "last", "password", false)))
+						new RegUserAccountDto("email@gmail.com", "username", "first", "last", "password")))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
 
 		UserAccount actualUser = repo.findByUsername("username");

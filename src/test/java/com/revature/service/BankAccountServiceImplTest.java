@@ -31,18 +31,18 @@ class BankAccountServiceImplTest {
 
 	@Mock
 	private BankAccountRepo dao;
-	
+
 	@Mock
 	private TransactionRepo txDao;
 
 	private BankAccountService serv;
-	
+
 	@Mock
 	private UserAccountService userAccServ;
-	
+
 	@Mock
 	private RequestRepo reqRepo;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		serv = new BankAccountServiceImpl(dao, txDao, userAccServ, reqRepo);
@@ -59,7 +59,7 @@ class BankAccountServiceImplTest {
 
 		BankAccount initialTestBankAccount = new BankAccount("myBankAccountName", "myBankAccountDescription", null, 1,
 				initialTestUser);
-		initialTestBankAccount.setBalance(2000000.0);
+		initialTestBankAccount.setBalance(0.0);
 		UserAccount expectedTestUser = new UserAccount(1000, "testuseremail@emailprovider.com", "testUserUsername",
 				"testUserFirstName", "testUserLastName", "testUserPassword", null);
 
@@ -89,8 +89,7 @@ class BankAccountServiceImplTest {
 
 		List<BankAccount> initialList = new ArrayList<>();
 		initialList.add(initialTestBankAccount);
-		List<BankAccount> expectedList = new ArrayList<>();
-		expectedList.addAll(initialList);
+		List<BankAccount> expectedList = new ArrayList<>(initialList);
 		when(dao.findAllByUserId(1)).thenReturn(initialList);
 
 		List<BankAccount> test = serv.getBankAccounts(1);
@@ -118,7 +117,7 @@ class BankAccountServiceImplTest {
 		BankAccount expectedAccount2 = new BankAccount();
 		expectedAccount2.setBalance(12.35);
 		UserAccount user = new UserAccount();
-		List<BankAccount> expectedAccounts = new ArrayList<BankAccount>();
+		List<BankAccount> expectedAccounts = new ArrayList<>();
 		expectedAccounts.add(expectedAccount1);
 		expectedAccounts.add(expectedAccount2);
 

@@ -55,7 +55,7 @@ class LoginControllerTest {
 	//Null credential failure
 	@Test
 	void loginFailTest() {
-		LoginRequestDto req = new LoginRequestDto(null, null, false);
+		LoginRequestDto req = new LoginRequestDto(null, null);
 		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
 			loginController.login(req);
 		});
@@ -72,7 +72,7 @@ class LoginControllerTest {
 	//Bad credential failure
 	@Test
 	void loginFailureTest() {
-		LoginRequestDto req = new LoginRequestDto("dummy", "padsojgfhldsoajord", false);
+		LoginRequestDto req = new LoginRequestDto("dummy", "padsojgfhldsoajord");
 		UserAccount initial = new UserAccount("dummy", enc.encode("password"));
 
 		when(serv.getUserFromUsername("dummy")).thenReturn(initial);

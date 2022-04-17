@@ -68,20 +68,20 @@ class LoginControllerIntegrationTest {
 
 	@Test
 	void testPostMissingCredentials() throws Exception {
-		mvc.perform(post("/login").content(mapper.writeValueAsString(new LoginRequestDto("username", null, false)))
+		mvc.perform(post("/login").content(mapper.writeValueAsString(new LoginRequestDto("username", null)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().is4xxClientError());
 	}
 
 	@Test
 	void testLoginUserNotFound() throws Exception {
-		mvc.perform(post("/login").content(mapper.writeValueAsString(new LoginRequestDto("username", "user1", false)))
+		mvc.perform(post("/login").content(mapper.writeValueAsString(new LoginRequestDto("username", "user1")))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().is4xxClientError());
 	}
 
 	@Test
 	void testLoginUserSuccess() throws Exception {
 		MvcResult result = mvc
-				.perform(post("/login").content(mapper.writeValueAsString(new LoginRequestDto("user1", "user1", false)))
+				.perform(post("/login").content(mapper.writeValueAsString(new LoginRequestDto("user1", "user1")))
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andReturn();

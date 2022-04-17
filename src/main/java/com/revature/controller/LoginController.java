@@ -62,11 +62,9 @@ public class LoginController {
 		if ((req.getUsername() == null) || (req.getPassword() == null)) {
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "missing Credential");
 		}
-		System.out.println(req.getUsername());
 		UserAccount user = serv.getUserFromUsername(req.getUsername());
-
 		// Don't let an authuser sign in the normal way
-		if (user.isAuthAccount()) {
+		if ((user != null) && user.isAuthAccount()) {
 			throw new ResponseStatusException(HttpStatus.METHOD_FAILURE);
 		}
 		if ((user == null) || !enc.matches(req.getPassword(), user.getPassword())) {

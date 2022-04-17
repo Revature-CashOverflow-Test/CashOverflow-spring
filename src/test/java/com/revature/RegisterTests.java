@@ -83,7 +83,7 @@ class RegisterTests {
 	@Test
 	void RegisterControllerTest() {
 		RegUserAccountDto test = new RegUserAccountDto("email@gmail.com", "username", "firstname", "lastname",
-				"password", false);
+				"password");
 		UserAccount user = new UserAccount();
 		user.setEmail(test.getEmail());
 		user.setUsername(test.getUsername());
@@ -100,7 +100,7 @@ class RegisterTests {
 
 	@Test
 	void RegisterControllerTestMissingArg() {
-		RegUserAccountDto test = new RegUserAccountDto(null, "username", "firstname", "lastname", "password", false);
+		RegUserAccountDto test = new RegUserAccountDto(null, "username", "firstname", "lastname", "password");
 
 		UserAccount user = new UserAccount();
 		user.setEmail(test.getEmail());
