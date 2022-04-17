@@ -29,7 +29,7 @@ import com.revature.model.UserAccount;
 
 /**
  * Integration tests for the register controller
- * 
+ *
  * @author Colin Knox
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = CashOverflowApplication.class)
@@ -58,62 +58,86 @@ class RegisterControllerIntegrationTest {
 	@Test
 	void testWrongMethod() throws Exception {
 		mvc.perform(get("/register")).andExpect(status().isMethodNotAllowed());
-		
+
 		mvc.perform(put("/register")).andExpect(status().isMethodNotAllowed());
-		
+
 		mvc.perform(delete("/register")).andExpect(status().isMethodNotAllowed());
 	}
 
 	@Test
 	void testNullInputValue() throws Exception {
-		mvc.perform(post("/register").content(mapper.writeValueAsString(new RegUserAccountDto(null, "username", "first", "last", "password")))
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto(null, "username", "first", "last", "password", false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-		
-		mvc.perform(post("/register").content(mapper.writeValueAsString(new RegUserAccountDto("email@gmail.com", null, "first", "last", "password")))
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", null, "first", "last", "password", false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-		
-		mvc.perform(post("/register").content(mapper.writeValueAsString(new RegUserAccountDto("email@gmail.com", "username", null, "last", "password")))
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", null, "last", "password", false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-		
-		mvc.perform(post("/register").content(mapper.writeValueAsString(new RegUserAccountDto("email@gmail.com", "username", "first", null, "password")))
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", "first", null, "password", false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-		
-		mvc.perform(post("/register").content(mapper.writeValueAsString(new RegUserAccountDto("email@gmail.com", "username", "first", "last", null)))
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", "first", "last", null, false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 	}
-	
+
 	@Test
 	void testBlankInputValue() throws Exception {
-		mvc.perform(post("/register").content(mapper.writeValueAsString(new RegUserAccountDto("", "username", "first", "last", "password")))
+		mvc.perform(post("/register")
+				.content(mapper
+						.writeValueAsString(new RegUserAccountDto("", "username", "first", "last", "password", false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-		
-		mvc.perform(post("/register").content(mapper.writeValueAsString(new RegUserAccountDto("email@gmail.com", "", "first", "last", "password")))
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "", "first", "last", "password", false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-		
-		mvc.perform(post("/register").content(mapper.writeValueAsString(new RegUserAccountDto("email@gmail.com", "username", "", "last", "password")))
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", "", "last", "password", false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-		
-		mvc.perform(post("/register").content(mapper.writeValueAsString(new RegUserAccountDto("email@gmail.com", "username", "first", "", "password")))
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", "first", "", "password", false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-		
-		mvc.perform(post("/register").content(mapper.writeValueAsString(new RegUserAccountDto("email@gmail.com", "username", "first", "last", "")))
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", "first", "last", "", false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 	}
-	
+
 	@Test
 	void testInvalidEmailString() throws Exception {
-		mvc.perform(post("/register").content(mapper.writeValueAsString(new RegUserAccountDto("email", "username", "first", "last", "password")))
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email", "username", "first", "last", "password", false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 	}
-	
+
 	@Test
 	void testRegisterSuccess() throws Exception {
-		mvc.perform(post("/register").content(mapper.writeValueAsString(new RegUserAccountDto("email@gmail.com", "username", "first", "last", "password")))
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", "first", "last", "password", false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-		
+
 		UserAccount actualUser = repo.findByUsername("username");
 		UserAccount expectedUser = new UserAccount(actualUser.getId(), "email@gmail.com", "username", "first", "last", actualUser.getPassword(), actualUser.getCreationDate());
-		
+
 		assertTrue(enc.matches("password", actualUser.getPassword()));
 		assertNotNull(actualUser.getCreationDate());
 		assertEquals(expectedUser, actualUser);

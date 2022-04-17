@@ -32,7 +32,7 @@ import com.revature.model.UserAccount;
 
 /**
  * Integration tests for the login controller
- * 
+ *
  * @author Colin Knox
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = CashOverflowApplication.class)
@@ -68,27 +68,27 @@ class LoginControllerIntegrationTest {
 
 	@Test
 	void testPostMissingCredentials() throws Exception {
-		mvc.perform(post("/login").content(mapper.writeValueAsString(new LoginRequestDto("username", null)))
+		mvc.perform(post("/login").content(mapper.writeValueAsString(new LoginRequestDto("username", null, false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().is4xxClientError());
 	}
 
 	@Test
 	void testLoginUserNotFound() throws Exception {
-		mvc.perform(post("/login").content(mapper.writeValueAsString(new LoginRequestDto("username", "user1")))
+		mvc.perform(post("/login").content(mapper.writeValueAsString(new LoginRequestDto("username", "user1", false)))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().is4xxClientError());
 	}
 
 	@Test
 	void testLoginUserSuccess() throws Exception {
 		MvcResult result = mvc
-				.perform(post("/login").content(mapper.writeValueAsString(new LoginRequestDto("user1", "user1")))
+				.perform(post("/login").content(mapper.writeValueAsString(new LoginRequestDto("user1", "user1", false)))
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andReturn();
 
 		String responseBody = result.getResponse().getContentAsString();
 		HashMap<String, Object> pairs = mapper.readValue(responseBody, new TypeReference<HashMap<String, Object>>(){});
-		assertTrue(pairs.keySet().contains("jwt"));
+		assertTrue(pairs.containsKey("jwt"));
 		assertNotEquals("", pairs.get("jwt"));
 	}
 }

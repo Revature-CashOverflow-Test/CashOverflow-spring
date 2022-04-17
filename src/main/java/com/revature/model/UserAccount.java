@@ -60,6 +60,7 @@ public class UserAccount {
 		this.lastName = lastName;
 		this.password = password;
 		this.creationDate = creationDate;
+		authAccount = false;
 	}
 
 

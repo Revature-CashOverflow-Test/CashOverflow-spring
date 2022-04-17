@@ -29,17 +29,14 @@ import com.revature.service.UserAccountService;
 @Controller
 public class RegisterController {
 
-	private SocialAccountService userSocialServ;
 	private RegisterService regServ;
-	private UserAccountService serv;
 	private ModelMapper mapper;
+	private PasswordEncoder enc;
+	private UserAccountService serv;
+	private SocialAccountService userSocialServ;
 	private BankAccountService bankAccServ;
 
-	private PasswordEncoder enc;
 
-	protected UserSocialMedia convertToEntity(UserSocialMedia dtoAccount) {
-		return mapper.map(dtoAccount, UserSocialMedia.class);
-	}
 
 
 	@Autowired
@@ -133,4 +130,7 @@ public class RegisterController {
 		return mapper.map(dto, UserAccount.class);
 	}
 
+	protected UserSocialMedia convertToEntity(UserSocialMedia dtoAccount) {
+		return mapper.map(dtoAccount, UserSocialMedia.class);
+	}
 }

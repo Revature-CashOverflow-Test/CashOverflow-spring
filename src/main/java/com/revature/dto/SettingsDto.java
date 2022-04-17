@@ -20,4 +20,9 @@ public class SettingsDto {
 	String newLastName;
 	String newEmail;
 
+	public SettingsDto(String username, String newPassword) {
+		this.username = username;
+		this.newPassword = newPassword;
+	}
+
 }

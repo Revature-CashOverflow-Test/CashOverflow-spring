@@ -18,12 +18,13 @@ import com.revature.controller.LoginController;
 import com.revature.dto.LoginRequestDto;
 import com.revature.model.UserAccount;
 import com.revature.service.JwtAuthenticationService;
+import com.revature.service.SocialAccountService;
 import com.revature.service.UserAccountService;
 
 /**
- * 
+ *
  * Tests login controller functionality.
- * 
+ *
  * @author Delane Chen, Liliya Sherstobitova, Emmanuel Sosa
  *
  */
@@ -39,19 +40,22 @@ class LoginControllerTest {
 
 	@Mock
 	JwtAuthenticationService jwtServ;
-	
-	@Mock 
+
+	@Mock
 	PasswordEncoder enc;
+
+	@Mock
+	SocialAccountService saserv;
 
 	@BeforeEach
 	void setup() {
-		loginController = new LoginController(serv, jwtServ, enc);
+		loginController = new LoginController(serv, jwtServ, enc, saserv);
 	}
 
 	//Null credential failure
 	@Test
 	void loginFailTest() {
-		LoginRequestDto req = new LoginRequestDto(null, null);
+		LoginRequestDto req = new LoginRequestDto(null, null, false);
 		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
 			loginController.login(req);
 		});
@@ -68,7 +72,7 @@ class LoginControllerTest {
 	//Bad credential failure
 	@Test
 	void loginFailureTest() {
-		LoginRequestDto req = new LoginRequestDto("dummy", "padsojgfhldsoajord");
+		LoginRequestDto req = new LoginRequestDto("dummy", "padsojgfhldsoajord", false);
 		UserAccount initial = new UserAccount("dummy", enc.encode("password"));
 
 		when(serv.getUserFromUsername("dummy")).thenReturn(initial);

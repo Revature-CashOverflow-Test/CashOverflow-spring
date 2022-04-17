@@ -22,13 +22,16 @@ import com.revature.controller.RegisterController;
 import com.revature.dao.UserAccountRepo;
 import com.revature.dto.RegUserAccountDto;
 import com.revature.model.UserAccount;
+import com.revature.service.BankAccountService;
 import com.revature.service.RegisterService;
 import com.revature.service.RegisterServiceImpl;
+import com.revature.service.SocialAccountService;
+import com.revature.service.UserAccountService;
 
 /**
  * Tests for RegisterController(positive and negative) and Service layer. In the
  * future we will put tests for different classes in different testing files.
- * 
+ *
  * @author Cameron, Amir, Chandra
  *
  */
@@ -38,6 +41,16 @@ class RegisterTests {
 
 	private RegisterServiceImpl regServ;
 	private RegisterController regCont;
+
+
+	@Mock
+	private UserAccountService serv;
+
+	@Mock
+	private SocialAccountService userSocialServ;
+
+	@Mock
+	private BankAccountService bankAccServ;
 
 	@Mock
 	private UserAccountRepo mockRepo;
@@ -51,10 +64,11 @@ class RegisterTests {
 	@Mock
 	private PasswordEncoder enc;
 
+
 	@BeforeEach
 	public void setUp() {
 		regServ = new RegisterServiceImpl(mockRepo);
-		regCont = new RegisterController(mockServ, mockMapper, enc);
+		regCont = new RegisterController(mockServ, mockMapper, enc, serv, userSocialServ, bankAccServ);
 	}
 
 	@Test
@@ -69,7 +83,7 @@ class RegisterTests {
 	@Test
 	void RegisterControllerTest() {
 		RegUserAccountDto test = new RegUserAccountDto("email@gmail.com", "username", "firstname", "lastname",
-				"password");
+				"password", false);
 		UserAccount user = new UserAccount();
 		user.setEmail(test.getEmail());
 		user.setUsername(test.getUsername());
@@ -86,8 +100,8 @@ class RegisterTests {
 
 	@Test
 	void RegisterControllerTestMissingArg() {
-		RegUserAccountDto test = new RegUserAccountDto(null, "username", "firstname", "lastname", "password");
-    
+		RegUserAccountDto test = new RegUserAccountDto(null, "username", "firstname", "lastname", "password", false);
+
 		UserAccount user = new UserAccount();
 		user.setEmail(test.getEmail());
 		user.setUsername(test.getUsername());
@@ -108,6 +122,6 @@ class RegisterTests {
 
 		verify(mockServ, times(0)).insertUserAccount(user);
 		verify(mockMapper, times(0)).map(test, UserAccount.class);
-	
+
 	}
 }
