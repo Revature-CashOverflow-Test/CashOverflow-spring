@@ -8,7 +8,7 @@ import com.revature.model.UserAccount;
 
 /**
  * This be a service class for UserAccounts
- * 
+ *
  * @author Tyler Rondeau, Luis Estevez, Luis Rivera
  */
 @Service
@@ -25,5 +25,6 @@ public class UserAccountServiceImpl implements UserAccountService {
 	public UserAccount getUserFromUsername(String username) {
 		return repo.findByUsername(username);
 	}
+
 
 }

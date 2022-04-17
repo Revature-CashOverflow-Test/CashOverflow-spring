@@ -36,8 +36,12 @@ public class BankAccountServiceImpl implements BankAccountService {
 	@Override
 	public BankAccount createAccount(BankAccount newAccount) {
 		// here we will be timestamping the acc creation and setting the balance to 0
-		newAccount.setCreationDate(Instant.now());
-		newAccount.setBalance(0.0);
+		if (newAccount.getCreationDate() == null) {
+			newAccount.setCreationDate(Instant.now());
+		}
+		if (newAccount.getBalance() == null) {
+			newAccount.setBalance(0.0);
+		}
 
 		BankAccount check = bankRepo.findByUserAndName(newAccount.getUser(), newAccount.getName());
 
@@ -112,6 +116,32 @@ public class BankAccountServiceImpl implements BankAccountService {
 	public List<BankAccount> getBankAccounts(int id) {
 
 		return bankRepo.findAllByUserId(id);
+
+	}
+
+	/**
+	 * @return AccountTransfer
+	 *
+	 * @author Caleb Kirschbaum
+	 */
+	@Override
+	public List<BankAccount> transferAccount(UserAccount user, UserAccount socialUser) {
+		if ((user == null) || (socialUser == null)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "I can't read or write.");
+		}
+		List<BankAccount> socialAccounts = getBankAccounts(socialUser.getId());
+		for (BankAccount a : socialAccounts) {
+			BankAccount fakeAccount = a;
+			a.setUser(user);
+			int i = 0;
+			// Potentially breaks if the user has more than 2 Billion accounts with the same
+			// name
+			while (getBankAccount(user, fakeAccount.getName()) != null) {
+				fakeAccount.setName(a.getName() + i);
+			}
+			createAccount(fakeAccount);
+		}
+		return getBankAccounts(user.getId());
 
 	}
 

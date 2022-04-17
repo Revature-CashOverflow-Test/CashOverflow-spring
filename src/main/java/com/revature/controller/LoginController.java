@@ -13,7 +13,9 @@ import org.springframework.web.server.ResponseStatusException;
 import com.revature.dto.LoginRequestDto;
 import com.revature.model.JwtResponse;
 import com.revature.model.UserAccount;
+import com.revature.model.UserSocialMedia;
 import com.revature.service.JwtAuthenticationService;
+import com.revature.service.SocialAccountService;
 import com.revature.service.UserAccountService;
 
 /**
@@ -26,14 +28,17 @@ import com.revature.service.UserAccountService;
 public class LoginController {
 
 	private UserAccountService serv;
+	private SocialAccountService saserv;
 	private PasswordEncoder enc;
 	private JwtAuthenticationService jwtServ;
 
 	@Autowired
-	public LoginController(UserAccountService serv, JwtAuthenticationService jwtServ, PasswordEncoder enc) {
+	public LoginController(UserAccountService serv, JwtAuthenticationService jwtServ, PasswordEncoder enc,
+			SocialAccountService saserv) {
 		this.serv = serv;
 		this.jwtServ = jwtServ;
 		this.enc = enc;
+		this.saserv = saserv;
 	}
 
 	/**
@@ -57,7 +62,9 @@ public class LoginController {
 		if ((req.getUsername() == null) || (req.getPassword() == null)) {
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "missing Credential");
 		}
+		System.out.println(req.getUsername());
 		UserAccount user = serv.getUserFromUsername(req.getUsername());
+
 		// Don't let an authuser sign in the normal way
 		if (user.isAuthAccount()) {
 			throw new ResponseStatusException(HttpStatus.METHOD_FAILURE);
@@ -71,17 +78,37 @@ public class LoginController {
 
 	private ResponseEntity<JwtResponse> auth0Login(@RequestBody LoginRequestDto req) {
 
+
 		// Only checks the username since that is the only method that matters
 		if ((req.getUsername() == null)) {
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "missing Credential");
 		}
+
+		// Finds the main owner of the social account
+		req = getSocialOwner(req);
 		UserAccount user = serv.getUserFromUsername(req.getUsername());
 		if (user == null) {
 			throw new ResponseStatusException(HttpStatus.METHOD_FAILURE);
 		} else {
 			// Password has to exists, so set it to the same as what is put in the
 			// Register controller for auth users
+
 			return jwtServ.createAuthenticationToken(user.getUsername(), "auth0User");
+		}
+	}
+
+	private LoginRequestDto getSocialOwner(LoginRequestDto req) {
+		UserSocialMedia bob;
+		try {
+			String username = req.getUsername();
+			bob = saserv.getSocialAccount(username);
+			if (bob == null) {
+				return req;
+			}
+			req.setUsername(bob.getOwner().getUsername());
+			return getSocialOwner(req);
+		} catch (Exception e) {
+			return req;
 		}
 	}
 }
