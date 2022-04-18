@@ -14,7 +14,7 @@ import com.revature.dao.SettingsRepo;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class SettingsServiceTest {
+class SettingsServiceTest {
 	
 	@Mock
 	private SettingsRepo repo;

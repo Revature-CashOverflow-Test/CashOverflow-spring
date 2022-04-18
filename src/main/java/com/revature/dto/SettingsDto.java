@@ -1,9 +1,8 @@
 package com.revature.dto;
 
-import java.time.Instant;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Settings model that we will return to the client
@@ -11,6 +10,7 @@ import lombok.Data;
  * @author Micheal Bailey
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class SettingsDto {
 	
