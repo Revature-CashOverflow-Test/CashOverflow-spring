@@ -132,7 +132,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 	}
 	
 	@Override
-	public void completeTransfer(BetweenUsers between) {
+	public List<BankAccount> completeTransfer(BetweenUsers between) {
 		BankAccount account1 = bankRepo.getById(between.getTransferAccount());
 		BankAccount account2 = bankRepo.getById(between.getReceiveAccount());
 		
@@ -164,10 +164,14 @@ public class BankAccountServiceImpl implements BankAccountService {
 			requestAcc.setDescription("Money received from " + between.getOriginUser());
 		}
 		
+
 		txRepo.saveAll(Arrays.asList(requestAcc, recipient));
 		reqRepo.deleteById(between.getId());
 
 		bankRepo.saveAll(accounts);
+		
+		//redundant line for testing
+		return accounts;
 	}
 	
 	@Override
