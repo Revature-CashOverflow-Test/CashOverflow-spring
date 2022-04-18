@@ -37,21 +37,14 @@ class BankAccountServiceImplTest {
 	private TransactionRepo txDao;
 
 	private BankAccountService serv;
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> b00c2d5930ef75c46d5c8806a1ec67b4ab16753c
 	@Mock
 	private UserAccountService userAccServ;
 	
 	@Mock
 	private RequestRepo reqRepo;
 	
-<<<<<<< HEAD
 
-=======
->>>>>>> b00c2d5930ef75c46d5c8806a1ec67b4ab16753c
 	@BeforeEach
 	void setUp() throws Exception {
 		serv = new BankAccountServiceImpl(dao, txDao, userAccServ, reqRepo);
