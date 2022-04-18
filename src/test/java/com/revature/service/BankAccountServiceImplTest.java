@@ -136,7 +136,7 @@ class BankAccountServiceImplTest {
 		fundTransfer.setTransferAmount(101.101);
 		assertThrows(ResponseStatusException.class, () -> serv.transferFunds(user, fundTransfer));
 	}
-	
+
 	/**
 	 * This method tests the BankAccountService method betweenUsers. This method
 	 * should be throwing an Exception due to invalid User information
@@ -161,6 +161,7 @@ class BankAccountServiceImplTest {
 	 */
 	@Test
 	void completeSendTransfer() {
+	
 		BankAccount initialAccount1 = new BankAccount();
 		initialAccount1.setBalance(50.00);
 		
@@ -241,6 +242,4 @@ class BankAccountServiceImplTest {
 		between.setTransferAmount(80.00);
 		assertThrows(ResponseStatusException.class, () -> serv.betweenUsers(user, between));
 	}
-
-	
 }
