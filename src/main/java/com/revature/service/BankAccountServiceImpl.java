@@ -115,7 +115,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 		
 		UserAccount otherUser = userAccServ.getUserFromUsername(between.getUser());
 		BankAccount originBank = bankRepo.getById(between.getTransferAccount());
-		if (otherUser == null) {
+		if (otherUser == null || otherUser.getId() == null) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT);
 		}
 
