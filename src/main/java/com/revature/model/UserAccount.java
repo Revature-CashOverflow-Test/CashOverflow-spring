@@ -2,6 +2,7 @@ package com.revature.model;
 
 import java.time.Instant;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +31,8 @@ public class UserAccount {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	String email;
+	
+	@Column(unique=true)
 	String username;
 	String firstName;
 	String lastName;
