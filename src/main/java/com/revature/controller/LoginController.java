@@ -65,7 +65,8 @@ public class LoginController {
 		UserAccount user = serv.getUserFromUsername(req.getUsername());
 		// Don't let an authuser sign in the normal way
 		if ((user != null) && user.isAuthAccount()) {
-			throw new ResponseStatusException(HttpStatus.METHOD_FAILURE);
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
+					"Auth0 User can't sign in using the normal Login");
 		}
 		if ((user == null) || !enc.matches(req.getPassword(), user.getPassword())) {
 			throw new ResponseStatusException(HttpStatus.METHOD_FAILURE);
@@ -86,7 +87,7 @@ public class LoginController {
 		req = getSocialOwner(req);
 		UserAccount user = serv.getUserFromUsername(req.getUsername());
 		if (user == null) {
-			throw new ResponseStatusException(HttpStatus.METHOD_FAILURE);
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "User is not found");
 		} else {
 			// Password has to exists, so set it to the same as what is put in the
 			// Register controller for auth users
@@ -95,17 +96,24 @@ public class LoginController {
 		}
 	}
 
+	// Recursive function to find the original owner.
+	// Shouldn't be more than a few recursions
 	private LoginRequestDto getSocialOwner(LoginRequestDto req) {
-		UserSocialMedia bob;
+		UserSocialMedia social;
 		try {
 			String username = req.getUsername();
-			bob = saserv.getSocialAccount(username);
-			if (bob == null) {
+			social = saserv.getSocialAccount(username);
+			// If the social is null, that means there are no owners with that user name
+			if (social == null) {
 				return req;
 			}
-			req.setUsername(bob.getOwner().getUsername());
+			// If there is a owner of this user name, we need to repeat
+			req.setUsername(social.getOwner().getUsername());
 			return getSocialOwner(req);
 		} catch (Exception e) {
+			// This should be the same as the if statement
+			// We should be able to get rid of either the try/catch
+			// Or the if social==null
 			return req;
 		}
 	}

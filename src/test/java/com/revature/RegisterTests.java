@@ -99,7 +99,7 @@ class RegisterTests {
 	}
 
 	@Test
-	void RegisterControllerTestMissingArg() {
+	void RegisterControllerTestMissingEmail() {
 		RegUserAccountDto test = new RegUserAccountDto(null, "username", "firstname", "lastname", "password");
 
 		UserAccount user = new UserAccount();
@@ -124,4 +124,244 @@ class RegisterTests {
 		verify(mockMapper, times(0)).map(test, UserAccount.class);
 
 	}
+
+	@Test
+	void RegisterControllerTestMissingUsername() {
+		RegUserAccountDto test = new RegUserAccountDto("email@gmail.com", null, "firstname", "lastname", "password");
+
+		UserAccount user = new UserAccount();
+		user.setEmail(test.getEmail());
+		user.setUsername(test.getUsername());
+		user.setFirstName(test.getFirstName());
+		user.setLastName(test.getLastName());
+		user.setPassword(test.getPassword());
+
+		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+			regCont.newUser(test);
+		});
+
+		String expectedReason = "Missing registration info";
+		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
+		Integer expectedCode = 400;
+		assertEquals(expectedReason, e.getReason());
+		assertEquals(expectedStatus, e.getStatus());
+		assertEquals(expectedCode, e.getRawStatusCode());
+
+		verify(mockServ, times(0)).insertUserAccount(user);
+		verify(mockMapper, times(0)).map(test, UserAccount.class);
+
+	}
+
+	@Test
+	void RegisterControllerTestMissingFirstName() {
+		RegUserAccountDto test = new RegUserAccountDto("email@gmail.com", "username", null, "lastname", "password");
+
+		UserAccount user = new UserAccount();
+		user.setEmail(test.getEmail());
+		user.setUsername(test.getUsername());
+		user.setFirstName(test.getFirstName());
+		user.setLastName(test.getLastName());
+		user.setPassword(test.getPassword());
+
+		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+			regCont.newUser(test);
+		});
+
+		String expectedReason = "Missing registration info";
+		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
+		Integer expectedCode = 400;
+		assertEquals(expectedReason, e.getReason());
+		assertEquals(expectedStatus, e.getStatus());
+		assertEquals(expectedCode, e.getRawStatusCode());
+
+		verify(mockServ, times(0)).insertUserAccount(user);
+		verify(mockMapper, times(0)).map(test, UserAccount.class);
+
+	}
+
+	@Test
+	void RegisterControllerTestMissingLastName() {
+		RegUserAccountDto test = new RegUserAccountDto("email@gmail.com", "username", "firstname", null, "password");
+
+		UserAccount user = new UserAccount();
+		user.setEmail(test.getEmail());
+		user.setUsername(test.getUsername());
+		user.setFirstName(test.getFirstName());
+		user.setLastName(test.getLastName());
+		user.setPassword(test.getPassword());
+
+		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+			regCont.newUser(test);
+		});
+
+		String expectedReason = "Missing registration info";
+		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
+		Integer expectedCode = 400;
+		assertEquals(expectedReason, e.getReason());
+		assertEquals(expectedStatus, e.getStatus());
+		assertEquals(expectedCode, e.getRawStatusCode());
+
+		verify(mockServ, times(0)).insertUserAccount(user);
+		verify(mockMapper, times(0)).map(test, UserAccount.class);
+
+	}
+
+	@Test
+	void RegisterControllerTestMissingPassword() {
+		RegUserAccountDto test = new RegUserAccountDto("email@gmail.com", "username", "firstname", "lastname", null);
+
+		UserAccount user = new UserAccount();
+		user.setEmail(test.getEmail());
+		user.setUsername(test.getUsername());
+		user.setFirstName(test.getFirstName());
+		user.setLastName(test.getLastName());
+		user.setPassword(test.getPassword());
+
+		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+			regCont.newUser(test);
+		});
+
+		String expectedReason = "Missing registration info";
+		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
+		Integer expectedCode = 400;
+		assertEquals(expectedReason, e.getReason());
+		assertEquals(expectedStatus, e.getStatus());
+		assertEquals(expectedCode, e.getRawStatusCode());
+
+		verify(mockServ, times(0)).insertUserAccount(user);
+		verify(mockMapper, times(0)).map(test, UserAccount.class);
+
+	}
+
+	@Test
+	void RegisterControllerTestMissingEmailAuth0() {
+		RegUserAccountDto test = new RegUserAccountDto(null, "username", "firstname", "lastname", "password", true);
+
+		UserAccount user = new UserAccount();
+		user.setEmail(test.getEmail());
+		user.setUsername(test.getUsername());
+		user.setFirstName(test.getFirstName());
+		user.setLastName(test.getLastName());
+		user.setPassword(test.getPassword());
+
+		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+			regCont.newUser(test);
+		});
+
+		String expectedReason = "Missing registration info";
+		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
+		Integer expectedCode = 400;
+		assertEquals(expectedReason, e.getReason());
+		assertEquals(expectedStatus, e.getStatus());
+		assertEquals(expectedCode, e.getRawStatusCode());
+
+		verify(mockServ, times(0)).insertUserAccount(user);
+		verify(mockMapper, times(0)).map(test, UserAccount.class);
+
+	}
+
+	@Test
+	void RegisterControllerTestMissingUsernameAuth0() {
+		RegUserAccountDto test = new RegUserAccountDto("email@gmail.com", null, "firstname", "lastname", "password",
+				true);
+
+		UserAccount user = new UserAccount();
+		user.setEmail(test.getEmail());
+		user.setUsername(test.getUsername());
+		user.setFirstName(test.getFirstName());
+		user.setLastName(test.getLastName());
+		user.setPassword(test.getPassword());
+
+		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+			regCont.newUser(test);
+		});
+
+		String expectedReason = "Missing registration info";
+		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
+		Integer expectedCode = 400;
+		assertEquals(expectedReason, e.getReason());
+		assertEquals(expectedStatus, e.getStatus());
+		assertEquals(expectedCode, e.getRawStatusCode());
+
+		verify(mockServ, times(0)).insertUserAccount(user);
+		verify(mockMapper, times(0)).map(test, UserAccount.class);
+
+	}
+
+	@Test
+	void RegisterControllerTestMissingFirstNameAuth0() {
+		RegUserAccountDto test = new RegUserAccountDto("email@gmail.com", "username", null, "lastname", "password",
+				true);
+
+		UserAccount user = new UserAccount();
+		user.setEmail(test.getEmail());
+		user.setUsername(test.getUsername());
+		user.setFirstName(test.getFirstName());
+		user.setLastName(test.getLastName());
+		user.setPassword(test.getPassword());
+
+		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+			regCont.newUser(test);
+		});
+
+		String expectedReason = "Missing registration info";
+		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
+		Integer expectedCode = 400;
+		assertEquals(expectedReason, e.getReason());
+		assertEquals(expectedStatus, e.getStatus());
+		assertEquals(expectedCode, e.getRawStatusCode());
+
+		verify(mockServ, times(0)).insertUserAccount(user);
+		verify(mockMapper, times(0)).map(test, UserAccount.class);
+
+	}
+
+	@Test
+	void RegisterControllerTestMissingLastNameAuth0() {
+		RegUserAccountDto test = new RegUserAccountDto("email@gmail.com", "username", "firstname", null, "password",
+				true);
+
+		UserAccount user = new UserAccount();
+		user.setEmail(test.getEmail());
+		user.setUsername(test.getUsername());
+		user.setFirstName(test.getFirstName());
+		user.setLastName(test.getLastName());
+		user.setPassword(test.getPassword());
+
+		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+			regCont.newUser(test);
+		});
+
+		String expectedReason = "Missing registration info";
+		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
+		Integer expectedCode = 400;
+		assertEquals(expectedReason, e.getReason());
+		assertEquals(expectedStatus, e.getStatus());
+		assertEquals(expectedCode, e.getRawStatusCode());
+
+		verify(mockServ, times(0)).insertUserAccount(user);
+		verify(mockMapper, times(0)).map(test, UserAccount.class);
+
+	}
+
+	@Test
+	void RegisterControllerTestMissingPasswordAuth0() {
+		RegUserAccountDto test = new RegUserAccountDto("email@gmail.com", "username", "firstname", "lastname", null,
+				true);
+
+		UserAccount user = new UserAccount();
+		user.setEmail(test.getEmail());
+		user.setUsername(test.getUsername());
+		user.setFirstName(test.getFirstName());
+		user.setLastName(test.getLastName());
+		user.setPassword(test.getPassword());
+
+		when(mockMapper.map(test, UserAccount.class)).thenReturn(user);
+		regCont.newUser(test);
+
+		verify(mockServ, times(1)).insertUserAccount(user);
+		verify(mockMapper, times(1)).map(test, UserAccount.class);
+
+	}
+
 }

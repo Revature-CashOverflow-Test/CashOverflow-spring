@@ -89,6 +89,7 @@ class AccountControllerIntegrationTest {
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 	}
 
+
 	@Test
 	@WithMockUser("user1")
 	void testCreateAccountSuccess() throws Exception {

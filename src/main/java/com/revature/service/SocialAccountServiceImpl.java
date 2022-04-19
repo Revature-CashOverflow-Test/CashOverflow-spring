@@ -47,7 +47,6 @@ public class SocialAccountServiceImpl implements SocialAccountService {
 
 	@Override
 	public UserSocialMedia getSocialAccount(String username) {
-		System.out.println("Looking for a social with usernhame " + username);
 		return socialRepo.findByUsername(username);
 	}
 

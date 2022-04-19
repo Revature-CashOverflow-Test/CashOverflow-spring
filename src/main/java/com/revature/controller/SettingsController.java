@@ -57,7 +57,6 @@ public class SettingsController {
 
 	@PutMapping("/changeLastName")
 	public boolean changeLastName(@RequestBody SettingsDto dto) {
-		System.out.println("In Last name");
 		int value = settingsServ.changeLastName(dto.getUsername(), dto.getNewLastName());
 		return (value >= 1);
 	}

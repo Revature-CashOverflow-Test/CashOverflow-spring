@@ -78,4 +78,82 @@ class LoginControllerTest {
 		when(serv.getUserFromUsername("dummy")).thenReturn(initial);
 		assertThrows(ResponseStatusException.class, () -> loginController.login(req));
 	}
+
+	// Test if an Auth0 User is logging in normally
+	// If they are, block the login
+	@Test
+	void loginAuth0LogsInNormalFailureTest() {
+		// Expected values
+		String expectedReason = "Auth0 User can't sign in using the normal Login";
+		HttpStatus expectedStatus = HttpStatus.NOT_ACCEPTABLE;
+		Integer expectedCode = 406;
+
+		// Users to test
+		LoginRequestDto req = new LoginRequestDto("dummy", "password");
+		UserAccount initial = new UserAccount("dummy", enc.encode("password"));
+		initial.setAuthAccount(true);
+
+		// Return the initial when getting user req
+		when(serv.getUserFromUsername("dummy")).thenReturn(initial);
+		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+			loginController.login(req);
+		});
+
+		// SHould throw these errors
+		assertEquals(expectedReason, e.getReason());
+		assertEquals(expectedStatus, e.getStatus());
+		assertEquals(expectedCode, e.getRawStatusCode());
+	}
+
+	// Test if an auth0 user signs in without a user name somehow
+	@Test
+	void loginAuth0LogsInWithNullUsernameFailureTest() {
+		// Expected values
+		String expectedReason = "missing Credential";
+		HttpStatus expectedStatus = HttpStatus.NOT_ACCEPTABLE;
+		Integer expectedCode = 406;
+
+		// Users to test
+		LoginRequestDto req = new LoginRequestDto(null, "password", true);
+		// UserAccount initial = new UserAccount("dummy", enc.encode("password"));
+		// initial.setAuthAccount(true);
+
+		// Return the initial when getting user req
+		// when(serv.getUserFromUsername("dummy")).thenReturn(initial);
+		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+			loginController.login(req);
+		});
+
+		// SHould throw these errors
+		assertEquals(expectedReason, e.getReason());
+		assertEquals(expectedStatus, e.getStatus());
+		assertEquals(expectedCode, e.getRawStatusCode());
+	}
+
+	// Test if an auth0 user signs in when no user exists
+	@Test
+	void loginAuth0LogInWithoutValidUserFailureTest() {
+		// Expected values
+		String expectedReason = "User is not found";
+		HttpStatus expectedStatus = HttpStatus.NOT_ACCEPTABLE;
+		Integer expectedCode = 406;
+
+		// Users to test
+		LoginRequestDto req = new LoginRequestDto("dummy", "password", true);
+		//			 UserAccount initial = new UserAccount("dummy", enc.encode("password"));
+		// initial.setAuthAccount(true);
+
+		// Return the initial when getting user req
+		when(serv.getUserFromUsername("dummy")).thenReturn(null);
+		when(saserv.getSocialAccount("dummy")).thenReturn(null);
+		ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> {
+			loginController.login(req);
+		});
+
+		// SHould throw these errors
+		assertEquals(expectedReason, e.getReason());
+		assertEquals(expectedStatus, e.getStatus());
+		assertEquals(expectedCode, e.getRawStatusCode());
+	}
+
 }

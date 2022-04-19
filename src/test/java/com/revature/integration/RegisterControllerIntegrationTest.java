@@ -142,4 +142,86 @@ class RegisterControllerIntegrationTest {
 		assertNotNull(actualUser.getCreationDate());
 		assertEquals(expectedUser, actualUser);
 	}
+
+	void testNullInputValueAuth0() throws Exception {
+		mvc.perform(post("/register")
+				.content(mapper
+						.writeValueAsString(new RegUserAccountDto(null, "username", "first", "last", "password", true)))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", null, "first", "last", "password", true)))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", null, "last", "password", true)))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", "first", null, "password", true)))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", "first", "last", null, true)))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	void testBlankInputValueAuth0() throws Exception {
+		mvc.perform(post("/register")
+				.content(mapper
+						.writeValueAsString(new RegUserAccountDto("", "username", "first", "last", "password", true)))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "", "first", "last", "password", true)))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", "", "last", "password", true)))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", "first", "", "password", true)))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", "first", "last", "", true)))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+	}
+
+	@Test
+	void testInvalidEmailStringAuth0() throws Exception {
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email", "username", "first", "last", "password", true)))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+	}
+
+	@Test
+	void testRegisterSuccessAuth0() throws Exception {
+		mvc.perform(post("/register")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", "first", "last", "password", true)))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+
+		UserAccount actualUser = repo.findByUsername("username");
+		UserAccount expectedUser = new UserAccount(actualUser.getId(), "email@gmail.com", "username", "first", "last",
+				actualUser.getPassword(), actualUser.getCreationDate());
+		expectedUser.setAuthAccount(true);
+
+		// All Auth0 users have the same password, regardless of the password passed in
+		assertTrue(enc.matches("auth0User", actualUser.getPassword()));
+		assertNotNull(actualUser.getCreationDate());
+		assertEquals(expectedUser, actualUser);
+	}
+
 }

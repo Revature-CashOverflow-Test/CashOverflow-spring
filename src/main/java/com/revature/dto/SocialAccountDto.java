@@ -11,9 +11,9 @@ import lombok.Data;
  */
 @Data
 public class SocialAccountDto {
-	UserAccount user;
 	Integer id;
 	String username;
 	String profileSub;
+	UserAccount owner;
 
 }

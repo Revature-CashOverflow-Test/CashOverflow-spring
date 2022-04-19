@@ -101,8 +101,12 @@ public class RegisterController {
 
 	@PostMapping("/api/account/addSocial")
 	@ResponseStatus(HttpStatus.CREATED)
-	public SocialAccountDto addSocial(Authentication auth, @RequestBody UserSocialMedia dtoAccount) {
+	public void addSocial(Authentication auth, @RequestBody SocialAccountDto dtoAccount) {
+		if ((auth == null) || (dtoAccount == null)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing registration info");
+		}
 		String username = auth.getName();
+
 		UserAccount user = serv.getUserFromUsername(username);
 		// This is done because we can't login a user without knowing their password
 		// So non Authusers are banned from connecting auth accounts
@@ -113,13 +117,13 @@ public class RegisterController {
 		UserAccount socialUser = serv.getUserFromUsername(dtoAccount.getUsername());
 		bankAccServ.transferAccount(user, socialUser);
 		dtoAccount.setOwner(user);
-		UserSocialMedia account = convertToEntity(dtoAccount);
+		UserSocialMedia account = this.convertToDto(dtoAccount);
 		account.setOwner(serv.getUserFromUsername(auth.getName()));
-		return convertToDto(userSocialServ.createSocial(account));
+		userSocialServ.createSocial(account);
 	}
 
-	protected SocialAccountDto convertToDto(UserSocialMedia account) {
-		return mapper.map(account, SocialAccountDto.class);
+	protected UserSocialMedia convertToDto(SocialAccountDto account) {
+		return mapper.map(account, UserSocialMedia.class);
 	}
 
 	protected BankAccountDto convertToDto(BankAccount account) {

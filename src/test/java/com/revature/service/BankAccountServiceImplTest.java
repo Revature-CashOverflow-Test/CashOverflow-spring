@@ -22,6 +22,7 @@ import com.revature.dao.BankAccountRepo;
 import com.revature.dao.RequestRepo;
 import com.revature.dao.TransactionRepo;
 import com.revature.model.BankAccount;
+import com.revature.model.BetweenUsers;
 import com.revature.model.FundTransfer;
 import com.revature.model.UserAccount;
 
@@ -42,6 +43,10 @@ class BankAccountServiceImplTest {
 
 	@Mock
 	private RequestRepo reqRepo;
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 861695b4372f6c240711f2b8c09e5f36988a9b0d
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -132,5 +137,111 @@ class BankAccountServiceImplTest {
 
 		fundTransfer.setTransferAmount(101.101);
 		assertThrows(ResponseStatusException.class, () -> serv.transferFunds(user, fundTransfer));
+	}
+
+	/**
+	 * This method tests the BankAccountService method betweenUsers. This method
+	 * should be throwing an Exception due to invalid User information
+	 */
+	@Test
+	void betweenUsersTest() {
+
+		BetweenUsers betweenUsers = new BetweenUsers();
+		UserAccount otherUser = new UserAccount();
+		BankAccount originBank = new BankAccount();
+
+		when(userAccServ.getUserFromUsername(betweenUsers.getUser())).thenReturn(otherUser);
+		when(dao.getById(betweenUsers.getTransferAccount())).thenReturn(originBank);
+
+		assertThrows(ResponseStatusException.class, () -> serv.betweenUsers(null, betweenUsers));
+
+	}
+	
+	/**
+	 * This method tests the BankAccountService method completeTransfer. This test
+	 * should verify money was sent to another user
+	 */
+	@Test
+	void completeSendTransfer() {
+	
+		BankAccount initialAccount1 = new BankAccount();
+		initialAccount1.setBalance(50.00);
+		
+		BankAccount initialAccount2 = new BankAccount();
+		initialAccount2.setBalance(0.0);
+		
+		BetweenUsers between = new BetweenUsers();		
+		between.setSendOrReceive(1);
+		between.setOriginUser("account1");
+		between.setUser("account2");
+		between.setTransferAccount(1);
+		between.setTransferAmount(10.00);
+		
+		BankAccount expectedAccount1 = new BankAccount();
+		expectedAccount1.setBalance(40.00);
+		
+		BankAccount expectedAccount2 = new BankAccount();
+		expectedAccount2.setBalance(10.00);
+		
+		UserAccount user = new UserAccount();
+		
+		List<BankAccount> expectedAccounts = new ArrayList<BankAccount>();
+		expectedAccounts.add(expectedAccount1);
+		expectedAccounts.add(expectedAccount2);
+		
+		when(dao.saveAll(expectedAccounts)).thenReturn(null);
+		when(dao.getById(between.getTransferAccount())).thenReturn(initialAccount1);
+		when(dao.getById(between.getReceiveAccount())).thenReturn(initialAccount2);
+		
+		List<BankAccount> test = serv.completeTransfer(between);
+		
+		verify(dao, times(1)).saveAll(expectedAccounts);
+		assertEquals(expectedAccounts, test);
+		
+		between.setTransferAmount(80.00);
+		assertThrows(ResponseStatusException.class, () -> serv.betweenUsers(user, between));
+	}
+	
+	/**
+	 * This method tests the BankAccountService method completeTransfer. This test
+	 * should verify money was received from another user
+	 */
+	@Test
+	void completeRequestTransfer() {
+		BankAccount initialAccount1 = new BankAccount();
+		initialAccount1.setBalance(0.00);
+		
+		BankAccount initialAccount2 = new BankAccount();
+		initialAccount2.setBalance(50.0);
+
+		BetweenUsers between = new BetweenUsers();
+		between.setSendOrReceive(2);
+		between.setOriginUser("account1");
+		between.setUser("account2");
+		between.setTransferAccount(1);
+		between.setTransferAmount(10.00);
+
+		BankAccount expectedAccount1 = new BankAccount();
+		expectedAccount1.setBalance(10.00);
+		
+		BankAccount expectedAccount2 = new BankAccount();
+		expectedAccount2.setBalance(40.00);
+		
+		UserAccount user = new UserAccount();
+		List<BankAccount> expectedAccounts = new ArrayList<BankAccount>();
+		expectedAccounts.add(expectedAccount1);
+		expectedAccounts.add(expectedAccount2);
+
+		when(dao.saveAll(expectedAccounts)).thenReturn(null);
+		when(dao.getById(between.getTransferAccount())).thenReturn(initialAccount1);
+		when(dao.getById(between.getReceiveAccount())).thenReturn(initialAccount2);
+
+		List<BankAccount> test = serv.completeTransfer(between);
+
+		verify(dao, times(1)).saveAll(expectedAccounts);
+		assertEquals(expectedAccounts, test);
+
+		between.setTransferAmount(80.00);
+		assertThrows(ResponseStatusException.class, () -> serv.betweenUsers(user, between));
 	}
 }
