@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import java.time.Instant;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,13 +44,17 @@ class SettingsServiceTest {
 
 	@BeforeEach
 	void setUpEach() {
-		userAccountRepo.deleteAll();
+
 		userAccountRepo.save(new UserAccount(3, "mbaileyfuturist@gmail.com", "mbaileyfuturist", "micheal", "lastname",
 				enc.encode("12!@QW44"), Instant.now()));
 		serv = new SettingsService(settingsRepo);
 
 	}
 
+	@AfterEach
+	void cleanUpEach() {
+		userAccountRepo.deleteAll();
+	}
 	@Test
 	void testSettingsService() {
 		SettingsDto settingsDto = new SettingsDto("mbaileyfuturist", "12!@QW44");
@@ -139,10 +144,9 @@ class SettingsServiceTest {
 		});
 	}
 
-	// Checks to see if a null user nameis set
+	// Checks to see if a null user name is set
 	@Test
 	void testChangeEmailSettingNullUsernameFailure() {
-		SettingsDto dto = new SettingsDto();
 		assertThrows(ResponseStatusException.class, () -> {
 			settingsService.changeFirstName(null, "mbaileyfuturist@gmail.com");
 		});
