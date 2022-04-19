@@ -11,10 +11,12 @@ import lombok.Data;
  */
 @Data
 public class BankAccountDto {
+	
 	Integer id;
 	String name;
 	Double balance;
 	String description;
 	Instant creationDate;
 	Integer accountTypeId;
+	UserAccountDto user;
 }
