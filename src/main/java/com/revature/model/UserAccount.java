@@ -38,11 +38,25 @@ public class UserAccount {
 	String lastName;
 	String password;
 	Instant creationDate;
+	Boolean emailToggle = false;
+	Double emailValue = 0.0;
 	
 	public UserAccount(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
+	}
+
+	public UserAccount(Integer id, String email, String username, String firstName, String lastName, String password,
+			Instant creationDate) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.creationDate = creationDate;
 	}
 
 	

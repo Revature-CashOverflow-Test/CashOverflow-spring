@@ -18,4 +18,5 @@ public class BankAccountDto {
 	String description;
 	Instant creationDate;
 	Integer accountTypeId;
+	UserAccountDto user;
 }

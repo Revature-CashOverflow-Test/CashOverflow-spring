@@ -44,7 +44,6 @@ class BankAccountServiceImplTest {
 	@Mock
 	private RequestRepo reqRepo;
 	
-
 	@BeforeEach
 	void setUp() throws Exception {
 		serv = new BankAccountServiceImpl(dao, txDao, userAccServ, reqRepo);
