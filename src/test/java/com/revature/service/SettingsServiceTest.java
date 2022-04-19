@@ -27,17 +27,17 @@ class SettingsServiceTest {
 	}
 	
 	@Test
-	public void testChangePassword() {
+	void testChangePassword() {
 		String username = "test";
 		String password = "test";
 		
 		when(repo.changePassword(username, password)).thenReturn(1);
 		
-		assertEquals(serv.changePassword(username, password), 1);
+		assertEquals(1, serv.changePassword(username, password));
 	}
 
 	@Test
-	public void testChangeEmailSettings() {
+	void testChangeEmailSettings() {
 		String username = "test";
 		boolean emailToggle = true;
 		double emailValue = 50.0;

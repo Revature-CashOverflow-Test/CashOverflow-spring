@@ -19,7 +19,7 @@ import com.revature.service.SettingsService;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class SettingsControllerTest {
+class SettingsControllerTest {
 	@Mock
 	private SettingsService settingsService;
 	
@@ -37,7 +37,7 @@ public class SettingsControllerTest {
 	}
 	
 	@Test
-	public void testChangePassword() {
+	void testChangePassword() {
 		SettingsDto settingsDto = new SettingsDto("mbaileyfuturist", "12!@QW44");
 		String passHash = "beepbeepboop";
 		
@@ -48,7 +48,7 @@ public class SettingsControllerTest {
 	}
 	
 	@Test
-	public void testChangeEmailSettings() {
+	void testChangeEmailSettings() {
 		String username = "Protogen";
 		
 		EmailSettingsDto emailSettingsDto = new EmailSettingsDto(true, 123.37);

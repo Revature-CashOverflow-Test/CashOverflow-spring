@@ -15,7 +15,7 @@ import com.revature.service.EmailService;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class EmailControllerTest {
+class EmailControllerTest {
 	@Mock
 	private EmailService emailService;
 	

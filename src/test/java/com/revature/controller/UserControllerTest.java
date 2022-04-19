@@ -20,7 +20,7 @@ import com.revature.service.UserAccountService;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class UserControllerTest {
+class UserControllerTest {
 	@Mock
 	private UserAccountService userAccServ;
 	@Mock

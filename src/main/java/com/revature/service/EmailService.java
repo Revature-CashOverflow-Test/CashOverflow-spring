@@ -39,7 +39,6 @@ public class EmailService {
 		try {
 			mailSender.send(simpleMessage);
 		} catch (MailException e) {
-			System.out.println(e);
 			return false;
 		}
 		

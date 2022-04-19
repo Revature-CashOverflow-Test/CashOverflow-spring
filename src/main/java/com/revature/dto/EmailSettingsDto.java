@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmailSettingsDto {
-	public boolean emailToggle;
-	public double emailValue;
+	boolean emailToggle;
+	double emailValue;
 }

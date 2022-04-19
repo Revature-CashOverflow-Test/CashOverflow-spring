@@ -23,7 +23,7 @@ import com.revature.dto.EmailData;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class EmailServiceTest {
+class EmailServiceTest {
 	@Mock
 	private JavaMailSender mailSender;
 	
