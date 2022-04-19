@@ -1,21 +1,27 @@
 package com.revature.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
 
 import com.revature.dto.BankAccountDto;
+import com.revature.dto.BetweenUsersDto;
 import com.revature.model.BankAccount;
+import com.revature.model.BetweenUsers;
 import com.revature.model.UserAccount;
 import com.revature.service.BankAccountService;
 import com.revature.service.UserAccountService;
@@ -74,5 +80,49 @@ class AccountControllerTest {
 		verify(mapper, times(1)).map(initialAccount, BankAccountDto.class);
 
 		assertEquals(actualUser, expectedAccount);
+	}
+	@Test
+	void removeRequestTest() {
+		BankAccount initialAccount = new BankAccount();
+		initialAccount.setName("Awoo");
+		initialAccount.setDescription("backend test account");
+		initialAccount.setAccountTypeId(1);
+		BankAccountDto dtoAccount = new BankAccountDto();
+		dtoAccount.setName("Awoo");
+		dtoAccount.setDescription("backend test account");
+		dtoAccount.setAccountTypeId(1);
+		BankAccountDto expectedAccount = new BankAccountDto();
+		expectedAccount.setName("Awoo");
+		expectedAccount.setDescription("backend test account");
+		expectedAccount.setAccountTypeId(1);
+		UserAccount mockUser = new UserAccount("Awoo", "hasdf");
+
+		BetweenUsersDto betweenTest = new BetweenUsersDto();
+		
+		Authentication auth = Mockito.mock(Authentication.class);
+		
+		BankAccountService bankAccServ = Mockito.mock(BankAccountService.class);
+		
+		ModelMapper mapper = Mockito.mock(ModelMapper.class);
+		
+		UserAccountService userAccServ = Mockito.mock(UserAccountService.class);
+		
+		AccountController accControl = new AccountController(bankAccServ, mapper, userAccServ);
+		
+		accControl.removeRequests(auth, betweenTest);
+		
+		List<BetweenUsers> checker = accControl.retrieveRequests(auth);
+		
+		boolean result = false;
+		
+		for(int i = 0; i < checker.size(); i++)
+		{
+			if (checker.get(i) == accControl.convertToBetweenUsers(betweenTest))
+			{
+				result = true;
+			}
+		}
+		
+		assertFalse(result);
 	}
 }
