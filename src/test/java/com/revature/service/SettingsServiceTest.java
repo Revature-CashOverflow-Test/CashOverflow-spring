@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.time.Instant;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,7 +54,9 @@ class SettingsServiceTest {
 
 	@AfterEach
 	void cleanUpEach() {
-		userAccountRepo.deleteAll();
+		List<UserAccount> allData = userAccountRepo.findAll();
+		allData.forEach(t -> userAccountRepo.delete(t));
+		//		userAccountRepo.deleteAll();
 	}
 	@Test
 	void testSettingsService() {
