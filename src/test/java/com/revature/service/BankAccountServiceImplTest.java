@@ -43,10 +43,6 @@ class BankAccountServiceImplTest {
 
 	@Mock
 	private RequestRepo reqRepo;
-<<<<<<< HEAD
-=======
-	
->>>>>>> 861695b4372f6c240711f2b8c09e5f36988a9b0d
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -185,7 +181,7 @@ class BankAccountServiceImplTest {
 		
 		UserAccount user = new UserAccount();
 		
-		List<BankAccount> expectedAccounts = new ArrayList<BankAccount>();
+		List<BankAccount> expectedAccounts = new ArrayList<>();
 		expectedAccounts.add(expectedAccount1);
 		expectedAccounts.add(expectedAccount2);
 		
@@ -228,7 +224,7 @@ class BankAccountServiceImplTest {
 		expectedAccount2.setBalance(40.00);
 		
 		UserAccount user = new UserAccount();
-		List<BankAccount> expectedAccounts = new ArrayList<BankAccount>();
+		List<BankAccount> expectedAccounts = new ArrayList<>();
 		expectedAccounts.add(expectedAccount1);
 		expectedAccounts.add(expectedAccount2);
 
