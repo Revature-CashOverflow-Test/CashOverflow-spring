@@ -14,7 +14,7 @@ import com.revature.util.JwtUtil;
 
 /**
  * Class to handle JWT Authentication
- * 
+ *
  * @author Tyler Rondeau, Luis Estevez, Luis Rivera
  *
  */
@@ -34,26 +34,22 @@ public class JwtAuthenticationService {
 
 	/**
 	 * Method to create an AutheticationToken (to be called when the user logs in)
-	 * 
+	 *
 	 * @param authenticationRequest - Incoming request
 	 * @return - Response to front-end
 	 * @throws Exception
 	 */
 	public ResponseEntity<JwtResponse> createAuthenticationToken(String username, String password)
 			throws DisabledException, BadCredentialsException {
-
 		authenticate(username, password);
-
 		final UserDetails userDetails = serv.loadUserByUsername(username);
-
 		final String token = util.generateToken(userDetails);
-
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 
 	/**
 	 * Create the authentication itself
-	 * 
+	 *
 	 * @param username - Username of user to authenticate
 	 * @param password - password of user to authenticate
 	 * @throws Exception
