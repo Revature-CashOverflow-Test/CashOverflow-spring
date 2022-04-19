@@ -26,14 +26,4 @@ public class BetweenUsers {
 	Integer receiveAccount;
 	Integer transferAccount;
 	Double transferAmount;
-	
-	public BetweenUsers(Integer sendOrReceive, String user, Integer transferAccount, Double transferAmount) {
-		super();
-		this.sendOrReceive = sendOrReceive;
-		this.user = user;
-		this.transferAccount = transferAccount;
-		this.transferAmount = transferAmount;
-	}
-	
-	
 }
