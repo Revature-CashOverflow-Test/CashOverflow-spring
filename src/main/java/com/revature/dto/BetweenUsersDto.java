@@ -22,12 +22,4 @@ public class BetweenUsersDto {
 	Integer receiveAccount;
 	Integer transferAccount;
 	Double transferAmount;
-	
-	public BetweenUsersDto(Integer sendOrReceive, String user, Integer transferAccount, Double transferAmount) {
-		super();
-		this.sendOrReceive = sendOrReceive;
-		this.user = user;
-		this.transferAccount = transferAccount;
-		this.transferAmount = transferAmount;
-	}
 }
