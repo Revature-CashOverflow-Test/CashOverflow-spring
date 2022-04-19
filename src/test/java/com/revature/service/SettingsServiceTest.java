@@ -1,6 +1,6 @@
 package com.revature.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -44,6 +44,6 @@ class SettingsServiceTest {
 		
 		when(repo.changeEmailSettings(username, emailToggle, emailValue)).thenReturn(1);
 		
-		assertEquals(serv.changeEmailSettings(username, emailToggle, emailValue), true);
+		assertTrue(serv.changeEmailSettings(username, emailToggle, emailValue));
 	}
 }
