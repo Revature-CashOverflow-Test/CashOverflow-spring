@@ -43,6 +43,7 @@ class UserAccountDtoTest {
 		assertEquals("rida", dto.getLastName());
 	}
 
+
 	@Test
 	void testPassword() {
 		String password = "pass";
@@ -54,5 +55,6 @@ class UserAccountDtoTest {
 	//	public void testCreationDate() {
 	//
 	//	}
+
 
 }

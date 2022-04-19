@@ -18,13 +18,14 @@ import com.revature.service.SettingsService;
 /**
  * This Class is used to handle the change password functionality
  *
- * @author Micheal Bailey
+ * @author Micheal Bailey, Nathaniel Blichfeldt
  */
 @RestController
 @CrossOrigin(origins = { "http://localhost:4200", "http://dostz94b44kp0.cloudfront.net" })
 public class SettingsController {
 
 	private SettingsService settingsServ;
+
 
 	@Autowired
 	private PasswordEncoder encoder;

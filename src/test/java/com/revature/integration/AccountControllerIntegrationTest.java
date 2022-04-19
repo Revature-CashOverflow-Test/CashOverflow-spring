@@ -110,9 +110,8 @@ class AccountControllerIntegrationTest {
 		expectedDto.setAccountTypeId(1);
 		expectedDto.setCreationDate(actualDto.getCreationDate());
 		expectedDto.setDescription("description");
-
 		expectedDto.setUser(actualDto.getUser());
-
+		
 		assertEquals(expectedDto, actualDto);
 	}
 

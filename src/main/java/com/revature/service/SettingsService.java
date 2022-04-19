@@ -14,6 +14,11 @@ public class SettingsService {
 	@Autowired
 	private SettingsRepo settingsRepo;
 
+	@Autowired
+	protected SettingsService(SettingsRepo settingsRepo) {
+		this.settingsRepo = settingsRepo;
+	}
+
 	public int changePassword(String username, String password) {
 
 		if ((username == null) || (password == null)) {
@@ -22,6 +27,7 @@ public class SettingsService {
 			return settingsRepo.changePassword(username, password);
 		}
 	}
+
 
 	public int changeFirstName(String username, String firstName) {
 		if ((username == null) || (firstName == null)) {
@@ -43,6 +49,15 @@ public class SettingsService {
 		}
 		return settingsRepo.changeEmail(username, email);
 	}
+
+
+	/**
+	 *
+	 * @param username the username of the user
+	 * @param emailToggle the user's new emailToggle value
+	 * @param emailValue the user's new emailValue value
+	 * @return the failure or success of the change on the database
+	 */
 
 	public boolean changeEmailSettings(String username, boolean emailToggle, double emailValue) {
 		if ((username == null) || (emailValue < 0)) {

@@ -1,18 +1,23 @@
 package com.revature.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
 import java.time.Instant;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.revature.dao.SettingsRepo;
 import com.revature.dao.UserAccountRepo;
 import com.revature.dto.SettingsDto;
 import com.revature.model.UserAccount;
@@ -21,19 +26,27 @@ import com.revature.model.UserAccount;
 @ExtendWith(MockitoExtension.class)
 class SettingsServiceTest {
 
+
 	@Autowired
 	private SettingsService settingsService;
 
+
 	@Autowired
-	private UserAccountRepo repo;
+	private UserAccountRepo userAccountRepo;
 	@Autowired
 	private PasswordEncoder enc;
 
+	@Mock
+	private SettingsRepo settingsRepo;
+
+	private SettingsService serv;
+
 	@BeforeEach
 	void setUpEach() {
-		repo.deleteAll();
-		repo.save(new UserAccount(3, "mbaileyfuturist@gmail.com", "mbaileyfuturist", "micheal", "lastname",
+		userAccountRepo.deleteAll();
+		userAccountRepo.save(new UserAccount(3, "mbaileyfuturist@gmail.com", "mbaileyfuturist", "micheal", "lastname",
 				enc.encode("12!@QW44"), Instant.now()));
+		serv = new SettingsService(settingsRepo);
 
 	}
 
@@ -49,13 +62,13 @@ class SettingsServiceTest {
 		assertEquals(0, value);
 
 		assertThrows(ResponseStatusException.class, () -> {
-			settingsService.changeFirstName("mbaileyfuturist", null);
+			settingsService.changePassword("mbaileyfuturist", null);
 		});
 		assertThrows(ResponseStatusException.class, () -> {
-			settingsService.changeFirstName(null, "Micheal");
+			settingsService.changePassword(null, "Micheal");
 		});
 		assertThrows(ResponseStatusException.class, () -> {
-			settingsService.changeFirstName(null, null);
+			settingsService.changePassword(null, null);
 		});
 	}
 
@@ -135,5 +148,56 @@ class SettingsServiceTest {
 		});
 	}
 
+	@Test
+	void testChangePasswordSuccess() {
+		String username = "test";
+		String password = "test";
+
+		when(settingsRepo.changePassword(username, password)).thenReturn(1);
+
+		assertEquals(1, serv.changePassword(username, password));
+	}
+
+	@Test
+	void testChangePasswordNoUsername() {
+		String username = null;
+		String password = "tongue";
+
+		assertThrows(ResponseStatusException.class, () -> {
+			settingsService.changePassword(username, password);
+		});
+	}
+
+	@Test
+	void testChangePasswordNoPassword() {
+		String username = "Glue";
+		String password = null;
+
+		assertThrows(ResponseStatusException.class, () -> {
+			settingsService.changePassword(username, password);
+		});
+	}
+
+	@Test
+	void testChangeEmailSettingsSuccess() {
+		String username = "test";
+		boolean emailToggle = true;
+		double emailValue = 50.0;
+
+		when(settingsRepo.changeEmailSettings(username, emailToggle, emailValue)).thenReturn(1);
+
+		assertTrue(serv.changeEmailSettings(username, emailToggle, emailValue));
+	}
+
+	@Test
+	void testChangeEmailSettingsFailure() {
+		String username = "Glue";
+		boolean emailToggle = false;
+		double emailValue = 420.00;
+
+		when(settingsRepo.changeEmailSettings(username, emailToggle, emailValue)).thenReturn(0);
+
+		assertFalse(serv.changeEmailSettings(username, emailToggle, emailValue));
+	}
 
 }
