@@ -30,7 +30,7 @@ import com.revature.service.UserAccountService;
 public class RegisterController {
 
 	private RegisterService regServ;
-	private String MISSING_REGRISTATION = "Missing registration info";
+	private final String MISSING_REGRISTATION = "Missing registration info";
 	private ModelMapper mapper;
 	private PasswordEncoder enc;
 	private UserAccountService serv;

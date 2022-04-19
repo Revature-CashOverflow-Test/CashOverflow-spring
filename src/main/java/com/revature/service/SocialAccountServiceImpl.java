@@ -23,8 +23,6 @@ public class SocialAccountServiceImpl implements SocialAccountService {
 
 	@Override
 	public UserSocialMedia createSocial(UserSocialMedia newAccount) {
-		// here we will be timestamping the acc creation and setting the balance to 0
-
 		UserSocialMedia check = socialRepo.findByUsername(newAccount.getUsername());
 
 		// if this user has an acc with this name already, don't add a new one to the db

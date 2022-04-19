@@ -10,7 +10,7 @@ import com.revature.dao.SettingsRepo;
 @Service
 public class SettingsService {
 
-	private String MISSING_CREDENTIALS = "missing Credential";
+	private final String MISSING_CREDENTIALS = "missing Credential";
 	@Autowired
 	private SettingsRepo settingsRepo;
 

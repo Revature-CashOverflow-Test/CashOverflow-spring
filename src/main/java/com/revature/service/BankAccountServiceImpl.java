@@ -206,7 +206,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 	 */
 	@Override
 	public List<BankAccount> transferAccount(UserAccount user, UserAccount socialUser) {
-		if ((user == null) || (socialUser == null)) {
+		if ((user == null) || (socialUser == null) || (user.getId() == null) || (socialUser.getId() == null)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "I can't read or write.");
 		}
 		List<BankAccount> socialAccounts = getBankAccounts(socialUser.getId());

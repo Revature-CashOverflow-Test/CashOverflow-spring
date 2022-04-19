@@ -224,4 +224,22 @@ class RegisterControllerIntegrationTest {
 		assertEquals(expectedUser, actualUser);
 	}
 
+	@Test
+	void testAddSocial() throws Exception {
+		mvc.perform(post("/api/account/addSocial")
+				.content(mapper.writeValueAsString(
+						new RegUserAccountDto("email@gmail.com", "username", "first", "last", "password", true)))
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+
+		UserAccount actualUser = repo.findByUsername("username");
+		UserAccount expectedUser = new UserAccount(actualUser.getId(), "email@gmail.com", "username", "first", "last",
+				actualUser.getPassword(), actualUser.getCreationDate());
+		expectedUser.setAuthAccount(true);
+
+		// All Auth0 users have the same password, regardless of the password passed in
+		assertTrue(enc.matches("auth0User", actualUser.getPassword()));
+		assertNotNull(actualUser.getCreationDate());
+		assertEquals(expectedUser, actualUser);
+	}
+
 }
