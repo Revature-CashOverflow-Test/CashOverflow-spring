@@ -30,6 +30,7 @@ import com.revature.service.UserAccountService;
 public class RegisterController {
 
 	private RegisterService regServ;
+	private String MISSING_REGRISTATION = "Missing registration info";
 	private ModelMapper mapper;
 	private PasswordEncoder enc;
 	private UserAccountService serv;
@@ -73,7 +74,7 @@ public class RegisterController {
 				|| (dto.getLastName() == null) || dto.getLastName().isEmpty() || (dto.getPassword() == null)
 				|| dto.getPassword().isEmpty() || !ptr.matcher(dto.getEmail()).matches()) {
 
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing registration info");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, MISSING_REGRISTATION);
 		}
 		dto.setPassword(enc.encode(dto.getPassword()));
 		UserAccount user = convertToEntity(dto);
@@ -89,7 +90,7 @@ public class RegisterController {
 				|| dto.getUsername().isEmpty() || (dto.getFirstName() == null) || dto.getFirstName().isEmpty()
 				|| (dto.getLastName() == null) || dto.getLastName().isEmpty()
 				|| !ptr.matcher(dto.getEmail()).matches()) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing registration info");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, MISSING_REGRISTATION);
 		}
 
 		// We encode this to allow bcrypt to check a value so we can have a token
@@ -103,7 +104,7 @@ public class RegisterController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void addSocial(Authentication auth, @RequestBody SocialAccountDto dtoAccount) {
 		if ((auth == null) || (dtoAccount == null)) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing registration info");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, MISSING_REGRISTATION);
 		}
 		String username = auth.getName();
 

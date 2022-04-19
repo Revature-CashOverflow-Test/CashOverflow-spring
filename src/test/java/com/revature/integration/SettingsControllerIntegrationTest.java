@@ -38,7 +38,7 @@ import com.revature.service.SocialAccountService;
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @Transactional
-public class SettingsControllerIntegrationTest {
+class SettingsControllerIntegrationTest {
 
 	@Autowired
 	private MockMvc mvc;
@@ -70,6 +70,61 @@ public class SettingsControllerIntegrationTest {
 		UserAccount bob = new UserAccount(4, "user4@gmail.com", "user4", "user", "4", enc.encode("auth0User"),
 				currentTime);
 		repo.save(bob);
+	}
+
+	@Test
+	void testChangePasswordWrongMethod() throws Exception {
+		mvc.perform(get("/changePassword")).andExpect(status().isMethodNotAllowed());
+	}
+
+	@Test
+	void testChangePasswordMissingUserName() throws Exception {
+		SettingsDto dto = new SettingsDto();
+		dto.setUsername(null);
+		dto.setNewPassword("NewUser");
+		mvc.perform(
+				put("/changePassword").content(mapper.writeValueAsString(dto)).contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().is4xxClientError());
+	}
+
+	@Test
+	void testChangePasswordMissingPassword() throws Exception {
+		SettingsDto dto = new SettingsDto();
+		dto.setUsername("user1");
+		dto.setNewPassword(null);
+		mvc.perform(
+				put("/changePassword").content(mapper.writeValueAsString(dto)).contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().is4xxClientError());
+	}
+
+	@Test
+	void testChangePasswordUserNotFound() throws Exception {
+		SettingsDto dto = new SettingsDto();
+		dto.setUsername("username");
+		dto.setNewPassword("NewUser");
+		MvcResult result = mvc
+				.perform(put("/changePassword").content(mapper.writeValueAsString(dto))
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andReturn();
+
+		String responseBody = result.getResponse().getContentAsString();
+		assert ("false".equals(responseBody));
+	}
+
+	@Test
+	void testChangePasswordSuccess() throws Exception {
+		SettingsDto dto = new SettingsDto();
+		dto.setUsername("user1");
+		dto.setNewPassword("NewUser");
+		MvcResult result = mvc
+				.perform(put("/changePassword").content(mapper.writeValueAsString(dto))
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andReturn();
+
+		String responseBody = result.getResponse().getContentAsString();
+		assert ("true".equals(responseBody));
 	}
 
 	@Test

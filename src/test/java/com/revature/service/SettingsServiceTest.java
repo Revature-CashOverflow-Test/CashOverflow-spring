@@ -48,9 +48,15 @@ class SettingsServiceTest {
 		value = settingsService.changePassword(settingsDto.getUsername(), settingsDto.getNewPassword());
 		assertEquals(0, value);
 
-		SettingsDto settingsDtoTwo = new SettingsDto();
-		value = settingsService.changePassword(settingsDtoTwo.getUsername(), settingsDtoTwo.getNewPassword());
-		assertEquals(0, value);
+		assertThrows(ResponseStatusException.class, () -> {
+			settingsService.changeFirstName("mbaileyfuturist", null);
+		});
+		assertThrows(ResponseStatusException.class, () -> {
+			settingsService.changeFirstName(null, "Micheal");
+		});
+		assertThrows(ResponseStatusException.class, () -> {
+			settingsService.changeFirstName(null, null);
+		});
 	}
 
 	// Checks to see if the setting Service changes the logic for a successful first
@@ -67,22 +73,16 @@ class SettingsServiceTest {
 	// Checks to see if a null new First Name is set
 	@Test
 	void testChangeFirstNameSettingNullFirstNameFailure() {
-		SettingsDto dto = new SettingsDto();
-		dto.setUsername("mbaileyfuturist");
-		dto.setNewFirstName(null);
 		assertThrows(ResponseStatusException.class, () -> {
-			settingsService.changeFirstName(dto.getUsername(), dto.getNewFirstName());
+			settingsService.changeFirstName("mbaileyfuturist", null);
 		});
 	}
 
 	// Checks to see if a null nuser name is set
 	@Test
 	void testChangeFirstNameSettingNullUsernameFailure() {
-		SettingsDto dto = new SettingsDto();
-		dto.setUsername(null);
-		dto.setNewFirstName("Micheal");
 		assertThrows(ResponseStatusException.class, () -> {
-			settingsService.changeFirstName(dto.getUsername(), dto.getNewFirstName());
+			settingsService.changeFirstName(null, "Micheal");
 		});
 	}
 
@@ -90,32 +90,23 @@ class SettingsServiceTest {
 	// name change
 	@Test
 	void testChangeLastNameSettingSuccess() {
-		SettingsDto dto = new SettingsDto();
-		dto.setUsername("mbaileyfuturist");
-		dto.setNewLastName("Bailey");
-		int value = settingsService.changeLastName(dto.getUsername(), dto.getNewLastName());
+		int value = settingsService.changeLastName("mbaileyfuturist", "Bailey");
 		assertEquals(1, value);
 	}
 
 	// Checks to see if a null new First Name is set
 	@Test
 	void testChangeLastNameSettingNullFirstNameFailure() {
-		SettingsDto dto = new SettingsDto();
-		dto.setUsername("mbaileyfuturist");
-		dto.setNewLastName(null);
 		assertThrows(ResponseStatusException.class, () -> {
-			settingsService.changeLastName(dto.getUsername(), dto.getNewLastName());
+			settingsService.changeLastName("mbaileyfuturist", null);
 		});
 	}
 
 	// Checks to see if a null user name is set
 	@Test
 	void testChangeLastNameSettingNullUsernameFailure() {
-		SettingsDto dto = new SettingsDto();
-		dto.setUsername(null);
-		dto.setNewLastName("Bailey");
 		assertThrows(ResponseStatusException.class, () -> {
-			settingsService.changeLastName(dto.getUsername(), dto.getNewLastName());
+			settingsService.changeLastName(null, "Bailey");
 		});
 	}
 
@@ -123,21 +114,15 @@ class SettingsServiceTest {
 	// email change
 	@Test
 	void testChangeEmailSettingSuccess() {
-		SettingsDto dto = new SettingsDto();
-		dto.setUsername("mbaileyfuturist");
-		dto.setNewEmail("mbaileyfuturist@gmail.com");
-		int value = settingsService.changeEmail(dto.getUsername(), dto.getNewEmail());
+		int value = settingsService.changeEmail("mbaileyfuturist", "mbaileyfuturist@gmail.com");
 		assertEquals(1, value);
 	}
 
 	// Checks to see if a null email is set
 	@Test
 	void testChangeEmailSettingNullFirstNameFailure() {
-		SettingsDto dto = new SettingsDto();
-		dto.setUsername("mbaileyfuturist");
-		dto.setNewEmail(null);
 		assertThrows(ResponseStatusException.class, () -> {
-			settingsService.changeFirstName(dto.getUsername(), dto.getNewEmail());
+			settingsService.changeFirstName("mbaileyfuturist", null);
 		});
 	}
 
@@ -145,10 +130,8 @@ class SettingsServiceTest {
 	@Test
 	void testChangeEmailSettingNullUsernameFailure() {
 		SettingsDto dto = new SettingsDto();
-		dto.setUsername(null);
-		dto.setNewEmail("mbaileyfuturist@gmail.com");
 		assertThrows(ResponseStatusException.class, () -> {
-			settingsService.changeFirstName(dto.getUsername(), dto.getNewEmail());
+			settingsService.changeFirstName(null, "mbaileyfuturist@gmail.com");
 		});
 	}
 

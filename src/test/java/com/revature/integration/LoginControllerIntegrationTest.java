@@ -165,17 +165,19 @@ class LoginControllerIntegrationTest {
 
 		// socialRepo.save(social);
 		// Not 100% sure how this works, but it works correctly
-		//		MvcResult result = mvc
-		//				.perform(post("/login").content(mapper.writeValueAsString(new LoginRequestDto("user5", " ", true)))
-		//						.contentType(MediaType.APPLICATION_JSON))
-		//				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-		//				.andReturn();
+		// MvcResult result = mvc
+		// .perform(post("/login").content(mapper.writeValueAsString(new
+		// LoginRequestDto("user5", " ", true)))
+		// .contentType(MediaType.APPLICATION_JSON))
+		// .andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+		// .andReturn();
 		//
-		//		String responseBody = result.getResponse().getContentAsString();
-		//		HashMap<String, Object> pairs = mapper.readValue(responseBody, new TypeReference<HashMap<String, Object>>() {
-		//		});
-		//		assertTrue(pairs.containsKey("jwt"));
-		//		assertNotEquals("", pairs.get("jwt"));
+		// String responseBody = result.getResponse().getContentAsString();
+		// HashMap<String, Object> pairs = mapper.readValue(responseBody, new
+		// TypeReference<HashMap<String, Object>>() {
+		// });
+		// assertTrue(pairs.containsKey("jwt"));
+		// assertNotEquals("", pairs.get("jwt"));
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.dto.EmailSettingsDto;
 import com.revature.dto.SettingsDto;
@@ -39,6 +40,9 @@ public class SettingsController {
 	@PutMapping("/changePassword")
 	public boolean changePassword(@RequestBody SettingsDto dto) {
 		boolean success = false;
+		if (dto.getNewPassword() == null) {
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "New password can't be null");
+		}
 
 		int value = settingsServ.changePassword(dto.getUsername(), encoder.encode(dto.getNewPassword()));
 
