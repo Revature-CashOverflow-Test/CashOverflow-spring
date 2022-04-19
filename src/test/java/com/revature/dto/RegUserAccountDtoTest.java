@@ -28,7 +28,7 @@ class RegUserAccountDtoTest {
 	void testFirstName() {
 		String firstName = "Sarah";
 		dto.setFirstName("Abby");
-		assertEquals(dto.getFirstName(), "Abby");
+		assertEquals("Abby", dto.getFirstName());
 	}
 	
 	@Test

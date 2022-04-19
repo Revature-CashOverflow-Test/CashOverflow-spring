@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-class LoginUserAccountDtoRequest {
+class LoginUserAccountDtoTest {
 	
 	@Mock
 	LoginUserAccountDto dto = new LoginUserAccountDto();
@@ -37,12 +37,4 @@ class LoginUserAccountDtoRequest {
 		dto.setLastName("Jackson");
 		assertEquals("Jackson", dto.getLastName());
 	}
-	
-	@Test
-	void testCreationDate() {
-		/**
-		 * TODO: test Instant type?
-		 */
-	}
-
 }
