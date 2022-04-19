@@ -40,13 +40,6 @@ class BankAccountDtoTest {
 	}
 	
 	@Test
-	void testSetterCreationDate() {
-		/**
-		 * TODO: Test Instant type?
-		 */
-	}
-	
-	@Test
 	void testAccountTypeId() {
 		int accountTypeId = 1;
 		dto.setAccountTypeId(2);
