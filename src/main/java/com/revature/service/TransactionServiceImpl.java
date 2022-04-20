@@ -45,6 +45,7 @@ public class TransactionServiceImpl implements TransactionService {
 		BankAccount acc = bankRepo.getById(dto.getAccountId());
 		
 		Transaction transaction = convertToEntity(dto);
+		transaction.setId(0);
 		if (transaction.getTxTypeId() == 1) {
 			if (dto.getAmount() > acc.getBalance()) {
 				throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED, "Insufficient account balance");
