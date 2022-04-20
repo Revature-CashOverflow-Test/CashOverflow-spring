@@ -25,7 +25,7 @@ import com.revature.service.RegisterService;
 import com.revature.service.SocialAccountService;
 import com.revature.service.UserAccountService;
 
-@CrossOrigin(value = { "http://localhost:4200", "http://dostz94b44kp0.cloudfront.net" })
+@CrossOrigin(value = { "http://localhost:4200", "http://dostz94b44kp0.cloudfront.net", "https://44.200.39.202" })
 @Controller
 public class RegisterController {
 

@@ -16,7 +16,7 @@ import com.revature.dto.TransactionDto;
 import com.revature.model.Transaction;
 import com.revature.service.TransactionService;
 
-@CrossOrigin(origins = { "http://localhost:4200", "http://dostz94b44kp0.cloudfront.net/" })
+@CrossOrigin(origins = { "http://localhost:4200", "http://dostz94b44kp0.cloudfront.net/", "https://44.200.39.202"})
 @RestController
 public class IncomeExpenseController {
 
