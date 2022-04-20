@@ -56,18 +56,27 @@ public class SettingsController {
 
 	@PutMapping("/changeFirstName")
 	public boolean changeFirstName(@RequestBody SettingsDto dto) {
+		if (dto.getNewFirstName() == null) {
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "name cannot be null");
+		}
 		int value = settingsServ.changeFirstName(dto.getUsername(), dto.getNewFirstName());
 		return (value >= 1);
 	}
 
 	@PutMapping("/changeLastName")
 	public boolean changeLastName(@RequestBody SettingsDto dto) {
+		if (dto.getNewLastName() == null) {
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "name cannot be null");
+		}
 		int value = settingsServ.changeLastName(dto.getUsername(), dto.getNewLastName());
 		return (value >= 1);
 	}
 
 	@PutMapping("/changeEmail")
 	public boolean changeEmail(@RequestBody SettingsDto dto) {
+		if (dto.getNewEmail() == null) {
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Email cannot be null");
+		}
 		int value = settingsServ.changeEmail(dto.getUsername(), dto.getNewEmail());
 		return (value >= 1);
 	}

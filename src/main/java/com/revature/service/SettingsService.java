@@ -10,7 +10,6 @@ import com.revature.dao.SettingsRepo;
 @Service
 public class SettingsService {
 
-	private final String MISSING_CREDENTIALS = "missing Credential";
 	@Autowired
 	private SettingsRepo settingsRepo;
 
@@ -22,7 +21,7 @@ public class SettingsService {
 	public int changePassword(String username, String password) {
 
 		if ((username == null) || (password == null)) {
-			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, MISSING_CREDENTIALS);
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		} else {
 			return settingsRepo.changePassword(username, password);
 		}
@@ -31,21 +30,21 @@ public class SettingsService {
 
 	public int changeFirstName(String username, String firstName) {
 		if ((username == null) || (firstName == null)) {
-			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, MISSING_CREDENTIALS);
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
 		}
 		return settingsRepo.changeFirstName(username, firstName);
 	}
 
 	public int changeLastName(String username, String lastName) {
 		if ((username == null) || (lastName == null)) {
-			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, MISSING_CREDENTIALS);
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
 		}
 		return settingsRepo.changeLastName(username, lastName);
 	}
 
 	public int changeEmail(String username, String email) {
 		if ((username == null) || (email == null)) {
-			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, MISSING_CREDENTIALS);
+			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
 		}
 		return settingsRepo.changeEmail(username, email);
 	}
