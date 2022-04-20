@@ -18,7 +18,7 @@ import com.revature.service.EmailService;
  *
  */
 @RestController
-@CrossOrigin(origins = { "http://localhost:4200", "http://dostz94b44kp0.cloudfront.net" })
+@CrossOrigin(origins = { "http://localhost:4200", "http://dostz94b44kp0.cloudfront.net", "https://44.200.39.202"})
 public class EmailController {
 
 	EmailService emailService;

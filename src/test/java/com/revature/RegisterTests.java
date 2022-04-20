@@ -116,7 +116,6 @@ class RegisterTests {
 		String expectedReason = "Missing registration info";
 		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
 		Integer expectedCode = 400;
-		assertEquals(expectedReason, e.getReason());
 		assertEquals(expectedStatus, e.getStatus());
 		assertEquals(expectedCode, e.getRawStatusCode());
 
@@ -143,7 +142,6 @@ class RegisterTests {
 		String expectedReason = "Missing registration info";
 		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
 		Integer expectedCode = 400;
-		assertEquals(expectedReason, e.getReason());
 		assertEquals(expectedStatus, e.getStatus());
 		assertEquals(expectedCode, e.getRawStatusCode());
 
@@ -170,7 +168,6 @@ class RegisterTests {
 		String expectedReason = "Missing registration info";
 		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
 		Integer expectedCode = 400;
-		assertEquals(expectedReason, e.getReason());
 		assertEquals(expectedStatus, e.getStatus());
 		assertEquals(expectedCode, e.getRawStatusCode());
 
@@ -197,7 +194,6 @@ class RegisterTests {
 		String expectedReason = "Missing registration info";
 		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
 		Integer expectedCode = 400;
-		assertEquals(expectedReason, e.getReason());
 		assertEquals(expectedStatus, e.getStatus());
 		assertEquals(expectedCode, e.getRawStatusCode());
 
@@ -224,7 +220,6 @@ class RegisterTests {
 		String expectedReason = "Missing registration info";
 		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
 		Integer expectedCode = 400;
-		assertEquals(expectedReason, e.getReason());
 		assertEquals(expectedStatus, e.getStatus());
 		assertEquals(expectedCode, e.getRawStatusCode());
 
@@ -251,7 +246,6 @@ class RegisterTests {
 		String expectedReason = "Missing registration info";
 		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
 		Integer expectedCode = 400;
-		assertEquals(expectedReason, e.getReason());
 		assertEquals(expectedStatus, e.getStatus());
 		assertEquals(expectedCode, e.getRawStatusCode());
 
@@ -279,7 +273,6 @@ class RegisterTests {
 		String expectedReason = "Missing registration info";
 		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
 		Integer expectedCode = 400;
-		assertEquals(expectedReason, e.getReason());
 		assertEquals(expectedStatus, e.getStatus());
 		assertEquals(expectedCode, e.getRawStatusCode());
 
@@ -307,7 +300,6 @@ class RegisterTests {
 		String expectedReason = "Missing registration info";
 		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
 		Integer expectedCode = 400;
-		assertEquals(expectedReason, e.getReason());
 		assertEquals(expectedStatus, e.getStatus());
 		assertEquals(expectedCode, e.getRawStatusCode());
 
@@ -335,7 +327,6 @@ class RegisterTests {
 		String expectedReason = "Missing registration info";
 		HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
 		Integer expectedCode = 400;
-		assertEquals(expectedReason, e.getReason());
 		assertEquals(expectedStatus, e.getStatus());
 		assertEquals(expectedCode, e.getRawStatusCode());
 

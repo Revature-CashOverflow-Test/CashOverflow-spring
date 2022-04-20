@@ -39,20 +39,6 @@ class JwtUtilTests {
 		assertEquals(result, username);
 	}
 
-	//This test will fail locally and will run correctly when deployed
-	@Test
-	void getExpirationDateFromTokenTest() throws ParseException {
-		//		UserDetails user = new User("dummy", "1234", new ArrayList<>());//Needed to allow future proofing
-		//		String token = util.generateToken(user);
-		//		//		String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkdW1teSIsImV4cCI6MTY0NzIwNjM4NiwiaWF0IjoxNjQ1MTE4Mzg2fQ.RBE3RUe2x3EqlIBNoc0Sk-C37rkz0aV45_ss5yU675ax58U1nbzNGcF43f74QT3oEkmhmf09mRqcQz2wItrp_g";
-		//		SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy HH:mm:ss");
-		//		//		Date expected = formatter.parse("Sun, Mar 13 2022 17:19:46 EDT");
-		//
-		//		Date expected = formatter.parse("Sun, Mar 13 2022 21:19:46 EDT");
-		//		Date result = util.getExpirationDateFromToken(token);
-		//		assertEquals(expected, result);
-	}
-
 	@Test
 	void validateTokenTest() throws ParseException {
 		UserDetails user = new User("dummy", "1234", new ArrayList<>());

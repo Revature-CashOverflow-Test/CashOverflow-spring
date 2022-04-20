@@ -42,19 +42,4 @@ class UserAccountDtoTest {
 		dto.setLastName("rida");
 		assertEquals("rida", dto.getLastName());
 	}
-
-
-	@Test
-	void testPassword() {
-		String password = "pass";
-		// dto.setPassword("word");
-		// assertEquals("word", dto.getPassword());
-	}
-
-	//	@Test
-	//	public void testCreationDate() {
-	//
-	//	}
-
-
 }

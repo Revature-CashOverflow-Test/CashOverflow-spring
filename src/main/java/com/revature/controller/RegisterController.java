@@ -25,12 +25,11 @@ import com.revature.service.RegisterService;
 import com.revature.service.SocialAccountService;
 import com.revature.service.UserAccountService;
 
-@CrossOrigin(value = { "http://localhost:4200", "http://dostz94b44kp0.cloudfront.net" })
+@CrossOrigin(value = { "http://localhost:4200", "http://dostz94b44kp0.cloudfront.net", "https://44.200.39.202" })
 @Controller
 public class RegisterController {
 
 	private RegisterService regServ;
-	private final String MISSING_REGRISTATION = "Missing registration info";
 	private ModelMapper mapper;
 	private PasswordEncoder enc;
 	private UserAccountService serv;
@@ -74,7 +73,7 @@ public class RegisterController {
 				|| (dto.getLastName() == null) || dto.getLastName().isEmpty() || (dto.getPassword() == null)
 				|| dto.getPassword().isEmpty() || !ptr.matcher(dto.getEmail()).matches()) {
 
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, MISSING_REGRISTATION);
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 		dto.setPassword(enc.encode(dto.getPassword()));
 		UserAccount user = convertToEntity(dto);
@@ -90,7 +89,7 @@ public class RegisterController {
 				|| dto.getUsername().isEmpty() || (dto.getFirstName() == null) || dto.getFirstName().isEmpty()
 				|| (dto.getLastName() == null) || dto.getLastName().isEmpty()
 				|| !ptr.matcher(dto.getEmail()).matches()) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, MISSING_REGRISTATION);
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 
 		// We encode this to allow bcrypt to check a value so we can have a token
@@ -104,7 +103,7 @@ public class RegisterController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void addSocial(Authentication auth, @RequestBody SocialAccountDto dtoAccount) {
 		if ((auth == null) || (dtoAccount == null)) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, MISSING_REGRISTATION);
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 		String username = auth.getName();
 
