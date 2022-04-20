@@ -30,5 +30,5 @@ public class Transaction {
 	String description;
 	Instant creationDate;
 	Integer txTypeId;
-	Integer accountId;
+	Integer accountId;	
 }

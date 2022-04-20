@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.revature.dao.BankAccountRepo;
 import com.revature.dao.RequestRepo;
 import com.revature.dao.TransactionRepo;
+import com.revature.dto.EmailData;
 import com.revature.model.BankAccount;
 import com.revature.model.BetweenUsers;
 import com.revature.model.FundTransfer;
@@ -26,6 +27,9 @@ public class BankAccountServiceImpl implements BankAccountService {
 	private UserAccountService userAccServ;
 	private RequestRepo reqRepo;
 
+	@Autowired
+	private EmailService emailServ;
+	
 	@Autowired
 	protected BankAccountServiceImpl(BankAccountRepo bankRepo, TransactionRepo txRepo, UserAccountService userAccServ, RequestRepo reqRepo) {
 		this.bankRepo = bankRepo;
@@ -125,6 +129,11 @@ public class BankAccountServiceImpl implements BankAccountService {
 
 		if ((between.getSendOrReceive() == 1) && (originBank.getBalance() < between.getTransferAmount())) {
 			throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT);
+		}
+		if (between.getSendOrReceive() == 1) {
+			emailServ.send(new EmailData(otherUser.getEmail(), user.getUsername() + " has sent money", user.getUsername() + " has sent $" + between.getTransferAmount()));
+		} else {
+			emailServ.send(new EmailData(otherUser.getEmail(), user.getUsername() + " requests money", user.getUsername() + " requests $" + between.getTransferAmount()));
 		}
 		between.setOriginUser(user.getUsername());
 		reqRepo.save(between);
