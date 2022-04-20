@@ -18,7 +18,7 @@ import com.revature.model.UserSocialMedia;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class SocialAccountServiceImplTest {
+class SocialAccountServiceImplTest {
 
 
 	@Autowired
