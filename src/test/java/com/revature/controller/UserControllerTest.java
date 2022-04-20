@@ -27,23 +27,24 @@ class UserControllerTest {
 	Authentication auth;
 	@Mock
 	private ModelMapper mapper;
-	
+
 	private UserController userController;
-	
+
 	@BeforeEach
 	void setUpBeforeClass() {
 		userController = new UserController(userAccServ, mapper);
 	}
-	
+
 	@Test
 	void testGetUserInfo() {
-		UserAccount user = new UserAccount(1, "merp@merp.com", "sergal", "Rain", "Silves", "morp???", null, false, 0.0);
+		UserAccount user = new UserAccount(1, "merp@merp.com", "sergal", "Rain", "Silves", "morp???", null, false,
+				false, 0.0);
 		UserAccountDto userDto = new UserAccountDto(user);
-		
+
 		when(auth.getName()).thenReturn("sergal");
 		when(userAccServ.getUserFromUsername(anyString())).thenReturn(user);
 		when(mapper.map(isA(UserAccount.class), isA(Class.class))).thenReturn(userDto);
-		
+
 		assertEquals(userDto, userController.getUserInfo(auth));
 	}
 }

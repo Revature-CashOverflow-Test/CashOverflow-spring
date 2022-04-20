@@ -28,6 +28,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BankAccount {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
@@ -36,16 +37,16 @@ public class BankAccount {
 	String description;
 	Instant creationDate;
 	Integer accountTypeId;
-	
+
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "id")
 	UserAccount user;
-	
+
 	@OneToMany
 	@JsonIgnore
 	@JoinColumn(referencedColumnName = "id")
 	List<Transaction> txs;
-	
+
 
 	public BankAccount(String name, String description, Instant creationDate, Integer accountTypeId,
 			UserAccount user) {

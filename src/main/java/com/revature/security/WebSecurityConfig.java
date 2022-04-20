@@ -19,7 +19,7 @@ import com.revature.service.JwtUserDetailsService;
 
 /**
  * Configuration for web security
- * 
+ *
  * @author Tyler Rondeau, Luis Estevez, Luis Rivera
  *
  */
@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	/**
 	 * Password encoding for the application using BCryptPasswordEncoder
-	 * 
+	 *
 	 * @return - PasswordEncoder being used
 	 */
 	@Bean
@@ -68,17 +68,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity.authorizeRequests().antMatchers("/").permitAll().antMatchers("/h2-console/**").permitAll();
 		httpSecurity.csrf().disable();
 		httpSecurity.headers().frameOptions().disable();
-		
+
 		httpSecurity.cors().and().csrf().disable()
-				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/login", "/register", "/changePassword").permitAll().
-				// all other requests need to be authenticated
-				anyRequest().authenticated()
-				// make sure we use stateless session; session won't be used to
-				// store user's state.
-				.and().exceptionHandling().authenticationEntryPoint(entry).and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		
+		// dont authenticate this particular request
+		.authorizeRequests()
+		.antMatchers("/login", "/register", "/changePassword", "/changeFirstName", "/changeLastName",
+						"/changeEmail")
+		.permitAll().
+		// all other requests need to be authenticated
+		anyRequest().authenticated()
+		// make sure we use stateless session; session won't be used to
+		// store user's state.
+		.and().exceptionHandling().authenticationEntryPoint(entry).and().sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 	}

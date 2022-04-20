@@ -32,13 +32,13 @@ public class UserAccountDto {
 	Double emailValue;
 
 	public UserAccountDto(UserAccount user) {
-		this.id = user.getId();
-		this.username = user.getUsername();
-		this.firstName = user.getFirstName();
-		this.lastName = user.getLastName();
-		this.email = user.getEmail();
-		this.creationDate = user.getCreationDate();
-		this.emailToggle = user.getEmailToggle();
-		this.emailValue = user.getEmailValue();
+		id = user.getId();
+		username = user.getUsername();
+		firstName = user.getFirstName();
+		lastName = user.getLastName();
+		email = user.getEmail();
+		creationDate = user.getCreationDate();
+		emailToggle = user.getEmailToggle();
+		emailValue = user.getEmailValue();
 	}
 }
