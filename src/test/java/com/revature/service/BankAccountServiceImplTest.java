@@ -2,6 +2,7 @@ package com.revature.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -21,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.revature.dao.BankAccountRepo;
 import com.revature.dao.RequestRepo;
 import com.revature.dao.TransactionRepo;
+import com.revature.dto.EmailData;
 import com.revature.model.BankAccount;
 import com.revature.model.BetweenUsers;
 import com.revature.model.FundTransfer;
@@ -43,6 +45,12 @@ class BankAccountServiceImplTest {
 
 	@Mock
 	private RequestRepo reqRepo;
+	
+	@Mock
+	private EmailData emaildata;
+	
+	@Mock
+	private EmailService	emailServ;	
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -148,9 +156,12 @@ class BankAccountServiceImplTest {
 
 		when(userAccServ.getUserFromUsername(betweenUsers.getUser())).thenReturn(otherUser);
 		when(dao.getById(betweenUsers.getTransferAccount())).thenReturn(originBank);
-
+		
 		assertThrows(ResponseStatusException.class, () -> serv.betweenUsers(null, betweenUsers));
-
+		
+		emailServ.send(emaildata);
+		verify(emailServ, times(1)).send(emaildata);
+		
 	}
 
 	/**
