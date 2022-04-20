@@ -30,16 +30,5 @@ public class Transaction {
 	String description;
 	Instant creationDate;
 	Integer txTypeId;
-	Integer accountId;
-	
-	public Transaction(Double amount, String description, Instant creationDate, Integer txTypeId, Integer accountId) {
-		super();
-		this.amount = amount;
-		this.description = description;
-		this.creationDate = creationDate;
-		this.txTypeId = txTypeId;
-		this.accountId = accountId;
-	}
-	
-	
+	Integer accountId;	
 }
