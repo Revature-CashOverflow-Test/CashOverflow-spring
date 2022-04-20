@@ -51,27 +51,17 @@ public class SocialAccountServiceImplTest {
 	}
 
 	@Test
-	void createSocialTestUserAlreadyExistsFail() {
-		UserAccount person1 = new UserAccount();
-		uaRepo.save(person1);
-		UserSocialMedia social1 = new UserSocialMedia(3, "user1", "SubSomething", person1);
-		assertThrows(ResponseStatusException.class, () -> serv.createSocial(social1));
-	}
-
-	@Test
 	void createSocialTestUsnameIsNullFail() {
 		UserAccount person1 = new UserAccount();
 		uaRepo.save(person1);
+		
 		UserSocialMedia social1 = new UserSocialMedia(3, null, "SubSomething", person1);
 		assertThrows(ResponseStatusException.class, () -> serv.createSocial(social1));
+		
+		UserSocialMedia social2 = new UserSocialMedia(3, "", "SubSomething", person1);
+		assertThrows(ResponseStatusException.class, () -> serv.createSocial(social2));
+		
+		UserSocialMedia social3 = new UserSocialMedia(3, "user1", "SubSomething", person1);
+		assertThrows(ResponseStatusException.class, () -> serv.createSocial(social3));
 	}
-
-	@Test
-	void createSocialTestUserUsernameIsEmptyFail() {
-		UserAccount person1 = new UserAccount();
-		uaRepo.save(person1);
-		UserSocialMedia social1 = new UserSocialMedia(3, "", "SubSomething", person1);
-		assertThrows(ResponseStatusException.class, () -> serv.createSocial(social1));
-	}
-
 }
