@@ -7,5 +7,6 @@ Feature: Example
     And the User is not logged in
     When the User do something
     Then the app shows something
+    And happy face
 
 
