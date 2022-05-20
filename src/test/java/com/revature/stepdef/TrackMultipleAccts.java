@@ -45,14 +45,13 @@ public class TrackMultipleAccts {
 
 	@When("the User selects savings account")
 	public void the_user_selects_savings_account() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		this.setUp.pageController.createBankAccountPage.selectAccountTypeForm();
+		this.setUp.pageController.createBankAccountPage.selectAccountTypeSaving();
 	}
 
 	@Then("the application shows a new savings account is created")
 	public void the_application_shows_a_new_savings_account_is_created() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		this.setUp.pageController.createBankAccountPage.clickCreateAccount();
 	}
 
 	@Then("the application notifies the user that they need to fill in the missing form")
