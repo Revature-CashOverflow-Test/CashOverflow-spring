@@ -1,4 +1,4 @@
-package com.revature.tests;
+package com.revature.stepdef;
 
 import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.Given;
