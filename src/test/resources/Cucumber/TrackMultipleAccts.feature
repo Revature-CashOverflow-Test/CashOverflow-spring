@@ -26,3 +26,12 @@ Feature: Track Multiple Accounts
 	When The user clicks on create a bank account
 	And the User clicks create account
 	Then the application notifies the user that they need to fill in the missing form
+
+	@TrackMultiAccounts4
+	Scenario: View Bank Account
+	Given the User logs in successfully
+	When the User clicks on create my accounts
+	And the User clicks between accounts to access
+	Then the application displays all accounts
+	
+	
