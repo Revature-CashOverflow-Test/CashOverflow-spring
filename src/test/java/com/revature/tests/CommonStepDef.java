@@ -6,11 +6,13 @@ import io.cucumber.java.en.Given;
 public class CommonStepDef {
 	public static SetUp setUp;
 	public static RegisterTest rt;
+	public static TrackMultipleAccts tma;
 	
 	@BeforeAll
 	public static void beforeAll() {
 		setUp = new SetUp();
 		rt = new RegisterTest(setUp);
+		tma = new TrackMultipleAccts(setUp);
 	}
 	
 	@Given("the User is in homepage")
@@ -20,4 +22,11 @@ public class CommonStepDef {
 	@Given("the User is not logged in")
 	public void the_user_is_not_logged_in() {
 	}
+	
+	@Given("the User logs in successfully")
+	public void the_user_logs_in_successfully() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
 }
