@@ -57,4 +57,10 @@ public class TrackMultipleAccts {
 	    throw new io.cucumber.java.PendingException();
 	}
 
+	@Then("the application notifies the user that they need to fill in the missing form")
+	public void the_application_notifies_the_user_that_they_need_to_fill_in_the_missing_form() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
 }
