@@ -1,4 +1,6 @@
-package com.revature.tests;
+package com.revature.stepdef;
+
+import static org.junit.Assert.assertNull;
 
 import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.Given;
@@ -21,6 +23,7 @@ public class CommonStepDef {
 	}
 	@Given("the User is not logged in")
 	public void the_user_is_not_logged_in() {
+		assertNull(setUp.js.executeScript("return sessionStorage.getItem(\"username\");"));
 	}
 	
 	@Given("the User logs in successfully")
@@ -28,5 +31,4 @@ public class CommonStepDef {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new io.cucumber.java.PendingException();
 	}
-
 }

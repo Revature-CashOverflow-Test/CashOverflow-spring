@@ -1,4 +1,4 @@
-package com.revature.tests;
+package com.revature.stepdef;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

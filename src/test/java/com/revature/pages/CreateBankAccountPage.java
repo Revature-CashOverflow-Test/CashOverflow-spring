@@ -14,4 +14,11 @@ public class CreateBankAccountPage {
 	public void sendInputToNameForm(String str) {
 		this.driver.findElement(By.id("nameId")).sendKeys(str);
 	}
+	
+	public void sendInputToDescriptionForm(String str) {
+		this.driver.findElement(By.id("descriptionId")).sendKeys(str);
+	}
+	public void selectAccountTypeForm() {
+		this.driver.findElement(By.name("accountType")).click();
+	}
 }

@@ -6,7 +6,7 @@ Feature: Register
   Scenario: Register Successfully
     Given the User is in homepage
     And the User is not logged in
-    And the User inputs "testingExample" into Username form
+    When the User inputs "testingExample" into Username form
     And the User inputs "Yu" into First Name form
     And the User inputs "Wang" into Last Name form
     And the User inputs "example@hotmail.com" into Email form
