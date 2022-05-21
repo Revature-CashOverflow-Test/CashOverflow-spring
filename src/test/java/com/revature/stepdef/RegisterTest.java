@@ -1,4 +1,4 @@
-package com.revature.tests;
+package com.revature.stepdef;
 
 import static org.junit.Assert.assertTrue;
 
@@ -73,7 +73,7 @@ public class RegisterTest {
 
 	@Then("the app shows notification on what form needs to be fill")
 	public void the_app_shows_notification_on_what_form_needs_to_be_fill() {
-
+		
 	}
 
 	@Then("the app shows a there is a problem to registeration notification")
