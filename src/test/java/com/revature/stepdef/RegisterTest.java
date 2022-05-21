@@ -68,12 +68,12 @@ public class RegisterTest {
 
 	@Then("the app moves to login")
 	public void the_app_moves_to_login() {
-
+		assertTrue(this.setUp.pageController.homePage.checkIfAtLoginPage());
 	}
 
 	@Then("the app shows notification on what form needs to be fill")
 	public void the_app_shows_notification_on_what_form_needs_to_be_fill() {
-		
+		assertTrue(this.setUp.pageController.registerPage.ValidationNotice());
 	}
 
 	@Then("the app shows a there is a problem to registeration notification")
