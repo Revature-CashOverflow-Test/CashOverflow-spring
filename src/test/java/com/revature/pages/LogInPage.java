@@ -38,5 +38,16 @@ public boolean invalidCredentialsMessage(){
                         By.xpath("/html/body/app-root/app-login-page/app-login/div/div/div/div/div/div/form/div")));
         String text = ele.getText().toString();
         System.out.println(text);
-        return text.contains("Invalid credentials. Please try again."); }
+        return text.contains("Invalid credentials. Please try again."); 
+        
 }
+
+public boolean loginSuccessfullyMessage() {
+	
+
+	return this.driver.getCurrentUrl().equals("http://localhost:4200/feed");
+}
+
+
+}
+
