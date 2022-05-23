@@ -1,41 +1,39 @@
+@Login
 Feature: Login	
+User logs into CashOverflow account
 
 @Login1
 Scenario: Incorrect Password
 Given the user is on the homepage
-And the user enters the correct username 
-And the user enters an incorrect password
-When the user clicks the log in button
+And the User is not logged in
+When the User inputs "testingExample" into Username form
+And the User inputs "1234225" into Password form
+And the User clicks the log in button
 Then the app displays incorrect password
 
 @Login2
 Scenario: Username Does Not Exist
- Given the user is in homepage
- And the user enters a username that doesn’t exist
- And the user enters a password
- When the user clicks log in button
+ Given the User is in homepage
+ And the User is not logged in
+ When the User inputs "askjsh jkashkhjkd" into the Username form
+ And the User inputs "Password!1" into the Password form
+ And the User clicks log in button
  Then the app displays username doesn’t exist
  
 @Login3
 Scenario: Invalid Input
-Given the user is on the homepage
-And the user enters the incorrect username
-And the user enters the incorrect password
-When the user clicks the log in button
+Given the User is on the homepage
+And the User is not logged in
+When the User inputs "jafjjkah" into Username form
+And the User inputs "poqenkan" into Password form
+And the User clicks the log in button
 Then the app displays invalid credentials
 
 @Login4
-Scenario: Incorrect Password
-Given the user is on the homepage
-And the user enters the correct username 
-And the user enters an incorrect password
-When the user clicks the log in button
-Then the app displays incorrect password
-
-@Login5
 Scenario: Successfully Login
-Given Scenario: Incorrect Password
-Given the user enters the correct username
-And the user enters the correct password
-When the user clicks the log in button
+Given the User is in homepage
+And the User is not logged in
+When the User inputs "testingExample" into Username form
+When the User inputs "Password!1" into Password form
+And the User clicks the log in button
 Then the app displays Login Successfully

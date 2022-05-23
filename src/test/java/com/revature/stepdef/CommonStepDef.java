@@ -8,11 +8,13 @@ import io.cucumber.java.en.Given;
 public class CommonStepDef {
 	public static SetUp setUp;
 	public static RegisterTest rt;
+	public static LoginTest lt;
 	
 	@BeforeAll
 	public static void beforeAll() {
 		setUp = new SetUp();
 		rt = new RegisterTest(setUp);
+		lt = new LoginTest(setUp);
 	}
 	
 	@Given("the User is in homepage")
