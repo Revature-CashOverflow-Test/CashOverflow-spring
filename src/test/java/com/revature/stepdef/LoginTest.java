@@ -1,6 +1,19 @@
 package com.revature.stepdef;
 
-public class LoginTest {
+import io.cucumber.java.en.When;
+
+public class LoginTest{
+
+public static SetUp setUp;
+
+public LoginTest() {
+	
+}
+
+public LoginTest(SetUp setUp) {
+	this.setUp = setUp;
+}
+
 	@When("the User clicks on {string}")
 	public void the_user_clicks_on(String string) {
 	    // Write code here that turns the phrase above into concrete actions

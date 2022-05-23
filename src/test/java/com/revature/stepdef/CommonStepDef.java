@@ -24,5 +24,4 @@ public class CommonStepDef {
 		assertNull(setUp.js.executeScript("return sessionStorage.getItem(\"username\");"));
 	}
 	
-	
 }
