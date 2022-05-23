@@ -1,5 +1,7 @@
 package com.revature.stepdef;
 
+import static org.junit.Assert.assertTrue;
+
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -63,20 +65,17 @@ public class TrackMultipleAccts {
 
 	@When("the User clicks on create my accounts")
 	public void the_user_clicks_on_create_my_accounts() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		this.setUp.pageController.createBankAccountPage.clickCreateAccount();
 	}
 
 	@When("the User clicks between accounts to access")
 	public void the_user_clicks_between_accounts_to_access() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		this.setUp.pageController.viewAllAccountPage.clickViewAccount();
 	}
 
 	@Then("the application displays all accounts")
 	public void the_application_displays_all_accounts() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		assertTrue(this.setUp.pageController.viewAllAccountPage.viewSuccess());
 	}
 
 }
