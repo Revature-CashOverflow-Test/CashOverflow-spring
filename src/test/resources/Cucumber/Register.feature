@@ -6,12 +6,14 @@ Feature: Register
   Scenario: Register Successfully
     Given the User is in homepage
     And the User is not logged in
-    When the User inputs "testingExample" into Username form
+    When the User clicks on Register on the top
+    And the User inputs "testingExample" into Username form
     And the User inputs "Yu" into First Name form
     And the User inputs "Wang" into Last Name form
     And the User inputs "example@hotmail.com" into Email form
     And the User inputs "Password!1" into Password form
     And the User inputs "Password!1" into Confirm Password form
+    And the User clicks Register after the form
     Then the app shows a register successfully notification
     And the app moves to login
 
