@@ -9,12 +9,14 @@ public class CommonStepDef {
 	public static SetUp setUp;
 	public static RegisterTest rt;
 	public static TransferMoneyFromAccountsTest TMFAt;
+	public static LoginTest lt;
 	
 	@BeforeAll
 	public static void beforeAll() {
 		setUp = new SetUp();
 		rt = new RegisterTest(setUp);
 		TMFAt = new TransferMoneyFromAccountsTest(setUp);
+		lt = new LoginTest(setUp);
 	}
 	
 	@Given("the User is in homepage")
@@ -25,15 +27,13 @@ public class CommonStepDef {
 	public void the_user_is_not_logged_in() {
 		assertNull(checkLogin());
 	}
-	
-	
+		
 	@Given("the User logs in successfully")
 	public void the_user_logs_in_successfully() {
 		if(checkLogin() == false) {
 			LogIn();
 		}
 	}
-
 	@Given("the User had previously created two accounts")
 	public void the_user_had_previously_created_two_accounts() {
 	    // Write code here that turns the phrase above into concrete actions
