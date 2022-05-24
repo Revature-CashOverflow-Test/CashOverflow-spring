@@ -162,11 +162,7 @@ class BankAccountServiceImplTest {
 		verify(emailServ, times(1)).send(emaildata);
 		
 	}
-<<<<<<< HEAD
 
-	
-	
-=======
 	
 	@Test
 	void betweenUsersTest2() {
@@ -244,7 +240,7 @@ class BankAccountServiceImplTest {
 	}
 
 
->>>>>>> 5e3d650594906f76c948218268c07ea4c6055829
+
 	/**
 	 * This method tests the BankAccountService method completeTransfer. This test
 	 * should verify money was sent to another user
