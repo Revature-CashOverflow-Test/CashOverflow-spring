@@ -1,5 +1,6 @@
 package com.revature.stepdef;
 
+import io.cucumber.java.en.When;
 import static org.junit.Assert.assertTrue;
 
 import io.cucumber.java.en.Given;
@@ -9,8 +10,6 @@ import io.cucumber.java.en.When;
 public class LoginTest{
 
 	public static SetUp setUp;
-	
-}
 
 public LoginTest(SetUp setUp) {
 	this.setUp = setUp;
