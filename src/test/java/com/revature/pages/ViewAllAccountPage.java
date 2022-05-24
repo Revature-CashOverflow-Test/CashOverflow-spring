@@ -10,8 +10,8 @@ public class ViewAllAccountPage {
 		this.driver = driver;
 	}
 	
-	public void clickViewAccount() {
-		this.driver.findElements(By.id(bank_accounts))
+	public void clickMyAccount() {
+		this.driver.findElement(By.id("/html/body/app-root/app-user-page/app-navbar-general/nav/div/div/ul/li[2]/a")).click();
 	}
 
 	public boolean viewSuccess() {

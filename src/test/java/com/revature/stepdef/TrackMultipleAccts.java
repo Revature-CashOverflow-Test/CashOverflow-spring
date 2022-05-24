@@ -70,7 +70,7 @@ public class TrackMultipleAccts {
 
 	@When("the User clicks between accounts to access")
 	public void the_user_clicks_between_accounts_to_access() {
-		this.setUp.pageController.viewAllAccountPage.clickViewAccount();
+		this.setUp.pageController.viewAllAccountPage.clickMyAccount();
 	}
 
 	@Then("the application displays all accounts")
