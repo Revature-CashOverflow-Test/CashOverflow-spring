@@ -35,17 +35,33 @@ public boolean invalidCredentialsMessage(){
                         .pollingEvery(Duration.ofMillis(250))
                         .ignoring(NoSuchElementException.class);
         WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
-                        By.xpath("/html/body/app-root/app-login-page/app-login/div/div/div/div/div/div/form/div")));
+                        By.xpath("/html/body/div/div/div")));
         String text = ele.getText().toString();
         System.out.println(text);
-        return text.contains("Invalid credentials. Please try again."); 
+        return text.contains("Password/Username authentication erro"); 
         
 }
 
-public boolean loginSuccessfullyMessage() {
-	
+public boolean logInSuccessfullyMessage() {
+	Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+			  .withTimeout(Duration.ofSeconds(2))
+			  .pollingEvery(Duration.ofMillis(250))
+			  .ignoring(NoSuchElementException.class);
+	WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
+			By.xpath("/html/body/div/div/div")));
+	String text = ele.getText().toString();
+	System.out.println(text);
+	return text.contains("You have been successfully logged in");
 
-	return this.driver.getCurrentUrl().equals("http://localhost:4200/feed");
+//return this.driver.getCurrentUrl().equals("http://localhost:4200/feed");
+}
+
+public void clickLogOutButton(){
+    WebDriverWait wait = new WebDriverWait(driver, 5);
+    WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//*[@id=\"navbarSupportedContent\"]/ul/li[7]/a"
+                    		+ "")));
+    ele.click();
 }
 
 

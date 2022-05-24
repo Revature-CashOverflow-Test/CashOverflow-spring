@@ -1,5 +1,6 @@
 package com.revature.stepdef;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import io.cucumber.java.BeforeAll;
@@ -24,6 +25,10 @@ public class CommonStepDef {
 	@Given("the User is not logged in")
 	public void the_user_is_not_logged_in() {
 		assertNull(setUp.js.executeScript("return sessionStorage.getItem(\"username\");"));
+	}
+	@Given("the User logs in successfully")
+	public void the_user_logs_in_successfully() {
+		assertNotNull(setUp.js.executeScript("return sessionStorage.getItem(\"username\");"));
 	}
 	
 }
