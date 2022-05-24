@@ -31,11 +31,11 @@ public class LogInPage {
 	}
 	public boolean invalidCredentialsMessage(){
 	        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-	                        .withTimeout(Duration.ofSeconds(3))
-	                        .pollingEvery(Duration.ofMillis(100))
+	                        .withTimeout(Duration.ofSeconds(5))
+	                        .pollingEvery(Duration.ofMillis(250))
 	                        .ignoring(NoSuchElementException.class);
 	        WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
-	                        By.xpath("//*[@id=\\\"toast-container\\\"]/div/")));
+	                        By.xpath("/html/body/div/div/div/div[1]")));
 	        String text = ele.getText().toString();
 	        System.out.println(text);
 	        return text.contains("Password/Username authentication erro"); 
@@ -44,11 +44,11 @@ public class LogInPage {
 	
 	public boolean logInSuccessfullyMessage() {
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-				  .withTimeout(Duration.ofSeconds(3))
-				  .pollingEvery(Duration.ofMillis(100))
+				  .withTimeout(Duration.ofSeconds(5))
+				  .pollingEvery(Duration.ofMillis(250))
 				  .ignoring(NoSuchElementException.class);
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
-				By.xpath("//*[@id=\"toast-container\"]/div/div[2]")));
+				By.xpath("/html/body/div/div/div")));
 		String text = ele.getText().toString();
 		System.out.println(text);
 		return text.contains("You have been successfully logged in");
