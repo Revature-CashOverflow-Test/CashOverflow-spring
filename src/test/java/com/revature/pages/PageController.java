@@ -9,9 +9,12 @@ public class PageController {
 	public static CreateBankAccountPage createBankAccountPage;
 	public static LogInPage logInPage;
 
+
 	public static ViewAllAccountPage viewAllAccountPage;
 	
 	public static TransferMoneyPage transferMoneyPage;
+
+	
 
 	
 	public PageController(WebDriver driver){
@@ -20,7 +23,11 @@ public class PageController {
 		createBankAccountPage = new CreateBankAccountPage(driver);
 		logInPage = new LogInPage(driver);
 		viewAllAccountPage = new ViewAllAccountPage(driver);
+
 		
+		transferMoneyPage = new TransferMoneyPage(driver);
+
+
 		transferMoneyPage = new TransferMoneyPage(driver);
 
 	}
