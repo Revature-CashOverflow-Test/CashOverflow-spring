@@ -249,7 +249,7 @@ class BankAccountServiceImplTest {
 		
 		between = serv.getBetweenUsers(otherUser);
 		
-		when(reqRepo.findAllByUser(otherUser.getUsername())).thenReturn(betweenUsers);
+		when(reqRepo.findAllByUser(otherUser.getUsername())).thenReturn(between);
 		
 		
 		assertEquals(between, betweenUsers);
