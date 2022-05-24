@@ -243,12 +243,14 @@ class BankAccountServiceImplTest {
 	void getBetweenUsersTest() {
 		List<BetweenUsers> betweenUsers = new ArrayList();
 		UserAccount otherUser = new UserAccount();
+		List<BetweenUsers> between = new ArrayList();
+		
 		otherUser.setUsername("RevPro");
+		
+		between = serv.getBetweenUsers(otherUser);
+		
 		when(reqRepo.findAllByUser(otherUser.getUsername())).thenReturn(betweenUsers);
 		
-		assertThrows(ResponseStatusException.class, () -> serv.getBetweenUsers(otherUser));
-		List<BetweenUsers> between = new ArrayList();
-		between = serv.getBetweenUsers(otherUser);
 		
 		assertEquals(between, betweenUsers);
 	}
