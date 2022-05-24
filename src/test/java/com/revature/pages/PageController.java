@@ -8,14 +8,14 @@ public class PageController {
 	
 	public static CreateBankAccountPage createBankAccountPage;
 	public static LogInPage logInPage;
-	public static ViewAllAccountPage viewAllAccountPage;
+	public static MyAccountPage myAccountPage;
 	
 	public PageController(WebDriver driver){
 		homePage = new HomePage(driver);
 		registerPage = new RegisterPage(driver);
 		createBankAccountPage = new CreateBankAccountPage(driver);
 		logInPage = new LogInPage(driver);
-		viewAllAccountPage = new ViewAllAccountPage(driver);
+		myAccountPage = new MyAccountPage(driver);
 		
 	}
 }
