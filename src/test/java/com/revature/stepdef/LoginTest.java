@@ -8,9 +8,7 @@ import io.cucumber.java.en.When;
 
 public class LoginTest{
 
-public static SetUp setUp;
-
-public LoginTest() {
+	public static SetUp setUp;
 	
 }
 
@@ -58,5 +56,6 @@ public void the_app_displays_log_out_successfully() {
     // Write code here that turns the phrase above into concrete actions
 	assertTrue(this.setUp.pageController.homePage.checkIfAtLoginPage());
 }
+
 }
 
