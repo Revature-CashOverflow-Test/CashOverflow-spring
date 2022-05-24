@@ -2,6 +2,7 @@ package com.revature.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -353,6 +354,9 @@ class BankAccountServiceImplTest {
 	}
 
 	// Mfaydali
+	/**
+	 * This method tests the BankAccountService method getBankAccountTest.
+	 */
 	@Test
 	public void getBankAccountTest() {
 		UserAccount testUser = new UserAccount(1, "testuseremail@emailprovider.com", "testUserUsername",
@@ -370,11 +374,17 @@ class BankAccountServiceImplTest {
 
 	}
 
+	/**
+	 * This method tests the BankAccountService method RemoveRequest.
+	 */
 	@Test
 	void RemoveRequest() {
-		List<BankAccount> allData = dao.findAll();
-		allData.forEach(t -> dao.delete(t));
-		// bankAccountRepo.deleteAll();
+		BetweenUsers mockBetweenUsers = new BetweenUsers();
+		mockBetweenUsers.setId(1);
+		
+		doNothing().when(reqRepo).deleteById(mockBetweenUsers.getId());
+		serv.removeRequest(mockBetweenUsers); 
+		verify(reqRepo, times(1)).deleteById(mockBetweenUsers.getId());
 	}
 
 
