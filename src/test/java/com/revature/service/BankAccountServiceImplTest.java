@@ -2,7 +2,6 @@ package com.revature.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -45,12 +44,12 @@ class BankAccountServiceImplTest {
 
 	@Mock
 	private RequestRepo reqRepo;
-	
+
 	@Mock
 	private EmailData emaildata;
-	
+
 	@Mock
-	private EmailService	emailServ;	
+	private EmailService	emailServ;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -156,12 +155,12 @@ class BankAccountServiceImplTest {
 
 		when(userAccServ.getUserFromUsername(betweenUsers.getUser())).thenReturn(otherUser);
 		when(dao.getById(betweenUsers.getTransferAccount())).thenReturn(originBank);
-		
+
 		assertThrows(ResponseStatusException.class, () -> serv.betweenUsers(null, betweenUsers));
-		
+
 		emailServ.send(emaildata);
 		verify(emailServ, times(1)).send(emaildata);
-		
+
 	}
 
 	/**
@@ -352,5 +351,31 @@ class BankAccountServiceImplTest {
 		initialTestBankAccount.setBalance(0.0);
 		assertThrows(ResponseStatusException.class, () -> serv.transferAccount(newOwner, socialOwner));
 	}
+
+	// Mfaydali
+	@Test
+	public void getBankAccountTest() {
+		UserAccount testUser = new UserAccount(1, "testuseremail@emailprovider.com", "testUserUsername",
+				"testUserFirstName", "testUserLastName", "testUserPassword", Instant.now());
+
+		BankAccount testBankAccount = new BankAccount("myBankAccountName", "myBankAccountDescription", Instant.now(), 1,
+				testUser);
+
+		when(dao.findByUserAndName(testUser, "Mehmet")).thenReturn(testBankAccount);
+
+		BankAccount test = serv.getBankAccount(testUser, "Mehmet");
+
+		verify(dao, times(1)).findByUserAndName(testUser, "Mehmet");
+		assertEquals(testBankAccount, test);
+
+	}
+
+	@Test
+	void RemoveRequest() {
+		List<BankAccount> allData = dao.findAll();
+		allData.forEach(t -> dao.delete(t));
+		// bankAccountRepo.deleteAll();
+	}
+
 
 }
