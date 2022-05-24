@@ -238,6 +238,18 @@ class BankAccountServiceImplTest {
 		verify(emailServ, times(1)).send(emaildata);
 		
 	}
+	
+	@Test
+	void getBetweenUsersTest() {
+		List<BetweenUsers> betweenUsers = new ArrayList();
+		UserAccount otherUser = new UserAccount();
+		
+		when(serv.getBetweenUsers(otherUser)).thenReturn(betweenUsers);
+		
+		assertThrows(ResponseStatusException.class, () -> serv.getBetweenUsers(otherUser));
+		
+		betweenUsers = reqRepo.findAllByUser(otherUser.getUsername());
+	}
 
 
 
