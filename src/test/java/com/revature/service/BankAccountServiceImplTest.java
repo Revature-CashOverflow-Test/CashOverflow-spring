@@ -238,28 +238,7 @@ class BankAccountServiceImplTest {
 		
 	}
 
-	@Test
-	void betweenUsersTest2() {
 
-		UserAccount otherUser = new UserAccount();
-		BankAccount originBank = new BankAccount();
-		
-		BetweenUsers between = new BetweenUsers();
-		between.setSendOrReceive(1);
-		between.setOriginUser("account1");
-		between.setUser("account2");
-		between.setTransferAccount(1);
-		between.setTransferAmount(10.00);
-
-		when(userAccServ.getUserFromUsername(between.getUser())).thenReturn(otherUser);
-		when(dao.getById(between.getTransferAccount())).thenReturn(originBank);
-		
-		assertThrows(ResponseStatusException.class, () -> serv.betweenUsers(null, between));
-		
-		emailServ.send(emaildata);
-		verify(emailServ, times(1)).send(emaildata);
-		
-	}
 	/**
 	 * This method tests the BankAccountService method completeTransfer. This test
 	 * should verify money was sent to another user
