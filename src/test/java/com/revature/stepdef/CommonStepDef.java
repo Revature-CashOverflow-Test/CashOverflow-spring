@@ -1,5 +1,6 @@
 package com.revature.stepdef;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import io.cucumber.java.BeforeAll;
@@ -44,6 +45,10 @@ public class CommonStepDef {
 	public void the_user_had_some_fund_in_the_account() {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new io.cucumber.java.PendingException();
+	}
+	@Given("the User logs in successfully")
+	public void the_user_logs_in_successfully() {
+		assertNotNull(setUp.js.executeScript("return sessionStorage.getItem(\"username\");"));
 	}
 	
 	public boolean checkLogin() {
