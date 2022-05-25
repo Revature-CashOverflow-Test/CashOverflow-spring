@@ -2,20 +2,14 @@ package com.revature.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.function.Supplier;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Answers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -99,6 +93,7 @@ class SocialAccountServiceImplTest {
 		when(mockRepo.findByUsername("henda")).thenReturn(mockUserSocialMedia);
 		UserAccount result = socialServ.getSoicalOwner(mockUserSocialMedia);
 		verify(mockRepo, times(1)).findByUsername("henda");
+		assertEquals(result,mockUserAccount);
 	}
 }
 
