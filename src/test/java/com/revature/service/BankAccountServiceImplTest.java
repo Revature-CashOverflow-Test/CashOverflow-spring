@@ -240,7 +240,14 @@ class BankAccountServiceImplTest {
 	
 	@Test
 	void getBetweenUsersTest() {
+		List<BetweenUsers> betweenUsers = new ArrayList();
+		UserAccount otherUser = new UserAccount();
+		otherUser.setUsername("test");
+		when(reqRepo.findAllByUser(otherUser.getUsername())).thenReturn(betweenUsers);
 		
+		List<BetweenUsers> between = new ArrayList();
+		between = serv.getBetweenUsers(otherUser);
+		assertEquals(between, betweenUsers);
 		
 	}
 
