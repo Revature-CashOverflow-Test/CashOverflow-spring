@@ -55,6 +55,23 @@ class TransactionServiceTest {
 
 	}
 	
+	@Test
+	void addTransactionTest2() {
+		BankAccount acc = new BankAccount(1, "Checking", 10.00, "SOS", Instant.now(), 1, null, null);
+		TransactionDto dto = new TransactionDto(1, 1, 5.00, "SOS", Instant.now());
+		when(bankRepo.getById(1)).thenReturn(acc);
+		serv.addTransaction(dto);
+	}
+
+	@Test
+	void addTransactionTest3() {
+		BankAccount acc = new BankAccount(1, "Checking", 10.00, "SOS", Instant.now(), 1, null, null);
+		TransactionDto dto = new TransactionDto(1, 1, 5.00, "SOS", Instant.now());
+		dto.setTxTypeId(2);
+		when(bankRepo.getById(1)).thenReturn(acc);
+		serv.addTransaction(dto);
+	}
+	
 	/**
 	 * This method tests the TransactionService method getTransactions. This method
 	 * should be returning a list of transactions

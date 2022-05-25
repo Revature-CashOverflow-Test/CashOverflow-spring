@@ -155,12 +155,12 @@ class BankAccountServiceImplTest {
 
 		when(userAccServ.getUserFromUsername(betweenUsers.getUser())).thenReturn(otherUser);
 		when(dao.getById(betweenUsers.getTransferAccount())).thenReturn(originBank);
-
+		
 		assertThrows(ResponseStatusException.class, () -> serv.betweenUsers(null, betweenUsers));
-
+		
 		emailServ.send(emaildata);
 		verify(emailServ, times(1)).send(emaildata);
-
+		
 	}
 	
 	@Test
@@ -235,6 +235,12 @@ class BankAccountServiceImplTest {
 		
 		emailServ.send(emaildata);
 		verify(emailServ, times(1)).send(emaildata);
+		
+	}
+	
+	@Test
+	void getBetweenUsersTest() {
+		
 		
 	}
 
