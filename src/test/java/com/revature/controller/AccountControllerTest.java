@@ -15,9 +15,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
+import com.revature.dao.BankAccountRepo;
 import com.revature.dto.BankAccountDto;
 import com.revature.dto.BetweenUsersDto;
 import com.revature.model.BankAccount;
@@ -29,7 +34,7 @@ import com.revature.service.UserAccountService;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class AccountControllerTest {
-
+	
 	@Mock
 	private BankAccountService bankServ;
 
@@ -44,11 +49,13 @@ class AccountControllerTest {
 
 	private AccountController cont;
 
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		cont = new AccountController(bankServ, mapper, accServ);
 	}
-
+	
+	
 	@Test
 	void createBankAccountTest() {
 		BankAccount initialAccount = new BankAccount();
@@ -124,5 +131,46 @@ class AccountControllerTest {
 		}
 		
 		assertFalse(result);
+	}
+	
+	@Test
+	void transferBetweenUsersTest() {
+		UserAccountService userAccServ = Mockito.mock(UserAccountService.class);
+		BankAccountService bankAccServ = Mockito.mock(BankAccountService.class);
+		Authentication auth = Mockito.mock(Authentication.class);
+		
+		BetweenUsers between = new BetweenUsers();
+		UserAccount user = new UserAccount();
+		BetweenUsersDto betweenDto = new BetweenUsersDto();
+		betweenDto.setSendOrReceive(1);
+		betweenDto.setOriginUser("account1");
+		betweenDto.setUser("account2");
+		betweenDto.setTransferAccount(1);
+		betweenDto.setTransferAmount(2.00);
+		
+		
+		when(auth.getName()).thenReturn("test");
+		
+		cont.transferFundsBetweenUsers(auth, betweenDto);
+	}
+	
+	@Test
+	void completeTransfer() {
+		BankAccountService bankAccServ = Mockito.mock(BankAccountService.class);
+		Authentication auth = Mockito.mock(Authentication.class);
+		BankAccountRepo bankAccRepo = Mockito.mock(BankAccountRepo.class);
+		
+		BetweenUsers between = new BetweenUsers();
+		UserAccount user = new UserAccount();
+		BetweenUsersDto betweenDto = new BetweenUsersDto();
+		betweenDto.setSendOrReceive(1);
+		betweenDto.setOriginUser("account1");
+		betweenDto.setUser("account2");
+		betweenDto.setTransferAccount(1);
+		betweenDto.setTransferAmount(5.00);
+		
+		
+		cont.completeTransfer(auth, betweenDto);
+		
 	}
 }

@@ -1,6 +1,7 @@
 package com.revature.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -15,12 +16,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,12 +33,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.CashOverflowApplication;
+import com.revature.controller.AccountController;
 import com.revature.dao.BankAccountRepo;
 import com.revature.dao.UserAccountRepo;
 import com.revature.dto.BankAccountDto;
+import com.revature.dto.BetweenUsersDto;
 import com.revature.model.BankAccount;
+import com.revature.model.BetweenUsers;
 import com.revature.model.FundTransfer;
 import com.revature.model.UserAccount;
+import com.revature.service.BankAccountService;
+import com.revature.service.UserAccountService;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = CashOverflowApplication.class)
 @AutoConfigureMockMvc
@@ -56,6 +64,7 @@ class AccountControllerIntegrationTest {
 
 	@Autowired
 	private PasswordEncoder enc;
+	
 
 	@BeforeEach
 	void setUp() {
@@ -73,6 +82,7 @@ class AccountControllerIntegrationTest {
 		bankRepo.save(new BankAccount(0, "name2", 0.0, "description2", Instant.now(), 1, user, null));
 		bankRepo.save(new BankAccount(0, "name3", 0.0, "description3", Instant.now(), 2, user, null));
 		bankRepo.save(new BankAccount(0, "name1u2", 100.0, "description1u2", Instant.now(), 2, user2, null));
+		
 	}
 
 	@ParameterizedTest
@@ -241,5 +251,7 @@ class AccountControllerIntegrationTest {
 		assertEquals(50.01, actualAccts.get(1).getBalance());
 	}
 
+	
+	
 
 }
