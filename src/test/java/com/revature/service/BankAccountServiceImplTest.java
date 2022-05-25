@@ -2,7 +2,7 @@ package com.revature.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -45,12 +45,12 @@ class BankAccountServiceImplTest {
 
 	@Mock
 	private RequestRepo reqRepo;
-	
+
 	@Mock
 	private EmailData emaildata;
-	
+
 	@Mock
-	private EmailService	emailServ;	
+	private EmailService	emailServ;
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -235,6 +235,19 @@ class BankAccountServiceImplTest {
 		
 		emailServ.send(emaildata);
 		verify(emailServ, times(1)).send(emaildata);
+		
+	}
+	
+	@Test
+	void getBetweenUsersTest() {
+		List<BetweenUsers> betweenUsers = new ArrayList();
+		UserAccount otherUser = new UserAccount();
+		otherUser.setUsername("test");
+		when(reqRepo.findAllByUser(otherUser.getUsername())).thenReturn(betweenUsers);
+		
+		List<BetweenUsers> between = new ArrayList();
+		between = serv.getBetweenUsers(otherUser);
+		assertEquals(between, betweenUsers);
 		
 	}
 
@@ -427,5 +440,40 @@ class BankAccountServiceImplTest {
 		initialTestBankAccount.setBalance(0.0);
 		assertThrows(ResponseStatusException.class, () -> serv.transferAccount(newOwner, socialOwner));
 	}
+
+	// Mfaydali
+	/**
+	 * This method tests the BankAccountService method getBankAccountTest.
+	 */
+	@Test
+	public void getBankAccountTest() {
+		UserAccount testUser = new UserAccount(1, "testuseremail@emailprovider.com", "testUserUsername",
+				"testUserFirstName", "testUserLastName", "testUserPassword", Instant.now());
+
+		BankAccount testBankAccount = new BankAccount("myBankAccountName", "myBankAccountDescription", Instant.now(), 1,
+				testUser);
+
+		when(dao.findByUserAndName(testUser, "Mehmet")).thenReturn(testBankAccount);
+
+		BankAccount test = serv.getBankAccount(testUser, "Mehmet");
+
+		verify(dao, times(1)).findByUserAndName(testUser, "Mehmet");
+		assertEquals(testBankAccount, test);
+
+	}
+
+	/**
+	 * This method tests the BankAccountService method RemoveRequest.
+	 */
+	@Test
+	void RemoveRequest() {
+		BetweenUsers mockBetweenUsers = new BetweenUsers();
+		mockBetweenUsers.setId(1);
+		
+		doNothing().when(reqRepo).deleteById(mockBetweenUsers.getId());
+		serv.removeRequest(mockBetweenUsers); 
+		verify(reqRepo, times(1)).deleteById(mockBetweenUsers.getId());
+	}
+
 
 }
