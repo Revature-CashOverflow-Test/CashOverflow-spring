@@ -1,7 +1,12 @@
 package com.revature.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.revature.dao.SocialAccountRepo;
 import com.revature.dao.UserAccountRepo;
+import com.revature.dto.SocialAccountDto;
 import com.revature.model.UserAccount;
 import com.revature.model.UserSocialMedia;
 
@@ -64,4 +70,25 @@ class SocialAccountServiceImplTest {
 		UserSocialMedia social3 = new UserSocialMedia(3, "user1", "SubSomething", person1);
 		assertThrows(ResponseStatusException.class, () -> serv.createSocial(social3));
 	}
+	
+
+	@Test
+	void getSocialAccountTest(){
+	
+		UserSocialMedia userMedia = new UserSocialMedia();
+		UserSocialMedia mockUsrMedia = new UserSocialMedia();
+		
+		mockUsrMedia.setUsername("Rabia");
+		mockUsrMedia.setId(123);
+		mockUsrMedia.setProfileSub("profile sub string");
+		mockUsrMedia.setOwner(null);
+		//userMedia.add(mockUserSocialMedia);
+		
+		when(repo.findByUsername(null).thenReturn(mockUsrMedia));
+		
+		assertEquals(userMedia, serv.getSocialAccount(null));
+				
+				
+	}
+
 }
