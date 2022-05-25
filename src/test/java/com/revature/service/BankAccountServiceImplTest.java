@@ -149,7 +149,6 @@ class BankAccountServiceImplTest {
 	 */
 	@Test
 	void betweenUsersTest() {
-
 		BetweenUsers betweenUsers = new BetweenUsers();
 		UserAccount otherUser = new UserAccount();
 		BankAccount originBank = new BankAccount();
@@ -162,6 +161,81 @@ class BankAccountServiceImplTest {
 		emailServ.send(emaildata);
 		verify(emailServ, times(1)).send(emaildata);
 
+	}
+	
+	@Test
+	void betweenUsersTest2() {
+		UserAccount otherUser = new UserAccount();
+		otherUser.setId(1000);
+		BankAccount originBank = new BankAccount();
+		originBank.setBalance(1.00);
+		BetweenUsers between = new BetweenUsers();
+		between.setSendOrReceive(1);
+		between.setOriginUser("account1");
+		between.setUser("account2");
+		between.setTransferAccount(1);
+		between.setTransferAmount(2.00);
+
+		when(userAccServ.getUserFromUsername(between.getUser())).thenReturn(otherUser);
+		when(dao.getById(between.getTransferAccount())).thenReturn(originBank);
+		
+		assertThrows(ResponseStatusException.class, () -> serv.betweenUsers(null, between));
+		
+		emailServ.send(emaildata);
+		verify(emailServ, times(1)).send(emaildata);
+		
+	}
+	
+	@Test
+	void betweenUsersTest3() {
+		UserAccount otherUser = new UserAccount();
+		otherUser.setId(1000);
+		UserAccount user = new UserAccount();
+		user.setEmail("testemail@email.com");
+		user.setUsername("test");
+		BankAccount originBank = new BankAccount();
+		originBank.setBalance(1.00);
+		BetweenUsers between = new BetweenUsers();
+		between.setSendOrReceive(1);
+		between.setOriginUser("account1");
+		between.setUser("account2");
+		between.setTransferAccount(1);
+		between.setTransferAmount(0.01);
+
+		when(userAccServ.getUserFromUsername(between.getUser())).thenReturn(otherUser);
+		when(dao.getById(between.getTransferAccount())).thenReturn(originBank);
+		
+		assertThrows(NullPointerException.class, () -> serv.betweenUsers(user, between));
+		
+		emailServ.send(emaildata);
+		verify(emailServ, times(1)).send(emaildata);
+		
+	}
+	
+	@Test
+	void betweenUsersTest4() {
+		UserAccount otherUser = new UserAccount();
+		otherUser.setId(1000);
+		UserAccount user = new UserAccount();
+		user.setEmail("testemail@email.com");
+		user.setUsername("test");
+		BankAccount originBank = new BankAccount();
+		originBank.setBalance(1.00);
+		BetweenUsers between = new BetweenUsers();
+		between.setSendOrReceive(2);
+		between.setOriginUser("account1");
+		between.setUser("account2");
+		between.setTransferAccount(1);
+		between.setTransferAmount(0.01);
+
+		when(userAccServ.getUserFromUsername(between.getUser())).thenReturn(otherUser);
+		when(dao.getById(between.getTransferAccount())).thenReturn(originBank);
+		
+		assertThrows(NullPointerException.class, () -> serv.betweenUsers(user, between));
+		
+		emailServ.send(emaildata);
+		verify(emailServ, times(1)).send(emaildata);
+		
 	}
 
 	/**
