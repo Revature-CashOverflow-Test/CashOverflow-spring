@@ -35,7 +35,6 @@ public class SocialAccountServiceImpl implements SocialAccountService {
 
 	@Override
 	public UserAccount getSoicalOwner(UserSocialMedia social) {
-		System.out.println(social.getUsername());
 		return socialRepo.findByUsername(social.getUsername()).getOwner();
 	}
 

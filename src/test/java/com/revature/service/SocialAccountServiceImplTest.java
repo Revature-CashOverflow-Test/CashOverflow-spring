@@ -87,23 +87,17 @@ class SocialAccountServiceImplTest {
 	
 	@Test
 	void getSocialOwner() {
-		//UserAccount mockUserAccount = mock(UserAccount.class);
 		UserAccount mockUserAccount = new UserAccount();
-		//UserSocialMedia mockUserSocialMedia = mock(UserSocialMedia.class);
-		UserSocialMedia mockUserSocialMedia = new UserSocialMedia();
 		mockUserAccount.setUsername("henda");
 		mockUserAccount.setEmail("HENDAYAD");
 		mockUserAccount.setId(0);
 		
+		UserSocialMedia mockUserSocialMedia = new UserSocialMedia();
 		mockUserSocialMedia.setUsername("henda");
 		mockUserSocialMedia.setOwner(mockUserAccount);
-		when(mockRepo.findByUsername("henda")).thenReturn(mockUserSocialMedia);
-		//when(mockUserSocialMedia.getOwner()).thenReturn(mockUserAccount);
-		UserAccount result = socialServ.getSoicalOwner(mockUserSocialMedia);
 		
-		//when(mockUARepo.getOne(1)).thenReturn(mockUserAccount);)
-		//System.out.println(mockUserSocialMedia.getUsername());
-		//System.out.println(repo);
+		when(mockRepo.findByUsername("henda")).thenReturn(mockUserSocialMedia);
+		UserAccount result = socialServ.getSoicalOwner(mockUserSocialMedia);
 		verify(mockRepo, times(1)).findByUsername("henda");
 	}
 }
