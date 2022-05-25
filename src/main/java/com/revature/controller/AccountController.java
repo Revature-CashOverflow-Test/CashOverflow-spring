@@ -110,7 +110,7 @@ public class AccountController {
 	public void completeTransfer(Authentication auth, @RequestBody BetweenUsersDto betweenDto) {
 		
 		BetweenUsers between = convertToBetweenUsers(betweenDto);
-					
+		
 		bankAccServ.completeTransfer(between);
 
 	}
@@ -125,7 +125,6 @@ public class AccountController {
 	@PostMapping("/api/account/removeRequest")
 	@ResponseStatus(HttpStatus.OK)
 	public void removeRequests(Authentication auth, @RequestBody BetweenUsersDto betweenDto) {
-		
 		BetweenUsers between = convertToBetweenUsers(betweenDto);
 		bankAccServ.removeRequest(between);
 	}
@@ -141,4 +140,6 @@ public class AccountController {
 	protected BetweenUsers convertToBetweenUsers(BetweenUsersDto dtoBetween) {
 		return mapper.map(dtoBetween, BetweenUsers.class);
 	}
+	
+	
 }

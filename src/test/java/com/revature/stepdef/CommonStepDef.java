@@ -55,6 +55,12 @@ public class CommonStepDef {
 		}
 	}
 	
+	@Given("the User has an account")
+	public void the_user_has_an_account() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+	
 	public boolean checkLogin() {
 		return setUp.js.executeScript("return sessionStorage.getItem(\"username\");") != null;
 	}
