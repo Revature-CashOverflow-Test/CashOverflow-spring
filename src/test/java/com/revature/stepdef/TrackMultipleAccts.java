@@ -52,21 +52,21 @@ public class TrackMultipleAccts {
 	public void the_user_selects_savings_account() {
 		this.setUp.pageController.createBankAccountPage.selectAccountTypeForm();
 		this.setUp.pageController.createBankAccountPage.selectAccountTypeSaving();
-<<<<<<< HEAD
-=======
+
+
 	}
 	@When("the User clicks on My Account")
 	public void the_user_clicks_on_my_account() {
 		this.setUp.pageController.homePage.clickMyAccount();
->>>>>>> ebf66eaf58ea23a8b58802acccc075239019a72b
+
 	}
 	@Then("the application shows a new savings account is created")
 	public void the_application_shows_a_new_savings_account_is_created() {
-<<<<<<< HEAD
+
 		this.setUp.pageController.createBankAccountPage.clickCreateAccount();
-=======
+
 		this.setUp.pageController.myAccountPage.accountExist("Saving");
->>>>>>> ebf66eaf58ea23a8b58802acccc075239019a72b
+
 	}
 
 	@Then("the application notifies the user that they need to fill in the missing form")
@@ -81,16 +81,15 @@ public class TrackMultipleAccts {
 
 	@When("the User clicks between accounts to access")
 	public void the_user_clicks_between_accounts_to_access() {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
 		this.setUp.pageController.viewAllAccountPage.clickMyAccount();
-=======
+
 		this.setUp.pageController.myAccountPage.clickMyAccount();
->>>>>>> 812837834e2a1f109ace8aca4873e521065e9376
-=======
+
+
 		this.setUp.pageController.homePage.clickMyAccount();
 
->>>>>>> 85386d13d5c7970756458964e996d99695e50a20
 	}
 
 	@Then("the application displays all accounts")
