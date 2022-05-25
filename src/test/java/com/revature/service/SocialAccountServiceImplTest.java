@@ -2,10 +2,20 @@ package com.revature.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.function.Supplier;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Answers;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,20 +30,30 @@ import com.revature.model.UserSocialMedia;
 @ExtendWith(MockitoExtension.class)
 class SocialAccountServiceImplTest {
 
-
 	@Autowired
 	private SocialAccountService serv;
 
+	@Autowired
+	private SocialAccountService socialServ;
+	
 	@Autowired
 	private SocialAccountRepo repo;
 
 	@Autowired
 	private UserAccountRepo uaRepo;
 
+	
+	@Mock
+	private SocialAccountRepo mockRepo;
 
+	@Mock
+	private UserAccountRepo mockUARepo;
+
+	
 	@BeforeEach
 	void setUpEach() {
-
+		
+		socialServ = new SocialAccountServiceImpl(mockRepo);
 		UserAccount person1 = new UserAccount();
 		uaRepo.save(person1);
 		repo.save(new UserSocialMedia(1, "user1", "SubSomething", person1));
@@ -64,4 +84,27 @@ class SocialAccountServiceImplTest {
 		UserSocialMedia social3 = new UserSocialMedia(3, "user1", "SubSomething", person1);
 		assertThrows(ResponseStatusException.class, () -> serv.createSocial(social3));
 	}
+	
+	@Test
+	void getSocialOwner() {
+		//UserAccount mockUserAccount = mock(UserAccount.class);
+		UserAccount mockUserAccount = new UserAccount();
+		//UserSocialMedia mockUserSocialMedia = mock(UserSocialMedia.class);
+		UserSocialMedia mockUserSocialMedia = new UserSocialMedia();
+		mockUserAccount.setUsername("henda");
+		mockUserAccount.setEmail("HENDAYAD");
+		mockUserAccount.setId(0);
+		
+		mockUserSocialMedia.setUsername("henda");
+		mockUserSocialMedia.setOwner(mockUserAccount);
+		when(mockRepo.findByUsername("henda")).thenReturn(mockUserSocialMedia);
+		//when(mockUserSocialMedia.getOwner()).thenReturn(mockUserAccount);
+		UserAccount result = socialServ.getSoicalOwner(mockUserSocialMedia);
+		
+		//when(mockUARepo.getOne(1)).thenReturn(mockUserAccount);)
+		//System.out.println(mockUserSocialMedia.getUsername());
+		//System.out.println(repo);
+		verify(mockRepo, times(1)).findByUsername("henda");
+	}
 }
+
