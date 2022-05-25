@@ -11,10 +11,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 
-public class ViewAllAccountPage {
+public class MyAccountPage {
 	WebDriver driver;
 	
-	public ViewAllAccountPage(WebDriver driver) {
+	public MyAccountPage(WebDriver driver) {
 		this.driver = driver;
 	}
 	
@@ -50,6 +50,9 @@ public class ViewAllAccountPage {
 			}
 		}
 		return false;
+	}
+	public void clickMyAccount() {
+		this.driver.findElement(By.xpath("/html/body/app-root/app-user-page/app-navbar-general/nav/div/div/ul/li[2]/a")).click();
 	}
 
 	public boolean viewSuccess() {
