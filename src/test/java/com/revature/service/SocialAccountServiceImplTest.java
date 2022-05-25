@@ -115,6 +115,24 @@ class SocialAccountServiceImplTest {
 		verify(mockRepo, times(1)).findByUsername("henda");
 		assertEquals(result,mockUserAccount);
 	}
+	
+	@Test
+	void getSocialAccountsTest(){
+		List<UserSocialMedia> mockSocialUserMedias = new ArrayList<>();
+		UserSocialMedia mockUsrMedia = new UserSocialMedia();
+		mockUsrMedia.setUsername("Rabia");
+		mockUsrMedia.setId(123);
+		mockUsrMedia.setProfileSub("profile sub string");
+		mockUsrMedia.setOwner(null);
+		mockSocialUserMedias.add(mockUsrMedia);
+		
+		when(mockRepo.getById(mockUsrMedia.getId())).thenReturn(mockUsrMedia);
+		List<UserSocialMedia>  result =  socialServ.getSocialAccounts(mockUsrMedia.getId());
+		verify(mockRepo, times(1)).getById(mockUsrMedia.getId());
+		System.out.println(result);
+		assertEquals(mockSocialUserMedias, result);
+
+	}
 
 }
 
