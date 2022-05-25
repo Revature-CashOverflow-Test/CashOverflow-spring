@@ -87,20 +87,15 @@ class SocialAccountServiceImplTest {
 	
 	@Test
 	void getSocialAccountTest(){
-	
-		UserSocialMedia userMedia = new UserSocialMedia();
 		UserSocialMedia mockUsrMedia = new UserSocialMedia();
-		
 		mockUsrMedia.setUsername("Rabia");
 		mockUsrMedia.setId(123);
 		mockUsrMedia.setProfileSub("profile sub string");
 		mockUsrMedia.setOwner(null);
-		//userMedia.add(mockUserSocialMedia);
-		
-		when(repo.findByUsername(null).thenReturn(mockUsrMedia));
-		
-		assertEquals(userMedia, serv.getSocialAccount(null));
-				
+	
+		when(mockRepo.findByUsername(mockUsrMedia.getUsername())).thenReturn(mockUsrMedia);
+		UserSocialMedia result = socialServ.getSocialAccount(mockUsrMedia.getUsername());
+		assertEquals(mockUsrMedia, result);
 				
 	}
 
