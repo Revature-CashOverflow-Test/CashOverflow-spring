@@ -129,7 +129,6 @@ class SocialAccountServiceImplTest {
 		when(mockRepo.getById(mockUsrMedia.getId())).thenReturn(mockUsrMedia);
 		List<UserSocialMedia>  result =  socialServ.getSocialAccounts(mockUsrMedia.getId());
 		verify(mockRepo, times(1)).getById(mockUsrMedia.getId());
-		System.out.println(result);
 		assertEquals(mockSocialUserMedias, result);
 
 	}
