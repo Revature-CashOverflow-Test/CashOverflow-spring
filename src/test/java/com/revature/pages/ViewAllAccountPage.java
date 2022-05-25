@@ -21,7 +21,22 @@ public class ViewAllAccountPage {
 	public void getToViewPage() {
 		this.driver.get("http://localhost:4200/feed");
 	}
-	public boolean AccountExist(String accountName) {
+	
+	public boolean atLeastTwoAccountExisted() {
+		getToViewPage();
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				  .withTimeout(Duration.ofSeconds(5))
+				  .pollingEvery(Duration.ofMillis(250))
+				  .ignoring(NoSuchElementException.class);
+		List<WebElement> accountCards = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("card")));
+		if(accountCards.size() >= 2) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public boolean accountExist(String accountName) {
 		getToViewPage();
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
 				  .withTimeout(Duration.ofSeconds(5))

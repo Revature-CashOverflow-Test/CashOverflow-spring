@@ -38,8 +38,9 @@ public class CommonStepDef {
 		
 	@Given("the User had previously created two accounts")
 	public void the_user_had_previously_created_two_accounts() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		if(!this.setUp.pageController.viewAllAccountPage.atLeastTwoAccountExisted()) {
+			this.createTwoAccount();
+		}
 	}
 
 	@Given("the User had some fund in the account")
@@ -56,6 +57,29 @@ public class CommonStepDef {
 	
 	public boolean checkLogin() {
 		return setUp.js.executeScript("return sessionStorage.getItem(\"username\");") != null;
+	}
+	
+	
+	public void addFundsToAccount() {
+		
+	}
+	
+	public void createTwoAccount() {
+		
+		this.setUp.pageController.homePage.clickCreateBankAccountNav();
+		this.setUp.pageController.createBankAccountPage.sendInputToNameForm("Checking");
+		this.setUp.pageController.createBankAccountPage.sendInputToDescriptionForm("Checking");
+		this.setUp.pageController.createBankAccountPage.selectAccountTypeForm();
+		this.setUp.pageController.createBankAccountPage.selectAccountTypeChecking();
+		this.setUp.pageController.createBankAccountPage.clickCreateAccount();
+
+		this.setUp.pageController.homePage.clickCreateBankAccountNav();
+		this.setUp.pageController.createBankAccountPage.sendInputToNameForm("Saving");
+		this.setUp.pageController.createBankAccountPage.sendInputToDescriptionForm("Saving");
+		this.setUp.pageController.createBankAccountPage.selectAccountTypeForm();
+		this.setUp.pageController.createBankAccountPage.selectAccountTypeChecking();
+		this.setUp.pageController.createBankAccountPage.clickCreateAccount();
+
 	}
 	
 	public void LogIn(String Username, String Password) {
