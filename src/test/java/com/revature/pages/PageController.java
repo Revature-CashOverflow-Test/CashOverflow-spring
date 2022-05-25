@@ -18,6 +18,5 @@ public class PageController {
 		logInPage = new LogInPage(driver);
 		transferMoneyPage = new TransferMoneyPage(driver);
 		myAccountPage = new MyAccountPage(driver);
-		
 	}
 }
