@@ -56,7 +56,7 @@ public class RegisterPage {
 	
 	public boolean registerSuccessPopUp() {
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-				  .withTimeout(Duration.ofSeconds(2))
+				  .withTimeout(Duration.ofSeconds(5))
 				  .pollingEvery(Duration.ofMillis(250))
 				  .ignoring(NoSuchElementException.class);
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
