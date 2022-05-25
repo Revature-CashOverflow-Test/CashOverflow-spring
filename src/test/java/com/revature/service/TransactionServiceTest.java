@@ -73,5 +73,20 @@ class TransactionServiceTest {
 		
 		assertEquals(result,transactions);
 	}
+	
+	@Test
+	void updateBalance() {
+		BankAccount initialAccount = new BankAccount();
+		initialAccount.setBalance(500.00);
+		
+		double adjustment = 500.0;
+		BankAccount expectedAccount = new BankAccount();
+		expectedAccount.setBalance(1000.00);
+			
+		when(bankRepo.save(expectedAccount)).thenReturn(expectedAccount);
+		serv.updateBalance(adjustment, initialAccount);
+		verify(bankRepo,times(1)).save(expectedAccount);
+			
+	}
 
 }
