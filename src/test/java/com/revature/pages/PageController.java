@@ -8,6 +8,7 @@ public class PageController {
 	
 	public static CreateBankAccountPage createBankAccountPage;
 	public static LogInPage logInPage;
+	public static TransferMoneyPage transferMoneyPage;
 	public static MyAccountPage myAccountPage;
 	
 	public PageController(WebDriver driver){
@@ -15,7 +16,7 @@ public class PageController {
 		registerPage = new RegisterPage(driver);
 		createBankAccountPage = new CreateBankAccountPage(driver);
 		logInPage = new LogInPage(driver);
+		transferMoneyPage = new TransferMoneyPage(driver);
 		myAccountPage = new MyAccountPage(driver);
-		
 	}
 }

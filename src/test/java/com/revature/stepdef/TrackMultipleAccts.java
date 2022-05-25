@@ -45,7 +45,7 @@ public class TrackMultipleAccts {
 
 	@Then("the application shows a new checking account is created")
 	public void the_application_shows_a_new_checking_account_is_created() {
-		this.setUp.pageController.viewAllAccountPage.AccountExist("Checking");
+		this.setUp.pageController.myAccountPage.accountExist("Checking");
 	}
 
 	@When("the User selects savings account")
@@ -59,7 +59,7 @@ public class TrackMultipleAccts {
 	}
 	@Then("the application shows a new savings account is created")
 	public void the_application_shows_a_new_savings_account_is_created() {
-		this.setUp.pageController.viewAllAccountPage.AccountExist("Saving");
+		this.setUp.pageController.myAccountPage.accountExist("Saving");
 	}
 
 	@Then("the application notifies the user that they need to fill in the missing form")
@@ -74,11 +74,7 @@ public class TrackMultipleAccts {
 
 	@When("the User clicks between accounts to access")
 	public void the_user_clicks_between_accounts_to_access() {
-//<<<<<<< HEAD
-		this.setUp.pageController.myAccountPage.clickMyAccount();
-//=======
 		this.setUp.pageController.homePage.clickMyAccount();
-//>>>>>>> 387853c68f13d9bf24dc3d6bb6c33a07938ec803
 	}
 
 	@Then("the application displays all accounts")
