@@ -1,6 +1,8 @@
 package com.revature.pages;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.Keys;
@@ -28,6 +30,8 @@ public class LogInPage {
 	        WebElement ele = wait.until(ExpectedConditions.elementToBeClickable(
 	                        By.xpath("/html/body/app-root/app-login-page/app-login/div/div/div/div/div/div/form/div/input")));
 	        ele.sendKeys(Keys.ENTER);
+	        
+	        this.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 	}
 	public boolean invalidCredentialsMessage(){
 	        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
@@ -54,13 +58,7 @@ public class LogInPage {
 		return text.contains("You have been successfully logged in");
 	}
 	
-	public void clickLogOutButton(){
-	    WebDriverWait wait = new WebDriverWait(driver, 5);
-	    WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
-	                    By.xpath("//*[@id=\"navbarSupportedContent\"]/ul/li[7]/a"
-	                    		+ "")));
-	    ele.click();
-	}
+
 
 
 }

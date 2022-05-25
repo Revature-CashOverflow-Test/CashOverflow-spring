@@ -45,7 +45,7 @@ public class LoginTest{
 	@When("the User clicks the log out button")
 	public void the_user_clicks_the_log_out_button() {
 	    // Write code here that turns the phrase above into concrete actions
-		this.setUp.pageController.logInPage.clickLogOutButton();
+		this.setUp.pageController.homePage.clickLogOutButton();
 	}
 	@Then("the app displays log out successfully")
 	public void the_app_displays_log_out_successfully() {

@@ -1,7 +1,15 @@
 package com.revature.pages;
 
+import java.time.Duration;
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
 public class ViewAllAccountPage {
 	WebDriver driver;
@@ -10,12 +18,31 @@ public class ViewAllAccountPage {
 		this.driver = driver;
 	}
 	
-	public void clickMyAccount() {
-		this.driver.findElement(By.id("/html/body/app-root/app-user-page/app-navbar-general/nav/div/div/ul/li[2]/a")).click();
+	public void getToViewPage() {
+		this.driver.get("http://localhost:4200/feed");
+	}
+	public boolean AccountExist(String accountName) {
+		getToViewPage();
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				  .withTimeout(Duration.ofSeconds(5))
+				  .pollingEvery(Duration.ofMillis(250))
+				  .ignoring(NoSuchElementException.class);
+		List<WebElement> accountCards = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("card")));
+		for(int i = 0; i < accountCards.size(); i++) {
+			WebElement ele = accountCards.get(i);
+			if(ele.findElement(By.tagName("span")).getAttribute("innerHTML") == accountName ){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean viewSuccess() {
-		String Message = driver.findElement(By.id("bank_accounts")).getAttribute("validationMessage");
-		return Message.contains("See your account");
+		List<WebElement> accountCards = this.driver.findElements(By.className("card"));
+		
+		if(accountCards.size() > 0) {
+			return true;
+		}
+		return false;
 	}
 }
