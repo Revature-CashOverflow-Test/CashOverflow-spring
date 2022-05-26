@@ -38,23 +38,19 @@ public class CreateBankAccountPage {
 	public void selectAccountTypeChecking() {
 		this.driver.findElement(By.xpath("/html/body/app-root/app-bank-account-register-page/app-create-bank-account-form/div/div/div/div/div/div/form/div[3]/select/option[1]")).click();
 	}
-<<<<<<< HEAD
+
 
 	public void selectAccountTypeSaving() {
 		this.driver.findElement(By.xpath("/html/body/app-root/app-bank-account-register-page/app-create-bank-account-form/div/div/div/div/div/div/form/div[3]/select/option[2]")).click();
 	}
 		
-=======
-	public void selectAccountTypeSaving() {
-		this.driver.findElement(By.xpath("/html/body/app-root/app-bank-account-register-page/app-create-bank-account-form/div/div/div/div/div/div/form/div[3]/select/option[2]")).click();
-	}
-	
+
 	public boolean ValidationNotice() {
 		String Message = driver.findElement(By.id("nameId")).getAttribute("validationMessage");
 		return Message.contains("Please fill out this field.");
 	}
 	
->>>>>>> ebf66eaf58ea23a8b58802acccc075239019a72b
+
 	public void clickCreateAccount() {
 		this.driver.findElement(By.xpath("/html/body/app-root/"
 				+ "app-bank-account-register-page/app-create-bank-account-form/"
