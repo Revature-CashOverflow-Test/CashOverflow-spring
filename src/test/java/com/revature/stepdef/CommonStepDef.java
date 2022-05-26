@@ -38,15 +38,16 @@ public class CommonStepDef {
 		
 	@Given("the User had previously created two accounts")
 	public void the_user_had_previously_created_two_accounts() {
-		if(!this.setUp.pageController.viewAllAccountPage.atLeastTwoAccountExisted()) {
+		if(this.setUp.pageController.myAccountPage.atLeastTwoAccountExisted() == false) {
 			this.createTwoAccount();
 		}
 	}
 
-	@Given("the User had some fund in the account")
-	public void the_user_had_some_fund_in_the_account() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	@Given("the User had some fund in the {string} account")
+	public void the_user_had_some_fund_in_the_account(String string) {
+		if(this.setUp.pageController.myAccountPage.getAccountBalance(string) == 0.0) {
+			addFundsToAccount(string);
+		}
 	}
 	@Given("the User logs in successfully")
 	public void the_user_logs_in_successfully() {
@@ -60,12 +61,18 @@ public class CommonStepDef {
 	}
 	
 	
-	public void addFundsToAccount() {
-		
+	public void addFundsToAccount(String accountName) {
+		this.setUp.pageController.homePage.clickManageAccountBalanceNav();
+		this.setUp.pageController.manageAccountBalancePage.clickAccountsDropDown();
+		this.setUp.pageController.manageAccountBalancePage.selectAccount("Checking");
+		this.setUp.pageController.manageAccountBalancePage.clickAccountTypeDropDown();
+		this.setUp.pageController.manageAccountBalancePage.clickAccountTypeIncome();
+		this.setUp.pageController.manageAccountBalancePage.inputIntoAmountForm("500");
+		this.setUp.pageController.manageAccountBalancePage.inputIntoDescriptionForm("testing");
+		this.setUp.pageController.manageAccountBalancePage.clickCreateTransactionButton();
 	}
 	
 	public void createTwoAccount() {
-		
 		this.setUp.pageController.homePage.clickCreateBankAccountNav();
 		this.setUp.pageController.createBankAccountPage.sendInputToNameForm("Checking");
 		this.setUp.pageController.createBankAccountPage.sendInputToDescriptionForm("Checking");
