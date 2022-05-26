@@ -19,7 +19,6 @@ public class RegisterTest {
 		this.setUp = setUp;
 	}
 	
-
 	@When("the User clicks on Register on the top")
 	public void the_user_clicks_on_register_on_the_top() {
 		this.setUp.pageController.homePage.clickRegisterOnNavBar();

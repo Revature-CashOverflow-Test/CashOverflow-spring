@@ -10,6 +10,7 @@ public class PageController {
 	public static LogInPage logInPage;
 	public static TransferMoneyPage transferMoneyPage;
 	public static MyAccountPage myAccountPage;
+	public static TrackExpensesPage trackExpensesPage;
 	
 	public PageController(WebDriver driver){
 		homePage = new HomePage(driver);
@@ -18,5 +19,6 @@ public class PageController {
 		logInPage = new LogInPage(driver);
 		transferMoneyPage = new TransferMoneyPage(driver);
 		myAccountPage = new MyAccountPage(driver);
+		trackExpensesPage=new TrackExpensesPage(driver);
 	}
 }
