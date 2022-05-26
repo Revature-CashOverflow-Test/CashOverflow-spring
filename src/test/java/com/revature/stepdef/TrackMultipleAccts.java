@@ -52,14 +52,21 @@ public class TrackMultipleAccts {
 	public void the_user_selects_savings_account() {
 		this.setUp.pageController.createBankAccountPage.selectAccountTypeForm();
 		this.setUp.pageController.createBankAccountPage.selectAccountTypeSaving();
+
+
 	}
 	@When("the User clicks on My Account")
 	public void the_user_clicks_on_my_account() {
 		this.setUp.pageController.homePage.clickMyAccount();
+
 	}
 	@Then("the application shows a new savings account is created")
 	public void the_application_shows_a_new_savings_account_is_created() {
+
+		this.setUp.pageController.createBankAccountPage.clickCreateAccount();
+
 		this.setUp.pageController.myAccountPage.accountExist("Saving");
+
 	}
 
 	@Then("the application notifies the user that they need to fill in the missing form")
@@ -74,7 +81,9 @@ public class TrackMultipleAccts {
 
 	@When("the User clicks between accounts to access")
 	public void the_user_clicks_between_accounts_to_access() {
+
 		this.setUp.pageController.homePage.clickMyAccount();
+
 	}
 
 	@Then("the application displays all accounts")

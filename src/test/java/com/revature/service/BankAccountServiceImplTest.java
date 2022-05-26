@@ -162,6 +162,7 @@ class BankAccountServiceImplTest {
 		verify(emailServ, times(1)).send(emaildata);
 		
 	}
+
 	
 	@Test
 	void betweenUsersTest2() {
@@ -242,11 +243,24 @@ class BankAccountServiceImplTest {
 	void getBetweenUsersTest() {
 		List<BetweenUsers> betweenUsers = new ArrayList();
 		UserAccount otherUser = new UserAccount();
+
+		List<BetweenUsers> between = new ArrayList();
+		
+		
+		
+		when(reqRepo.findAllByUser(otherUser.getUsername())).thenReturn(between);
+		
+		
+		assertEquals(between, betweenUsers);
+	
+
 		otherUser.setUsername("test");
+		
 		when(reqRepo.findAllByUser(otherUser.getUsername())).thenReturn(betweenUsers);
 		
-		List<BetweenUsers> between = new ArrayList();
+		
 		between = serv.getBetweenUsers(otherUser);
+		
 		assertEquals(between, betweenUsers);
 		
 	}
