@@ -16,6 +16,7 @@ public class CommonStepDef {
 	public static TrackMultipleAccts tma;
 	public static TransferMoneyFromAccountsTest TMFAt;
 	public static LoginTest lt;
+	public static EmailNotifications EMN;
 	
 	@BeforeAll
 	public static void beforeAll() {
@@ -24,6 +25,7 @@ public class CommonStepDef {
 		tma = new TrackMultipleAccts(setUp);
 		TMFAt = new TransferMoneyFromAccountsTest(setUp);
 		lt = new LoginTest(setUp);
+		EMN = new EmailNotifications(setUp);
 	}
 	
 	@Given("the User is in homepage")
