@@ -7,10 +7,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.revature.controller.RegisterController;
 import com.revature.dao.UserAccountRepo;
 import com.revature.dto.RegUserAccountDto;
+import com.revature.dto.SocialAccountDto;
 import com.revature.model.UserAccount;
 import com.revature.service.BankAccountService;
 import com.revature.service.RegisterService;
@@ -355,4 +358,15 @@ class RegisterTests {
 
 	}
 
+	@Test
+	void addSocial() {
+		SocialAccountDto socialAccDto = Mockito.mock(SocialAccountDto.class);
+		SocialAccountService socialAccServ = Mockito.mock(SocialAccountService.class);
+		Authentication auth = Mockito.mock(Authentication.class);
+		UserAccount userAcc = Mockito.mock(UserAccount.class);
+		
+		socialAccDto.setOwner(userAcc);
+		
+		
+	}
 }

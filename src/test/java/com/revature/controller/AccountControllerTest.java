@@ -158,10 +158,7 @@ class AccountControllerTest {
 	void completeTransfer() {
 		BankAccountService bankAccServ = Mockito.mock(BankAccountService.class);
 		Authentication auth = Mockito.mock(Authentication.class);
-		BankAccountRepo bankAccRepo = Mockito.mock(BankAccountRepo.class);
 		
-		BetweenUsers between = new BetweenUsers();
-		UserAccount user = new UserAccount();
 		BetweenUsersDto betweenDto = new BetweenUsersDto();
 		betweenDto.setSendOrReceive(1);
 		betweenDto.setOriginUser("account1");

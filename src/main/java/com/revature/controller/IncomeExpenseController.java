@@ -37,6 +37,7 @@ public class IncomeExpenseController {
 	 */
 	@PostMapping("/transaction")
 	public void addTransaction(@RequestBody TransactionDto dto) {
+		System.out.println(dto.getAccountId());
 		if (dto.getAccountId() == 0 || dto.getAmount() == null || dto.getDescription() == null) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing transaction info");
 		} else if (dto.getAmount() < 0) {
