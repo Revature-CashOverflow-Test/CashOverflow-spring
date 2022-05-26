@@ -91,7 +91,7 @@ public class AccountController {
 		UserAccount user = userAccServ.getUserFromUsername(auth.getName());
 		return bankAccServ.transferFunds(user, fundTransfer).stream().map(this::convertToDto)
 				.collect(Collectors.toList());
-
+	
 	}
 	
 	@PostMapping("/api/account/betweenUsers")
