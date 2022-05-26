@@ -46,9 +46,9 @@ public class HomePage {
 					+ "/ul/li[3]/a").click();	
 
 		} else {
-			findByXpathWithWait(5, "/html/body/app-root/"
-					+ "app-user-page"
-					+ "/app-navbar-general/nav/div/div/ul/li[3]/a").click();	
+			WebElement ele = this.driver.findElement(By.linkText("Register"));
+			action.moveToElement(ele);
+			action.click().build().perform();
 		}	
 	}
 	

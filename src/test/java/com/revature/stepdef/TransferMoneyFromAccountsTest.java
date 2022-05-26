@@ -24,33 +24,33 @@ public class TransferMoneyFromAccountsTest {
 
 	@When("the User selects account one in the send funds from")
 	public void the_user_selects_account_one_in_the_send_funds_from() {
-		this.setUp.pageController.transferMoneyPage.selectFromForm("Checking");
+		this.setUp.pageController.transferMoneyBetweenAccountPage.selectFromForm("Checking");
 	}
 
 
 	@When("the User select account two to receive funds")
 	public void the_user_select_account_two_to_receive_funds() {
-		this.setUp.pageController.transferMoneyPage.selectToForm("Saving");
+		this.setUp.pageController.transferMoneyBetweenAccountPage.selectToForm("Saving");
 	}
 
 	@When("the User inputs the {string} in the amount")
 	public void the_user_inputs_the_in_the_amount(String string) {
-		this.setUp.pageController.transferMoneyPage.inputAmount(string);
+		this.setUp.pageController.transferMoneyBetweenAccountPage.inputAmount(string);
 	}
 
 	@When("the User clicks on Submit")
 	public void the_user_clicks_on_Submit() {
-		this.setUp.pageController.transferMoneyPage.clickSubmit();
+		this.setUp.pageController.transferMoneyBetweenAccountPage.clickSubmit();
 	}
 
 	@Then("The application shows that the money is transferred from account one to account two")
 	public void the_application_shows_that_the_money_is_transferred_from_account_one_to_account_two() {
-		assertTrue(this.setUp.pageController.transferMoneyPage.transferSuccessNotification());
+		assertTrue(this.setUp.pageController.transferMoneyBetweenAccountPage.transferSuccessNotification());
 	}
 
 	@Then("the app shows a red application that there is insufficient fund")
 	public void the_app_shows_a_red_application_that_there_is_insufficient_fund() {
-		assertTrue(this.setUp.pageController.transferMoneyPage.transferErrorNotification());
+		assertTrue(this.setUp.pageController.transferMoneyBetweenAccountPage.transferErrorNotification());
 
 	}
 	@When("the User hovers on Transfer Money")
