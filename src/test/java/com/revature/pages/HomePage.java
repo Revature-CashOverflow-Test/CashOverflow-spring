@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -27,15 +28,28 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage {
 	WebDriver driver;
+	Actions action;
+	String UserMenuBar = "/html/body/app-root/app-user-page/app-navbar-general/nav/div/button";
+	String AccountRegisterMenuBar = "/html/body/app-root/"
+    		+ "app-bank-account-register-page/app-navbar-general/nav/div/button";
+	String LogsInMenuBar = "/html/body/app-root/app-login-page/app-navbar-login/nav/div/button";
 
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
+		this.action = new Actions(driver);
+
 	}
 	
 	public void clickRegisterOnNavBar() {
-		clickLogInMenuBar();
-		clickAfterWaitXpath(5, "/html/body/app-root"
-				+ "/app-login-page/app-navbar-login/nav/div/div/ul/li[3]/a");
+		if(clickShrunkMenuBar(LogsInMenuBar)) {
+			findByXpathWithWait(5, "//*[@id=\"navbarSupportedContent\"]"
+					+ "/ul/li[3]/a").click();	
+
+		} else {
+			findByXpathWithWait(5, "/html/body/app-root/"
+					+ "app-user-page"
+					+ "/app-navbar-general/nav/div/div/ul/li[3]/a").click();	
+		}	
 	}
 	
 	public boolean checkIfAtLoginPage() {
@@ -45,32 +59,85 @@ public class HomePage {
 		return this.driver.getCurrentUrl().equals("http://localhost:4200/login");
 	}
 	public void clickLogInOnNavBar() {
-		clickLogInMenuBar();
-		clickAfterWaitXpath(5, "/html/body/app-root/"
-				+ "app-login-page/app-navbar-login/"
-				+ "nav/div/div/ul/li[3]/a");
+		if(clickShrunkMenuBar(LogsInMenuBar)) {
+			findByXpathWithWait(5, "/html/body/app-root"
+					+ "/app-login-page/app-navbar-login"
+					+ "/nav/div/div/ul/li[2]/a").click();
 
+		} else {
+			findByXpathWithWait(5, "/html/body/app-root"
+					+ "/app-login-page/app-navbar-login"
+					+ "/nav/div/div/ul/li[2]/a").click();		
+		}	
 	}
 	
 	public void clickMyAccount() {
-		clickUserMenuBar();
-		clickAfterWaitXpath(5, "/html/body/app-root/"
-					+ "app-user-page/app-navbar-general/nav/div/div/ul/li[2]/a");			
+		if(clickShrunkMenuBar(UserMenuBar)) {
+			findByXpathWithWait(5, "//*[@id=\"navbarSupportedContent\"]/ul/li[2]/a").click();	
+
+		} else {
+			findByXpathWithWait(5, "/html/body/app-root/"
+					+ "app-user-page/app-navbar-general"
+					+ "/nav/div/div/ul/li[2]/a").click();
+		}		
 	}
 	
 	public void clickCreateBankAccountNav() {
-		if(clickAccountRegisterMenuBar()) {
-			clickAfterWaitXpath(5, "/html/body/app-root"
-					+ "/app-bank-account-register-page/app-navbar-general/nav/div/div/ul/li[3]/a");
+		if(clickShrunkMenuBar(AccountRegisterMenuBar)) {
+			findByXpathWithWait(5, "/html/body/app-root"
+					+ "/app-bank-account-register-page"
+					+ "/app-navbar-general/nav/div/div/ul/li[3]/a").click();
 		} else {
-			clickAfterWaitXpath(5, "/html/body/app-root"
-					+ "/app-user-page/app-navbar-general/nav/div/div/ul/li[3]/a");
+			findByXpathWithWait(5, "/html/body/app-root"
+					+ "/app-user-page/app-navbar-general"
+					+ "/nav/div/div/ul/li[3]/a").click();
+		}
+	}
+	
+	public void clickManageAccountBalanceNav() {
+		if(clickShrunkMenuBar(UserMenuBar)) {
+			findByXpathWithWait(5, "//*[@id=\"navbarSupportedContent\"]/ul/li[5]/a").click();
+
+		} else {
+			findByXpathWithWait(5, "/html/body/app-root/"
+					+ "app-user-page/app-navbar-general/nav/div/div/ul/li[5]/a").click();			
+		}	
+	}
+	
+	public void hoverTransferMoney() {
+		if(clickShrunkMenuBar(UserMenuBar)) {
+			WebElement ele = findByXpathWithWait(5, "//*[@id=\"navbarSupportedContent\"]/ul/li[4]");
+			action.moveToElement(ele).perform();
+
+		} else {
+			WebElement ele = findByXpathWithWait(5, "/html/body/app-root/"
+					+ "app-user-page/app-navbar-general/nav/div/div/ul/li[4]");
+			action.moveToElement(ele).perform();
+		}	
+	}
+	
+	public void clickBetweenAccount() {
+		if(clickShrunkMenuBar(UserMenuBar)) {
+			WebElement ele = this.driver.findElement(By.linkText("Between Accounts"));
+			action.moveToElement(ele);
+			action.click().build().perform();
+		} else {
+			WebElement ele = this.driver.findElement(By.linkText("Between Accounts"));
+			action.moveToElement(ele);
+			action.click().build().perform();
 		}
 
 	}
+	
+	
 	public void clickLogOutButton(){
-		clickUserMenuBar();
-		clickAfterWaitXpath(5, "//*[@id=\"navbarSupportedContent\"]/ul/li[7]/a");	
+		if(clickShrunkMenuBar(UserMenuBar)) {
+			findByXpathWithWait(5, "//*[@id=\"navbarSupportedContent\"]/ul/li[7]/a").click();	
+
+		} else {
+			findByXpathWithWait(5, "/html/body/app-root/"
+					+ "app-user-page/app-navbar-general/nav/div/div/ul/li[7]/a").click();			
+		}	
 	}
 	public void clickLogInMenuBar() {
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
@@ -113,13 +180,33 @@ public class HomePage {
 	    }
 	    return false;
 	}
-	public void clickAfterWaitXpath(int time, String xpath) {
+	
+	public boolean clickShrunkMenuBar(String xpath) {
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				  .withTimeout(Duration.ofSeconds(5))
+				  .pollingEvery(Duration.ofMillis(1000))
+				  .ignoring(NoSuchElementException.class);
+		List<WebElement> ele = wait.until(new Function<WebDriver, List<WebElement>>() {
+			  public List<WebElement> apply(WebDriver driver) {
+				    return driver.findElements(By.xpath(xpath));
+				  }
+		});
+	    if(ele.size() > 0) {
+	    	if(ele.get(0).isDisplayed()) {
+	    		ele.get(0).click();
+		    	return true;
+	    	}
+	    }
+	    return false;
+	}
+	
+	public WebElement findByXpathWithWait(int time, String xpath) {
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
 				  .withTimeout(Duration.ofSeconds(time))
 				  .pollingEvery(Duration.ofMillis(250))
 				  .ignoring(NoSuchElementException.class);
 		WebElement ele = wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath(xpath)));
-		ele.click();
+		return ele;
 	}
 }
