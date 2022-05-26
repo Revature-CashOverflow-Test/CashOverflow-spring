@@ -56,8 +56,8 @@ public class CommonStepDef {
 		}
 	}
 	
-	@Given("the User has an account")
-	public void the_user_has_an_account() {
+	@Given("the User has a bank account")
+	public void the_user_has_a_bank_account() {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new io.cucumber.java.PendingException();
 	}

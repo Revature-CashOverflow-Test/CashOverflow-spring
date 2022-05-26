@@ -4,28 +4,30 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class TrackIncome {
-	@When("the User clicks manage account balance")
-	public void the_user_clicks_manage_account_balance() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	
+	public static SetUp setUp;
+
+	public TrackIncome() {
+
 	}
 
-	@When("the User clicks on select account type")
-	public void the_user_clicks_on_select_account_type() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	public TrackIncome(SetUp setUp) {
+		this.setUp = setUp;
 	}
 
-	@When("the User clicks")
-	public void the_user_clicks() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	@When("the User clicks My Account")
+	public void the_user_clicks_my_account() {
+		this.setUp.pageController.homePage.clickMyAccount();;
 	}
 
-	@Then("the User clicks view my account")
-	public void the_user_clicks_view_my_account() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	@When("the User clicks an account")
+	public void the_user_clicks_an_account() {
+		this.setUp.pageController.myAccountPage.clickMyAccount();;
+	}
+
+	@Then("the application displays the income to account")
+	public void the_application_displays_the_income_to_account() {
+		this.setUp.pageController.myAccountPage.viewSuccess();
 	}
 
 }

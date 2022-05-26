@@ -5,9 +5,8 @@
 	@TrackIncome1
 	Scenario: Track Income
 	Given the User logs in successfully
-	And the User has an account
-	When the User clicks manage account balance
-	And the User clicks on select account type
-	And the User clicks 
-	Then the User clicks view my account
+	And the User has a bank account
+	When the User clicks My Account
+	And the User clicks an account
+	Then the application displays the income to account
 	
