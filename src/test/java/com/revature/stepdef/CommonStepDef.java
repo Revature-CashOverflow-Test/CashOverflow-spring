@@ -16,7 +16,7 @@ public class CommonStepDef {
 	public static TrackMultipleAccts tma;
 	public static TransferMoneyFromAccountsTest TMFAt;
 	public static LoginTest lt;
-	
+
 	@BeforeAll
 	public static void beforeAll() {
 		setUp = new SetUp();
@@ -25,7 +25,7 @@ public class CommonStepDef {
 		TMFAt = new TransferMoneyFromAccountsTest(setUp);
 		lt = new LoginTest(setUp);
 	}
-	
+
 	@Given("the User is in homepage")
 	public void the_user_is_in_homepage() {
 		setUp.driver.get("http://localhost:4200/");
@@ -35,7 +35,7 @@ public class CommonStepDef {
 	public void the_user_is_not_logged_in() {
 		assertFalse(checkLogin());
 	}
-		
+
 	@Given("the User had previously created two accounts")
 	public void the_user_had_previously_created_two_accounts() {
 		if(!this.setUp.pageController.viewAllAccountPage.atLeastTwoAccountExisted()) {
@@ -45,8 +45,8 @@ public class CommonStepDef {
 
 	@Given("the User had some fund in the account")
 	public void the_user_had_some_fund_in_the_account() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		// Write code here that turns the phrase above into concrete actions
+		throw new io.cucumber.java.PendingException();
 	}
 	@Given("the User logs in successfully")
 	public void the_user_logs_in_successfully() {
@@ -54,18 +54,18 @@ public class CommonStepDef {
 			LogIn("testingExample","Password!1");
 		}
 	}
-	
+
 	public boolean checkLogin() {
 		return setUp.js.executeScript("return sessionStorage.getItem(\"username\");") != null;
 	}
-	
-	
+
+
 	public void addFundsToAccount() {
-		
+
 	}
-	
+
 	public void createTwoAccount() {
-		
+
 		this.setUp.pageController.homePage.clickCreateBankAccountNav();
 		this.setUp.pageController.createBankAccountPage.sendInputToNameForm("Checking");
 		this.setUp.pageController.createBankAccountPage.sendInputToDescriptionForm("Checking");
@@ -81,7 +81,7 @@ public class CommonStepDef {
 		this.setUp.pageController.createBankAccountPage.clickCreateAccount();
 
 	}
-	
+
 	public void LogIn(String Username, String Password) {
 		this.setUp.pageController.homePage.checkIfAtLoginPage();
 		this.setUp.pageController.logInPage.inputIntoUsername(Username);

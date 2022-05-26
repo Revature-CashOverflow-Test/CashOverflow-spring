@@ -5,12 +5,13 @@ import org.openqa.selenium.WebDriver;
 public class PageController {
 	public static HomePage homePage;
 	public static RegisterPage registerPage;
-	
+
 	public static CreateBankAccountPage createBankAccountPage;
 	public static LogInPage logInPage;
 	public static TransferMoneyPage transferMoneyPage;
 	public static MyAccountPage myAccountPage;
-	
+	public MyAccountPage viewAllAccountPage;
+
 	public PageController(WebDriver driver){
 		homePage = new HomePage(driver);
 		registerPage = new RegisterPage(driver);

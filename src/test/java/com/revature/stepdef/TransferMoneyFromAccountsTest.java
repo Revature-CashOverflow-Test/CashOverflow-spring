@@ -5,13 +5,13 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class TransferMoneyFromAccountsTest {
-	
+
 	public static SetUp setUp;
-	
+
 	public TransferMoneyFromAccountsTest() {
-		
+
 	}
-	
+
 	public TransferMoneyFromAccountsTest(SetUp setUp) {
 		this.setUp = setUp;
 	}
@@ -19,8 +19,8 @@ public class TransferMoneyFromAccountsTest {
 
 	@When("the User clicks on Manage Account Balance")
 	public void the_user_clicks_on_manage_account_balance() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		// Write code here that turns the phrase above into concrete actions
+		throw new io.cucumber.java.PendingException();
 	}
 
 	@When("the User selects account one in the send funds from")
@@ -46,13 +46,13 @@ public class TransferMoneyFromAccountsTest {
 
 	@Then("The application shows that the money is transferred from account one to account two")
 	public void the_application_shows_that_the_money_is_transferred_from_account_one_to_account_two() {
-		
+
 	}
 
 	@Then("the app shows a red application that there is insufficient fund")
 	public void the_app_shows_a_red_application_that_there_is_insufficient_fund() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		// Write code here that turns the phrase above into concrete actions
+		throw new io.cucumber.java.PendingException();
 	}
 
 }
