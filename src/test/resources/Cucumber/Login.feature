@@ -36,4 +36,8 @@ Scenario: Login Unsuccessfully Incorrect Username
  And the User clicks the log in button
  Then the app displays incorrect credentials
 
-
+ 
+Scenario: Application change to dark mode
+	Given the User is in homepage
+	When User clicks on dark mode
+	Then application change to dark mode

@@ -67,13 +67,13 @@ public class CommonStepDef {
 		}
 	}
 	
-<<<<<<< HEAD
+
 	@Given("the User has a bank account")
 	public void the_user_has_a_bank_account() {
 	   if(this.setUp.pageController.myAccountPage.accountExist("Checking")) {
 		   this.setUp.pageController.myAccountPage.clickMyAccount();
 	   }
-=======
+
 	@Given("the Second User {string} exists")
 	public void the_second_user_exists(String string) {
 	    Register(string,"secondUser","Testov","second@gmail.com","pass!!12AS","pass!!12AS");
@@ -91,7 +91,7 @@ public class CommonStepDef {
 		//createTwoAccount();
 		//addFundsToAccount(string);
 		}
->>>>>>> cfcae3afd14d193a6d7f855b4b5db94938a32d5a
+
 	}
 	
 	public boolean checkLogin() {
