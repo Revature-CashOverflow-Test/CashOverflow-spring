@@ -11,17 +11,32 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 
-public class ViewAllAccountPage {
+public class MyAccountPage {
 	WebDriver driver;
 	
-	public ViewAllAccountPage(WebDriver driver) {
+	public MyAccountPage(WebDriver driver) {
 		this.driver = driver;
 	}
 	
 	public void getToViewPage() {
 		this.driver.get("http://localhost:4200/feed");
 	}
-	public boolean AccountExist(String accountName) {
+	
+	public boolean atLeastTwoAccountExisted() {
+		getToViewPage();
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				  .withTimeout(Duration.ofSeconds(5))
+				  .pollingEvery(Duration.ofMillis(250))
+				  .ignoring(NoSuchElementException.class);
+		List<WebElement> accountCards = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("card")));
+		if(accountCards.size() >= 2) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public boolean accountExist(String accountName) {
 		getToViewPage();
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
 				  .withTimeout(Duration.ofSeconds(5))
@@ -35,6 +50,9 @@ public class ViewAllAccountPage {
 			}
 		}
 		return false;
+	}
+	public void clickMyAccount() {
+		this.driver.findElement(By.xpath("/html/body/app-root/app-user-page/app-navbar-general/nav/div/div/ul/li[2]/a")).click();
 	}
 
 	public boolean viewSuccess() {

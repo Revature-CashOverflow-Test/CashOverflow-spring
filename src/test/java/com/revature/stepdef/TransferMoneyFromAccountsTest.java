@@ -46,8 +46,7 @@ public class TransferMoneyFromAccountsTest {
 
 	@Then("The application shows that the money is transferred from account one to account two")
 	public void the_application_shows_that_the_money_is_transferred_from_account_one_to_account_two() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		
 	}
 
 	@Then("the app shows a red application that there is insufficient fund")

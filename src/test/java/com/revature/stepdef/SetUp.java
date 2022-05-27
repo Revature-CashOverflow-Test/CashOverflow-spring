@@ -19,5 +19,6 @@ public class SetUp {
 		driver = new ChromeDriver(); //default to find environmental variable 
 		js = (JavascriptExecutor)driver;
 		pageController = new PageController(driver);
+		
 	}
 }
