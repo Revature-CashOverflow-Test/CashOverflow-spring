@@ -2,6 +2,7 @@ package com.revature.pages;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.function.Function;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -23,7 +24,13 @@ public class MyAccountPage {
 	}
 	
 	public boolean atLeastTwoAccountExisted() {
-		getToViewPage();
+		//Method called too early
+		Wait<WebDriver> waitForLogin = new FluentWait<WebDriver>(driver)
+				  .withTimeout(Duration.ofSeconds(5))
+				  .pollingEvery(Duration.ofMillis(250))
+				  .ignoring(NoSuchElementException.class);
+		waitForLogin.until(ExpectedConditions.presenceOfElementLocated(By.xpath(""
+				+ "/html/body/app-root/app-user-page/app-navbar-general/nav/div/div/ul/li[2]/a")));
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
 				  .withTimeout(Duration.ofSeconds(5))
 				  .pollingEvery(Duration.ofMillis(250))
@@ -33,6 +40,25 @@ public class MyAccountPage {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean atLeastOneAccountExist() {
+		//Method called too early
+				Wait<WebDriver> waitForLogin = new FluentWait<WebDriver>(driver)
+						  .withTimeout(Duration.ofSeconds(5))
+						  .pollingEvery(Duration.ofMillis(250))
+						  .ignoring(NoSuchElementException.class);
+				waitForLogin.until(ExpectedConditions.presenceOfElementLocated(By.xpath(""
+						+ "/html/body/app-root/app-user-page/app-navbar-general/nav/div/div/ul/li[2]/a")));
+				Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+						  .withTimeout(Duration.ofSeconds(5))
+						  .pollingEvery(Duration.ofMillis(250))
+						  .ignoring(NoSuchElementException.class);
+				List<WebElement> accountCards = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("card")));
+				if(accountCards.size() >= 1) {
+					return true;
+				}
+				return false;
 	}
 	
 	
@@ -50,6 +76,25 @@ public class MyAccountPage {
 			}
 		}
 		return false;
+	}
+	
+	public Double getAccountBalance(String accountName) {
+		getToViewPage();
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				  .withTimeout(Duration.ofSeconds(5))
+				  .pollingEvery(Duration.ofMillis(250))
+				  .ignoring(NoSuchElementException.class);
+		List<WebElement> accountCards = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("card")));
+
+		for(int i = 0; i < accountCards.size(); i++) {
+			WebElement ele = accountCards.get(i);
+			if(ele.findElement(By.tagName("span")).getAttribute("innerHTML").equals(accountName) ){
+				String balance = ele.findElements(By.tagName("span")).get(2).getAttribute("innerHTML");
+				String withoutDollarSign = balance.replace("$", "");
+				return Double.parseDouble(withoutDollarSign);
+			}
+		}
+		return 0.0;
 	}
 	public void clickMyAccount() {
 		this.driver.findElement(By.xpath("/html/body/app-root/app-user-page/app-navbar-general/nav/div/div/ul/li[2]/a")).click();

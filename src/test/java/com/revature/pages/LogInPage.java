@@ -54,7 +54,6 @@ public class LogInPage {
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
 				By.xpath("/html/body/div/div/div")));
 		String text = ele.getText().toString();
-		System.out.println(text);
 		return text.contains("You have been successfully logged in");
 	}
 	

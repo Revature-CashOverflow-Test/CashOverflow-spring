@@ -17,6 +17,7 @@ public class CommonStepDef {
 	public static TransferMoneyFromAccountsTest TMFAt;
 	public static LoginTest lt;
 	public static EmailNotifications EMN;
+	public static RequestMoneyTest reqMoney;
 	
 	@BeforeAll
 	public static void beforeAll() {
@@ -26,6 +27,7 @@ public class CommonStepDef {
 		TMFAt = new TransferMoneyFromAccountsTest(setUp);
 		lt = new LoginTest(setUp);
 		EMN = new EmailNotifications(setUp);
+		reqMoney = new RequestMoneyTest(setUp);
 	}
 	
 	@Given("the User is in homepage")
@@ -40,15 +42,23 @@ public class CommonStepDef {
 		
 	@Given("the User had previously created two accounts")
 	public void the_user_had_previously_created_two_accounts() {
-		if(!this.setUp.pageController.viewAllAccountPage.atLeastTwoAccountExisted()) {
+		if(this.setUp.pageController.myAccountPage.atLeastTwoAccountExisted() == false) {
 			this.createTwoAccount();
 		}
 	}
+	
+	@Given("the User logs in successfully as {string}")
+	public void the_user_logs_in_successfully_as(String string) {
+		if(checkLogin() == false) {
+			LogIn("testingExample","Password!1");
+		}
+	}
 
-	@Given("the User had some fund in the account")
-	public void the_user_had_some_fund_in_the_account() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	@Given("the User had some fund in the {string} account")
+	public void the_user_had_some_fund_in_the_account(String string) {
+		if(this.setUp.pageController.myAccountPage.getAccountBalance(string) == 0.0) {
+			addFundsToAccount(string);
+		}
 	}
 	@Given("the User logs in successfully")
 	public void the_user_logs_in_successfully() {
@@ -57,17 +67,42 @@ public class CommonStepDef {
 		}
 	}
 	
+	@Given("the Second User {string} exists")
+	public void the_second_user_exists(String string) {
+	    Register(string,"secondUser","Testov","second@gmail.com","pass!!12AS","pass!!12AS");
+	}
+
+	@Given("the User had previously created one account")
+	public void the_user_had_previously_created_one_account() {
+		this.setUp.pageController.myAccountPage.atLeastOneAccountExist();
+	}
+	
+	@Given("the Second User had some fund in the {string} account")
+	public void the_second_user_had_some_fund_in_the_account(String string) {
+		if(checkLogin() == false) {
+		LogIn("secondUser","pass!!12AS");
+		//createTwoAccount();
+		//addFundsToAccount(string);
+		}
+	}
+	
 	public boolean checkLogin() {
 		return setUp.js.executeScript("return sessionStorage.getItem(\"username\");") != null;
 	}
 	
 	
-	public void addFundsToAccount() {
-		
+	public void addFundsToAccount(String accountName) {
+		this.setUp.pageController.homePage.clickManageAccountBalanceNav();
+		this.setUp.pageController.manageAccountBalancePage.clickAccountsDropDown();
+		this.setUp.pageController.manageAccountBalancePage.selectAccount("Checking");
+		this.setUp.pageController.manageAccountBalancePage.clickAccountTypeDropDown();
+		this.setUp.pageController.manageAccountBalancePage.clickAccountTypeIncome();
+		this.setUp.pageController.manageAccountBalancePage.inputIntoAmountForm("500");
+		this.setUp.pageController.manageAccountBalancePage.inputIntoDescriptionForm("testing");
+		this.setUp.pageController.manageAccountBalancePage.clickCreateTransactionButton();
 	}
 	
 	public void createTwoAccount() {
-		
 		this.setUp.pageController.homePage.clickCreateBankAccountNav();
 		this.setUp.pageController.createBankAccountPage.sendInputToNameForm("Checking");
 		this.setUp.pageController.createBankAccountPage.sendInputToDescriptionForm("Checking");
@@ -89,5 +124,16 @@ public class CommonStepDef {
 		this.setUp.pageController.logInPage.inputIntoUsername(Username);
 		this.setUp.pageController.logInPage.inputIntoPassword(Password);
 		this.setUp.pageController.logInPage.clickLogInButton();
+	}
+	
+	public void Register(String username,String firstName,String lastName,String email,String password,String confirmPassword) {
+		this.setUp.pageController.homePage.clickRegisterOnNavBar();
+		this.setUp.pageController.registerPage.inputIntoUsername(username);
+		this.setUp.pageController.registerPage.inputIntoFirstName(firstName);
+		this.setUp.pageController.registerPage.inputIntoLastName(lastName);
+		this.setUp.pageController.registerPage.inputIntoPassword(password);
+		this.setUp.pageController.registerPage.inputIntoConfirmPassword(confirmPassword);
+		this.setUp.pageController.registerPage.inputIntoEmail(email);
+		this.setUp.pageController.registerPage.clickRegisterButton();
 	}
 }
