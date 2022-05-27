@@ -16,6 +16,7 @@ public class CommonStepDef {
 	public static TrackMultipleAccts tma;
 	public static TransferMoneyFromAccountsTest TMFAt;
 	public static LoginTest lt;
+	public static RequestMoneyTest reqMoney;
 	
 	@BeforeAll
 	public static void beforeAll() {
@@ -24,6 +25,7 @@ public class CommonStepDef {
 		tma = new TrackMultipleAccts(setUp);
 		TMFAt = new TransferMoneyFromAccountsTest(setUp);
 		lt = new LoginTest(setUp);
+		reqMoney = new RequestMoneyTest(setUp);
 	}
 	
 	@Given("the User is in homepage")
@@ -42,6 +44,13 @@ public class CommonStepDef {
 			this.createTwoAccount();
 		}
 	}
+	
+	@Given("the User logs in successfully as {string}")
+	public void the_user_logs_in_successfully_as(String string) {
+		if(checkLogin() == false) {
+			LogIn("testingExample","Password!1");
+		}
+	}
 
 	@Given("the User had some fund in the {string} account")
 	public void the_user_had_some_fund_in_the_account(String string) {
@@ -53,6 +62,25 @@ public class CommonStepDef {
 	public void the_user_logs_in_successfully() {
 		if(checkLogin() == false) {
 			LogIn("testingExample","Password!1");
+		}
+	}
+	
+	@Given("the Second User {string} exists")
+	public void the_second_user_exists(String string) {
+	    Register(string,"secondUser","Testov","second@gmail.com","pass!!12AS","pass!!12AS");
+	}
+
+	@Given("the User had previously created one account")
+	public void the_user_had_previously_created_one_account() {
+		this.setUp.pageController.myAccountPage.atLeastOneAccountExist();
+	}
+	
+	@Given("the Second User had some fund in the {string} account")
+	public void the_second_user_had_some_fund_in_the_account(String string) {
+		if(checkLogin() == false) {
+		LogIn("secondUser","pass!!12AS");
+		//createTwoAccount();
+		//addFundsToAccount(string);
 		}
 	}
 	
@@ -94,5 +122,16 @@ public class CommonStepDef {
 		this.setUp.pageController.logInPage.inputIntoUsername(Username);
 		this.setUp.pageController.logInPage.inputIntoPassword(Password);
 		this.setUp.pageController.logInPage.clickLogInButton();
+	}
+	
+	public void Register(String username,String firstName,String lastName,String email,String password,String confirmPassword) {
+		this.setUp.pageController.homePage.clickRegisterOnNavBar();
+		this.setUp.pageController.registerPage.inputIntoUsername(username);
+		this.setUp.pageController.registerPage.inputIntoFirstName(firstName);
+		this.setUp.pageController.registerPage.inputIntoLastName(lastName);
+		this.setUp.pageController.registerPage.inputIntoPassword(password);
+		this.setUp.pageController.registerPage.inputIntoConfirmPassword(confirmPassword);
+		this.setUp.pageController.registerPage.inputIntoEmail(email);
+		this.setUp.pageController.registerPage.clickRegisterButton();
 	}
 }

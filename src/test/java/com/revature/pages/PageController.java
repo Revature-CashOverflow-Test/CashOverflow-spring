@@ -10,6 +10,7 @@ public class PageController {
 	public static TransferMoneyBetweenAccountPage transferMoneyBetweenAccountPage;
 	public static MyAccountPage myAccountPage;
 	public static ManageAccountBalancePage manageAccountBalancePage;
+	public static TransferMoneyWithOtherUsersPage transferMoneyWithOtherUsersPage;
 	
 	public PageController(WebDriver driver){
 		homePage = new HomePage(driver);
@@ -19,5 +20,6 @@ public class PageController {
 		transferMoneyBetweenAccountPage = new TransferMoneyBetweenAccountPage(driver);
 		myAccountPage = new MyAccountPage(driver);
 		manageAccountBalancePage = new ManageAccountBalancePage(driver);
+		transferMoneyWithOtherUsersPage  = new TransferMoneyWithOtherUsersPage(driver); 
 	}
 }
