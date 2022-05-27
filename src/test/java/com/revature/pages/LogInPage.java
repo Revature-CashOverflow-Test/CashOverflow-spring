@@ -18,6 +18,7 @@ public class LogInPage {
 	
 	public LogInPage(WebDriver driver) {
 		this.driver = driver;
+		this.driver.manage().window().maximize();
 	}
 	public void inputIntoUsername(String str){
 	        driver.findElement(By.xpath("//*[@id=\"exampleInputEmail1\"]")).sendKeys(str); }
@@ -58,6 +59,18 @@ public class LogInPage {
 	}
 	
 
+	public void clickDarkModeButton(){
+		driver.findElement(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul/li[1]/button")).click();
+		
+	}
+	
+	public String gettheme() {
+
+		 String classname= driver.findElement(By.xpath("//html/body")).getAttribute("class");
+		  System.out.println(classname);
+		  return classname;
+		
+	}
 
 
 }
