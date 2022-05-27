@@ -14,10 +14,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 
 
-public class TransferMoneyPage {
+public class TransferMoneyBetweenAccountPage {
 	WebDriver driver;
 
-	public TransferMoneyPage(WebDriver driver) {
+	public TransferMoneyBetweenAccountPage(WebDriver driver) {
 		this.driver = driver;
 	}
 	
