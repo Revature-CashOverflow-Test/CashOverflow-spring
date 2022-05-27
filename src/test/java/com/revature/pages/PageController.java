@@ -7,7 +7,7 @@ public class PageController {
 	public static RegisterPage registerPage;
 	public static CreateBankAccountPage createBankAccountPage;
 	public static LogInPage logInPage;
-	public static TransferMoneyPage transferMoneyPage;
+	public static TransferMoneyBetweenAccountPage transferMoneyBetweenAccountPage;
 	public static MyAccountPage myAccountPage;
 	public static ManageAccountBalancePage manageAccountBalancePage;
 	public static TransferMoneyWithOtherUsersPage transferMoneyWithOtherUsersPage;
@@ -17,7 +17,7 @@ public class PageController {
 		registerPage = new RegisterPage(driver);
 		createBankAccountPage = new CreateBankAccountPage(driver);
 		logInPage = new LogInPage(driver);
-		transferMoneyPage = new TransferMoneyPage(driver);
+		transferMoneyBetweenAccountPage = new TransferMoneyBetweenAccountPage(driver);
 		myAccountPage = new MyAccountPage(driver);
 		manageAccountBalancePage = new ManageAccountBalancePage(driver);
 		transferMoneyWithOtherUsersPage  = new TransferMoneyWithOtherUsersPage(driver); 

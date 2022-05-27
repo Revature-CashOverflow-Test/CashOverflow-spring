@@ -49,7 +49,6 @@ public class HomePage {
 			WebElement ele = this.driver.findElement(By.linkText("Register"));
 			action.moveToElement(ele);
 			action.click().build().perform();
-		}
 	}
 	
 	public boolean checkIfAtLoginPage() {
