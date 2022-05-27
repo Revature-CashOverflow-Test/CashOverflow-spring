@@ -63,7 +63,6 @@ public class TrackMultipleAccts {
 	@Then("the application shows a new savings account is created")
 	public void the_application_shows_a_new_savings_account_is_created() {
 
-		this.setUp.pageController.createBankAccountPage.clickCreateAccount();
 
 		this.setUp.pageController.myAccountPage.viewSuccess();
 
