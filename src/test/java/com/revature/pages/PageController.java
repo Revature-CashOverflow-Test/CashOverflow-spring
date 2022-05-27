@@ -9,6 +9,7 @@ public class PageController {
 	public static LogInPage logInPage;
 	public static TransferMoneyBetweenAccountPage transferMoneyBetweenAccountPage;
 	public static MyAccountPage myAccountPage;
+	public static EmailNotificationPage emailNotificationPage;
 	public static ManageAccountBalancePage manageAccountBalancePage;
 	public static TransferMoneyWithOtherUsersPage transferMoneyWithOtherUsersPage;
 	
@@ -19,6 +20,7 @@ public class PageController {
 		logInPage = new LogInPage(driver);
 		transferMoneyBetweenAccountPage = new TransferMoneyBetweenAccountPage(driver);
 		myAccountPage = new MyAccountPage(driver);
+		emailNotificationPage = new EmailNotificationPage(driver);
 		manageAccountBalancePage = new ManageAccountBalancePage(driver);
 		transferMoneyWithOtherUsersPage  = new TransferMoneyWithOtherUsersPage(driver); 
 	}

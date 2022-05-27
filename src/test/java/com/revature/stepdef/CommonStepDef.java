@@ -16,6 +16,7 @@ public class CommonStepDef {
 	public static TrackMultipleAccts tma;
 	public static TransferMoneyFromAccountsTest TMFAt;
 	public static LoginTest lt;
+	public static EmailNotifications EMN;
 	public static RequestMoneyTest reqMoney;
 	
 	@BeforeAll
@@ -25,6 +26,7 @@ public class CommonStepDef {
 		tma = new TrackMultipleAccts(setUp);
 		TMFAt = new TransferMoneyFromAccountsTest(setUp);
 		lt = new LoginTest(setUp);
+		EMN = new EmailNotifications(setUp);
 		reqMoney = new RequestMoneyTest(setUp);
 	}
 	
