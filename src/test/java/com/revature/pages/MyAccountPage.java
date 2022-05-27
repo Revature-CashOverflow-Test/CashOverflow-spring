@@ -42,6 +42,25 @@ public class MyAccountPage {
 		return false;
 	}
 	
+	public boolean atLeastOneAccountExist() {
+		//Method called too early
+				Wait<WebDriver> waitForLogin = new FluentWait<WebDriver>(driver)
+						  .withTimeout(Duration.ofSeconds(5))
+						  .pollingEvery(Duration.ofMillis(250))
+						  .ignoring(NoSuchElementException.class);
+				waitForLogin.until(ExpectedConditions.presenceOfElementLocated(By.xpath(""
+						+ "/html/body/app-root/app-user-page/app-navbar-general/nav/div/div/ul/li[2]/a")));
+				Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+						  .withTimeout(Duration.ofSeconds(5))
+						  .pollingEvery(Duration.ofMillis(250))
+						  .ignoring(NoSuchElementException.class);
+				List<WebElement> accountCards = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("card")));
+				if(accountCards.size() >= 1) {
+					return true;
+				}
+				return false;
+	}
+	
 	
 	public boolean accountExist(String accountName) {
 		getToViewPage();

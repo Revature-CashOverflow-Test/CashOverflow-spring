@@ -33,7 +33,7 @@ public class HomePage {
 	String AccountRegisterMenuBar = "/html/body/app-root/"
     		+ "app-bank-account-register-page/app-navbar-general/nav/div/button";
 	String LogsInMenuBar = "/html/body/app-root/app-login-page/app-navbar-login/nav/div/button";
-
+	
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
 		this.action = new Actions(driver);
@@ -46,14 +46,14 @@ public class HomePage {
 					+ "/ul/li[3]/a").click();	
 
 		} else {
-			findByXpathWithWait(5, "/html/body/app-root/"
-					+ "app-user-page"
-					+ "/app-navbar-general/nav/div/div/ul/li[3]/a").click();	
-		}	
+			WebElement ele = this.driver.findElement(By.linkText("Register"));
+			action.moveToElement(ele);
+			action.click().build().perform();
+		}
 	}
 	
 	public boolean checkIfAtLoginPage() {
-		WebDriverWait wait=new WebDriverWait(driver, 2);		        
+		WebDriverWait wait=new WebDriverWait(driver,10 );		        
 		WebElement ele = wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath("//*[@id=\"exampleInputEmail1\"]")));
 		return this.driver.getCurrentUrl().equals("http://localhost:4200/login");
@@ -88,9 +88,9 @@ public class HomePage {
 					+ "/app-bank-account-register-page"
 					+ "/app-navbar-general/nav/div/div/ul/li[3]/a").click();
 		} else {
-			findByXpathWithWait(5, "/html/body/app-root"
-					+ "/app-user-page/app-navbar-general"
-					+ "/nav/div/div/ul/li[3]/a").click();
+			WebElement ele = this.driver.findElement(By.linkText("Create Bank Account"));
+			action.moveToElement(ele);
+			action.click().build().perform();
 		}
 	}
 	
@@ -123,6 +123,19 @@ public class HomePage {
 			action.click().build().perform();
 		} else {
 			WebElement ele = this.driver.findElement(By.linkText("Between Accounts"));
+			action.moveToElement(ele);
+			action.click().build().perform();
+		}
+
+	}
+	
+	public void clickWithOtherUsers() {
+		if(clickShrunkMenuBar(UserMenuBar)) {
+			WebElement ele = this.driver.findElement(By.linkText("With Other Users"));
+			action.moveToElement(ele);
+			action.click().build().perform();
+		} else {
+			WebElement ele = this.driver.findElement(By.linkText("With Other Users"));
 			action.moveToElement(ele);
 			action.click().build().perform();
 		}
@@ -203,9 +216,9 @@ public class HomePage {
 	public WebElement findByXpathWithWait(int time, String xpath) {
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
 				  .withTimeout(Duration.ofSeconds(time))
-				  .pollingEvery(Duration.ofMillis(250))
+				  .pollingEvery(Duration.ofMillis(100))
 				  .ignoring(NoSuchElementException.class);
-		WebElement ele = wait.until(ExpectedConditions.elementToBeClickable(
+		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
 				By.xpath(xpath)));
 		return ele;
 	}
