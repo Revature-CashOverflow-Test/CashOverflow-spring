@@ -65,7 +65,7 @@ public class TrackMultipleAccts {
 
 		this.setUp.pageController.createBankAccountPage.clickCreateAccount();
 
-		this.setUp.pageController.myAccountPage.accountExist("Saving");
+		this.setUp.pageController.myAccountPage.viewSuccess();
 
 	}
 

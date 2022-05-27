@@ -58,7 +58,9 @@ public class CommonStepDef {
 	
 	@Given("the User has a bank account")
 	public void the_user_has_a_bank_account() {
-	   assertTrue(this.setUp.pageController.myAccountPage.accountExist("King"));
+	   if(this.setUp.pageController.myAccountPage.accountExist("King")) {
+		   this.setUp.pageController.myAccountPage.clickMyAccount();
+	   }
 	}
 	
 	public boolean checkLogin() {
