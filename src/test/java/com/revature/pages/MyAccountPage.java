@@ -18,7 +18,7 @@ public class MyAccountPage {
 	public MyAccountPage(WebDriver driver) {
 		this.driver = driver;
 	}
-	
+
 	public void getToViewPage() {
 		this.driver.get("http://localhost:4200/feed");
 	}
