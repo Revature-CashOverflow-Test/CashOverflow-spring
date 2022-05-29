@@ -33,25 +33,25 @@ Feature: Request Money
   
   Scenario: User Accepts a request
     Given the User is in homepage
-    And the User logs in successfully as 'secondUser'
+    And the User logs in successfully as 'secondUser' 'pass!!12AS'
     And the User had previously created one account
-    And the Second User had some fund in the 'Checking' account
+    And the User had some fund in the "Checking" account
     When the User hovers on Transfer Money
     And the User clicks on With Other Users
-    And the User finds  the request
-    And the User selects an account from To Withdraw Form
-    And the User clicks Accept button
+    And the User finds the request from "Checking"
+    And the User selects "Checking" account from To Withdraw Form from "testingExample" request
+    And the User clicks Accept button from "testingExample" "request" Request
     Then green notification appears as a transfer success
   
   
   Scenario: User Rejects A Request
     Given the User is in homepage
-    And the User logs in successfully as 'secondUser'
+    And the User logs in successfully as 'secondUser' 'pass!!12AS'
     And the User had previously created one account
-    And the Second User had some fund in the 'Checking' account
+    And the User had some fund in the "Checking" account
     When the User hovers on Transfer Money
     And the User clicks on With Other Users
-    And the User finds  the request
-    And the User selects an account from To Withdraw Form
-    And the User clicks Deny button
+    And the User finds the request from "Checking"
+    And the User selects "Checking" account from To Withdraw Form from "testingExample" request
+    And the User clicks Deny button from "testingExample" "request" Request
     Then green notification appears as a transfer denied succesfully

@@ -32,7 +32,7 @@ public class LogInPage {
 	                        By.xpath("/html/body/app-root/app-login-page/app-login/div/div/div/div/div/div/form/div/input")));
 	        ele.sendKeys(Keys.ENTER);
 	        
-	        this.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+	        this.driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 	}
 	public boolean invalidCredentialsMessage(){
 	        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)

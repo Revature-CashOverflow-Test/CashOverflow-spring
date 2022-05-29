@@ -13,21 +13,29 @@ import io.cucumber.java.en.Given;
 public class CommonStepDef {
 	public static SetUp setUp;
 	public static RegisterTest rt;
-	public static TrackMultipleAccts tma;
+	public static TrackMultipleAcctsTest tma;
 	public static TransferMoneyFromAccountsTest TMFAt;
 	public static LoginTest lt;
-	public static EmailNotifications EMN;
-	public static RequestMoneyTest reqMoney;
+	public static EmailNotificationsTest EMN;
+	public static RequestAndSendMoneyTest reqMoney;
+	public static TrackIncomeAndExpenseTest TI;
+	public static SessionManagmentTest SMT;
+	public static DarkModeTest DMT;
+	public static ResetPasswordTest RPT;
 	
 	@BeforeAll
 	public static void beforeAll() {
 		setUp = new SetUp();
 		rt = new RegisterTest(setUp);
-		tma = new TrackMultipleAccts(setUp);
+		tma = new TrackMultipleAcctsTest(setUp);
 		TMFAt = new TransferMoneyFromAccountsTest(setUp);
 		lt = new LoginTest(setUp);
-		EMN = new EmailNotifications(setUp);
-		reqMoney = new RequestMoneyTest(setUp);
+		EMN = new EmailNotificationsTest(setUp);
+		reqMoney = new RequestAndSendMoneyTest(setUp);
+		TI = new TrackIncomeAndExpenseTest(setUp);
+		SMT = new SessionManagmentTest(setUp);
+		DMT = new DarkModeTest(setUp);
+		RPT = new ResetPasswordTest(setUp);
 	}
 	
 	@Given("the User is in homepage")
@@ -42,27 +50,33 @@ public class CommonStepDef {
 		
 	@Given("the User had previously created two accounts")
 	public void the_user_had_previously_created_two_accounts() {
-		if(this.setUp.pageController.myAccountPage.atLeastTwoAccountExisted() == false) {
+		if(this.setUp.pageController.myAccountPage.atLeastNAccountExisted(2) == false) {
 			this.createTwoAccount();
 		}
 	}
 	
-	@Given("the User logs in successfully as {string}")
-	public void the_user_logs_in_successfully_as(String string) {
+	@Given("the User logs in successfully as {string} {string}")
+	public void the_user_logs_in_successfully_as(String string, String string2) {
 		if(checkLogin() == false) {
-			LogIn("testingExample","Password!1");
-		}
+			LogIn(string,string2);
+		} 
 	}
 
 	@Given("the User had some fund in the {string} account")
 	public void the_user_had_some_fund_in_the_account(String string) {
+		this.setUp.pageController.homePage.clickMyAccount();
 		if(this.setUp.pageController.myAccountPage.getAccountBalance(string) == 0.0) {
-			addFundsToAccount(string);
+			addIncomeToAccount(string);
 		}
 	}
+	
 	@Given("the User logs in successfully")
 	public void the_user_logs_in_successfully() {
 		if(checkLogin() == false) {
+			LogIn("testingExample","Password!1");
+		}	else {
+			this.setUp.pageController.homePage.clickLogOutButton();
+			this.setUp.pageController.homePage.clickLogInOnNavBar();
 			LogIn("testingExample","Password!1");
 		}
 	}
@@ -70,9 +84,11 @@ public class CommonStepDef {
 
 	@Given("the User has a bank account")
 	public void the_user_has_a_bank_account() {
-	   if(this.setUp.pageController.myAccountPage.accountExist("Checking")) {
+		this.setUp.pageController.homePage.clickMyAccount();
+		if(this.setUp.pageController.myAccountPage.accountExist("Checking")) {
 		   this.setUp.pageController.myAccountPage.clickMyAccount();
-	   }
+		}
+	}
 
 	@Given("the Second User {string} exists")
 	public void the_second_user_exists(String string) {
@@ -81,17 +97,20 @@ public class CommonStepDef {
 
 	@Given("the User had previously created one account")
 	public void the_user_had_previously_created_one_account() {
-		this.setUp.pageController.myAccountPage.atLeastOneAccountExist();
+		this.setUp.pageController.homePage.clickMyAccount();
+		if(this.setUp.pageController.myAccountPage.accountExist("Checking")==false) {
+			this.createTwoAccount();
+		}
 	}
 	
-	@Given("the Second User had some fund in the {string} account")
-	public void the_second_user_had_some_fund_in_the_account(String string) {
-		if(checkLogin() == false) {
-		LogIn("secondUser","pass!!12AS");
-		//createTwoAccount();
-		//addFundsToAccount(string);
-		}
-
+	@Given("the User had income transfer to {string} account")
+	public void the_user_had_income_transfer_to_account(String string) {
+		this.addIncomeToAccount(string);
+	}
+	
+	@Given("the User had expense transfer to {string} account")
+	public void the_user_had_expense_transfer_to_account(String string) {
+		this.addExpenseToAccount(string);
 	}
 	
 	public boolean checkLogin() {
@@ -99,12 +118,23 @@ public class CommonStepDef {
 	}
 	
 	
-	public void addFundsToAccount(String accountName) {
+	public void addIncomeToAccount(String accountName) {
 		this.setUp.pageController.homePage.clickManageAccountBalanceNav();
 		this.setUp.pageController.manageAccountBalancePage.clickAccountsDropDown();
 		this.setUp.pageController.manageAccountBalancePage.selectAccount("Checking");
 		this.setUp.pageController.manageAccountBalancePage.clickAccountTypeDropDown();
 		this.setUp.pageController.manageAccountBalancePage.clickAccountTypeIncome();
+		this.setUp.pageController.manageAccountBalancePage.inputIntoAmountForm("500");
+		this.setUp.pageController.manageAccountBalancePage.inputIntoDescriptionForm("testing");
+		this.setUp.pageController.manageAccountBalancePage.clickCreateTransactionButton();
+	}
+	
+	public void addExpenseToAccount(String accountName) {
+		this.setUp.pageController.homePage.clickManageAccountBalanceNav();
+		this.setUp.pageController.manageAccountBalancePage.clickAccountsDropDown();
+		this.setUp.pageController.manageAccountBalancePage.selectAccount("Checking");
+		this.setUp.pageController.manageAccountBalancePage.clickAccountTypeDropDown();
+		this.setUp.pageController.manageAccountBalancePage.clickAccountTypeExpense();
 		this.setUp.pageController.manageAccountBalancePage.inputIntoAmountForm("500");
 		this.setUp.pageController.manageAccountBalancePage.inputIntoDescriptionForm("testing");
 		this.setUp.pageController.manageAccountBalancePage.clickCreateTransactionButton();
@@ -124,7 +154,6 @@ public class CommonStepDef {
 		this.setUp.pageController.createBankAccountPage.selectAccountTypeForm();
 		this.setUp.pageController.createBankAccountPage.selectAccountTypeChecking();
 		this.setUp.pageController.createBankAccountPage.clickCreateAccount();
-
 	}
 	
 	public void LogIn(String Username, String Password) {

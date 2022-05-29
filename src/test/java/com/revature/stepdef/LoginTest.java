@@ -55,19 +55,7 @@ public class LoginTest{
 		assertTrue(this.setUp.pageController.homePage.checkIfAtLoginPage());
 	}
 
-	@When("User clicks on dark mode")
-	public void user_clicks_on_dark_mode() {
-	   this.setUp.pageController.logInPage.clickDarkModeButton();
-	}
-	
-	@Then("application change to dark mode")
-	public void application_change_to_dark_mode() {
-	
-		String exptheme = "dark-theme";
-		String acttheme = this.setUp.pageController.logInPage.gettheme();
-		Assert.assertEquals(exptheme,acttheme);
-		
-	}
+
 	
 	
 }

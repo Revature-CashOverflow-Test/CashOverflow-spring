@@ -1,12 +1,17 @@
 package com.revature.pages;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 
 public class ManageAccountBalancePage {
 	WebDriver driver;
@@ -16,7 +21,13 @@ public class ManageAccountBalancePage {
 	}
 	
 	public void clickAccountsDropDown() {
-		this.driver.findElement(By.id("accounts")).click();
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				  .withTimeout(Duration.ofSeconds(5))
+				  .pollingEvery(Duration.ofMillis(100))
+				  .ignoring(NoSuchElementException.class);
+		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.id("accounts")));
+		ele.click();
 	}
 	
 	public void selectAccount(String accountName) {

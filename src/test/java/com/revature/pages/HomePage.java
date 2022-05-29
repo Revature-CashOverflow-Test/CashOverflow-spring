@@ -40,6 +40,11 @@ public class HomePage {
 
 	}
 	
+	public void waitForPageToLoad(String string) {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.urlContains(string));
+	}
+	
 	public void clickRegisterOnNavBar() {
 		if(clickShrunkMenuBar(LogsInMenuBar)) {
 			findByXpathWithWait(5, "//*[@id=\"navbarSupportedContent\"]"
@@ -49,6 +54,8 @@ public class HomePage {
 			WebElement ele = this.driver.findElement(By.linkText("Register"));
 			action.moveToElement(ele);
 			action.click().build().perform();
+		}
+		waitForPageToLoad("register");
 	}
 	
 	public boolean checkIfAtLoginPage() {
@@ -75,10 +82,13 @@ public class HomePage {
 			findByXpathWithWait(5, "//*[@id=\"navbarSupportedContent\"]/ul/li[2]/a").click();	
 
 		} else {
-			findByXpathWithWait(5, "/html/body/app-root/"
-					+ "app-user-page/app-navbar-general"
-					+ "/nav/div/div/ul/li[2]/a").click();
+			try {
+				findByLinkTexthWithWait(5, "My Account").click();
+			} catch (Exception e) {
+				
+			}
 		}		
+		waitForPageToLoad("feed");
 	}
 	
 	public void clickCreateBankAccountNav() {
@@ -91,6 +101,7 @@ public class HomePage {
 			action.moveToElement(ele);
 			action.click().build().perform();
 		}
+		waitForPageToLoad("createBankAccountForm");
 	}
 	
 	public void clickManageAccountBalanceNav() {
@@ -100,7 +111,8 @@ public class HomePage {
 		} else {
 			findByXpathWithWait(5, "/html/body/app-root/"
 					+ "app-user-page/app-navbar-general/nav/div/div/ul/li[5]/a").click();			
-		}	
+		}
+		waitForPageToLoad("manageBankAccountBalance");
 	}
 	
 	public void hoverTransferMoney() {
@@ -109,10 +121,9 @@ public class HomePage {
 			action.moveToElement(ele).perform();
 
 		} else {
-			WebElement ele = findByXpathWithWait(5, "/html/body/app-root/"
-					+ "app-user-page/app-navbar-general/nav/div/div/ul/li[4]");
+			WebElement ele = findByLinkTexthWithWait(5, "Transfer Money");
 			action.moveToElement(ele).perform();
-		}	
+		}
 	}
 	
 	public void clickBetweenAccount() {
@@ -125,22 +136,33 @@ public class HomePage {
 			action.moveToElement(ele);
 			action.click().build().perform();
 		}
-
+		waitForPageToLoad("transferMoneyBankAccount");
 	}
 	
 	public void clickWithOtherUsers() {
 		if(clickShrunkMenuBar(UserMenuBar)) {
-			WebElement ele = this.driver.findElement(By.linkText("With Other Users"));
+			WebElement ele = findByLinkTexthWithWait(5,"With Other Users");
 			action.moveToElement(ele);
 			action.click().build().perform();
 		} else {
-			WebElement ele = this.driver.findElement(By.linkText("With Other Users"));
+			WebElement ele = findByLinkTexthWithWait(5,"With Other Users");
 			action.moveToElement(ele);
 			action.click().build().perform();
 		}
-
+		waitForPageToLoad("transferMoneyBetweenUsers");
 	}
 	
+	public void clickSettings() {
+		waitForPageToLoad("feed");	
+		if(clickShrunkMenuBar(UserMenuBar)) {
+			WebElement ele = findByLinkTexthWithWait(5,"Settings");
+			ele.click();
+		} else {
+			WebElement ele = findByLinkTexthWithWait(5,"Settings");
+			ele.click();
+		}
+		waitForPageToLoad("settings");	
+	}
 	
 	public void clickLogOutButton(){
 		if(clickShrunkMenuBar(UserMenuBar)) {
@@ -149,7 +171,9 @@ public class HomePage {
 		} else {
 			findByXpathWithWait(5, "/html/body/app-root/"
 					+ "app-user-page/app-navbar-general/nav/div/div/ul/li[7]/a").click();			
-		}	
+		}
+		waitForPageToLoad("login");
+
 	}
 	public void clickLogInMenuBar() {
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
@@ -198,17 +222,18 @@ public class HomePage {
 				  .withTimeout(Duration.ofSeconds(5))
 				  .pollingEvery(Duration.ofMillis(1000))
 				  .ignoring(NoSuchElementException.class);
-		List<WebElement> ele = wait.until(new Function<WebDriver, List<WebElement>>() {
-			  public List<WebElement> apply(WebDriver driver) {
-				    return driver.findElements(By.xpath(xpath));
-				  }
-		});
-	    if(ele.size() > 0) {
-	    	if(ele.get(0).isDisplayed()) {
-	    		ele.get(0).click();
-		    	return true;
-	    	}
-	    }
+		try {
+			List<WebElement> ele = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+					By.xpath("/html/body/app-root/app-login-page/app-navbar-login/nav/div/button")));
+		    if(ele.size() > 0) {
+		    	if(ele.get(0).isDisplayed()) {
+		    		ele.get(0).click();
+			    	return true;
+		    	}
+		    }
+		} catch(Exception e) {
+			return false;
+		}
 	    return false;
 	}
 	
@@ -219,6 +244,15 @@ public class HomePage {
 				  .ignoring(NoSuchElementException.class);
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
 				By.xpath(xpath)));
+		return ele;
+	}
+	public WebElement findByLinkTexthWithWait(int time, String linkText) {
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				  .withTimeout(Duration.ofSeconds(time))
+				  .pollingEvery(Duration.ofMillis(100))
+				  .ignoring(NoSuchElementException.class);
+		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.linkText(linkText)));
 		return ele;
 	}
 }

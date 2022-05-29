@@ -5,11 +5,11 @@ Feature: EmailNotification
   @EmailNotification
   Scenario: Turning on Email Notification
     Given the User is in homepage
-		When the User logs in successfully
-    And the user click the settings button 
-    And the user turns on notification
-    And user enters Amount threshold
-    Then the user clicks save settings
-    And the message displays user has turned on notifications
+		And the User logs in successfully
+    When the User clicks the settings button 
+    And the User turns on notification
+    And the User enters Amount threshold
+    Then the User clicks save settings
+    And the message displays User has turned on notifications
 
   

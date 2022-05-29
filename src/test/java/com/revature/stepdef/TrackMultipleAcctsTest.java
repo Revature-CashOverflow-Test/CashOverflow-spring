@@ -5,15 +5,15 @@ import static org.junit.Assert.assertTrue;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class TrackMultipleAccts {
+public class TrackMultipleAcctsTest {
 
 	public static SetUp setUp;
 
-	public TrackMultipleAccts() {
+	public TrackMultipleAcctsTest() {
 
 	}
 
-	public TrackMultipleAccts(SetUp setUp) {
+	public TrackMultipleAcctsTest(SetUp setUp) {
 		this.setUp = setUp;
 	}
 
@@ -27,6 +27,7 @@ public class TrackMultipleAccts {
 		this.setUp.pageController.createBankAccountPage.selectAccountTypeForm();
 		this.setUp.pageController.createBankAccountPage.selectAccountTypeChecking();
 	}
+	
 	@When("the User inputs {string} into Name form")
 	public void the_user_inputs_into_name_form(String string) {
 		this.setUp.pageController.createBankAccountPage.sendInputToNameForm(string);
@@ -36,8 +37,8 @@ public class TrackMultipleAccts {
 	@When("the User inputs {string} into Description Form")
 	public void the_user_inputs_into_description_form(String string) {
 		this.setUp.pageController.createBankAccountPage.sendInputToDescriptionForm(string);
-
 	}
+	
 	@When("the User clicks create account")
 	public void the_user_clicks_create_account() {
 		this.setUp.pageController.createBankAccountPage.clickCreateAccount();
@@ -52,20 +53,16 @@ public class TrackMultipleAccts {
 	public void the_user_selects_savings_account() {
 		this.setUp.pageController.createBankAccountPage.selectAccountTypeForm();
 		this.setUp.pageController.createBankAccountPage.selectAccountTypeSaving();
-
-
 	}
+	
 	@When("the User clicks on My Account")
 	public void the_user_clicks_on_my_account() {
 		this.setUp.pageController.homePage.clickMyAccount();
-
 	}
+	
 	@Then("the application shows a new savings account is created")
 	public void the_application_shows_a_new_savings_account_is_created() {
-
-
 		this.setUp.pageController.myAccountPage.viewSuccess();
-
 	}
 
 	@Then("the application notifies the user that they need to fill in the missing form")
@@ -80,9 +77,7 @@ public class TrackMultipleAccts {
 
 	@When("the User clicks between accounts to access")
 	public void the_user_clicks_between_accounts_to_access() {
-
 		this.setUp.pageController.homePage.clickMyAccount();
-
 	}
 
 	@Then("the application displays all accounts")
