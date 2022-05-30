@@ -8,6 +8,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
@@ -18,10 +19,12 @@ public class TransferMoneyWithOtherUsersPage {
 	
 	WebDriver driver;
 	JavascriptExecutor jvs;
+	Actions action;
 
 	public TransferMoneyWithOtherUsersPage(WebDriver driver) {
 		this.driver = driver;
 		jvs = (JavascriptExecutor) driver;
+		action = new Actions(driver);
 	}
 	
 	public void selectRequestSendForm(String transactionType) {
@@ -84,6 +87,7 @@ public class TransferMoneyWithOtherUsersPage {
 				  .ignoring(NoSuchElementException.class);
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
 				By.xpath("/html/body/div/div/div")));
+		action.moveToElement(ele).perform();
 		String text = ele.getText().toString();
 		return text.contains("Please verify your accounts have updated");
 	}
@@ -93,14 +97,9 @@ public class TransferMoneyWithOtherUsersPage {
 				  .withTimeout(Duration.ofSeconds(10))
 				  .pollingEvery(Duration.ofMillis(100))
 				  .ignoring(NoSuchElementException.class);
-
-        try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-
-		}
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
-				By.xpath("/html/body/div/div")));
+				By.xpath("/html/body/div/div/div")));
+		action.moveToElement(ele).perform();
 		String text = ele.getText().toString();
 		return text.contains("Transfer denied");
 	}
@@ -111,9 +110,9 @@ public class TransferMoneyWithOtherUsersPage {
 				  .pollingEvery(Duration.ofMillis(100))
 				  .ignoring(NoSuchElementException.class);
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
-				By.xpath("//*[@id=\"toast-container\"]")));
+				By.xpath("/html/body/div/div/div")));
+		action.moveToElement(ele).perform();
 		String text = ele.getAttribute("innerHTML");
-		System.out.println(text);
 		return text.contains("Something went wrong with the transfer, please try again");
 	}
 	

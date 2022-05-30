@@ -45,6 +45,7 @@ public class CommonStepDef {
 	}
 	@Given("the User is not logged in")
 	public void the_user_is_not_logged_in() {
+		setUp.pageController.homePage.clickLogInOnNavBar();
 		assertFalse(checkLogin());
 	}
 		
@@ -80,7 +81,6 @@ public class CommonStepDef {
 			LogIn("testingExample","Password!1");
 		}
 	}
-	
 
 	@Given("the User has a bank account")
 	public void the_user_has_a_bank_account() {
@@ -88,6 +88,11 @@ public class CommonStepDef {
 		if(this.setUp.pageController.myAccountPage.accountExist("Checking")) {
 		   this.setUp.pageController.myAccountPage.clickMyAccount();
 		}
+	}
+	
+	@Given("the First User {string} exists")
+	public void the_First_User_exists(String string) {
+	    Register(string,"Yu","Wang","example@hotmail.com","Password!1","Password!1");
 	}
 
 	@Given("the Second User {string} exists")
@@ -97,10 +102,7 @@ public class CommonStepDef {
 
 	@Given("the User had previously created one account")
 	public void the_user_had_previously_created_one_account() {
-		this.setUp.pageController.homePage.clickMyAccount();
-		if(this.setUp.pageController.myAccountPage.accountExist("Checking")==false) {
-			this.createTwoAccount();
-		}
+		this.createTwoAccount();
 	}
 	
 	@Given("the User had income transfer to {string} account")
@@ -115,8 +117,7 @@ public class CommonStepDef {
 	
 	public boolean checkLogin() {
 		return setUp.js.executeScript("return sessionStorage.getItem(\"username\");") != null;
-	}
-	
+	}	
 	
 	public void addIncomeToAccount(String accountName) {
 		this.setUp.pageController.homePage.clickManageAccountBalanceNav();
@@ -157,7 +158,7 @@ public class CommonStepDef {
 	}
 	
 	public void LogIn(String Username, String Password) {
-		this.setUp.pageController.homePage.checkIfAtLoginPage();
+		this.setUp.pageController.homePage.clickLogInOnNavBar();
 		this.setUp.pageController.logInPage.inputIntoUsername(Username);
 		this.setUp.pageController.logInPage.inputIntoPassword(Password);
 		this.setUp.pageController.logInPage.clickLogInButton();

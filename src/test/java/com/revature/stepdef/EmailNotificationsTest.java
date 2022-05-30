@@ -23,7 +23,7 @@ public class EmailNotificationsTest {
 
 	@When("the User turns on notification")
 	public void the_user_turns_on_notification() {
-		this.setUp.pageController.settingsPage.turnonNotification();
+		this.setUp.pageController.settingsPage.turnOnNotification();
 	}
 
 	@When("the User enters Amount threshold")

@@ -9,6 +9,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -16,9 +17,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RegisterPage {
 	WebDriver driver;
+	Actions action;
 
 	public RegisterPage(WebDriver driver) {
 		this.driver = driver;
+		action = new Actions(driver);
 	}
 
 	public void inputIntoUsername(String str) {
@@ -61,6 +64,7 @@ public class RegisterPage {
 				  .ignoring(NoSuchElementException.class);
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
 				By.xpath("/html/body/div/div/div")));
+		action.moveToElement(ele).perform();
 		String text = ele.getText().toString();
 		return text.contains("You have been successfully registere");
 	}
@@ -77,6 +81,7 @@ public class RegisterPage {
 				  .ignoring(NoSuchElementException.class);
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
 				By.xpath("/html/body/div/div/div")));
+		action.moveToElement(ele).perform();
 		String text = ele.getText().toString();
 		System.out.println(text);
 		return text.contains("There was a problem registering your account. Please try again.");

@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,10 +34,12 @@ public class HomePage {
 	String AccountRegisterMenuBar = "/html/body/app-root/"
     		+ "app-bank-account-register-page/app-navbar-general/nav/div/button";
 	String LogsInMenuBar = "/html/body/app-root/app-login-page/app-navbar-login/nav/div/button";
-	
+	JavascriptExecutor jvs;
+
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
 		this.action = new Actions(driver);
+		jvs = (JavascriptExecutor)driver; 
 
 	}
 	
@@ -66,15 +69,13 @@ public class HomePage {
 	}
 	public void clickLogInOnNavBar() {
 		if(clickShrunkMenuBar(LogsInMenuBar)) {
-			findByXpathWithWait(5, "/html/body/app-root"
-					+ "/app-login-page/app-navbar-login"
-					+ "/nav/div/div/ul/li[2]/a").click();
-
+			WebElement ele = findByLinkTexthWithWait(5, "Login");
+			jvs.executeScript("var elem=arguments[0]; setTimeout(function() {elem.click();},100)",ele);
 		} else {
-			findByXpathWithWait(5, "/html/body/app-root"
-					+ "/app-login-page/app-navbar-login"
-					+ "/nav/div/div/ul/li[2]/a").click();		
-		}	
+			WebElement ele = findByLinkTexthWithWait(5, "Login");
+			jvs.executeScript("var elem=arguments[0]; setTimeout(function() {elem.click();},100)",ele);
+		}
+		waitForPageToLoad("login");
 	}
 	
 	public void clickMyAccount() {
@@ -106,11 +107,11 @@ public class HomePage {
 	
 	public void clickManageAccountBalanceNav() {
 		if(clickShrunkMenuBar(UserMenuBar)) {
-			findByXpathWithWait(5, "//*[@id=\"navbarSupportedContent\"]/ul/li[5]/a").click();
-
+			WebElement ele = findByLinkTexthWithWait(5,"Manage Account Balance");
+			ele.click();
 		} else {
-			findByXpathWithWait(5, "/html/body/app-root/"
-					+ "app-user-page/app-navbar-general/nav/div/div/ul/li[5]/a").click();			
+			WebElement ele = findByLinkTexthWithWait(5,"Manage Account Balance");
+			ele.click();		
 		}
 		waitForPageToLoad("manageBankAccountBalance");
 	}
@@ -166,11 +167,11 @@ public class HomePage {
 	
 	public void clickLogOutButton(){
 		if(clickShrunkMenuBar(UserMenuBar)) {
-			findByXpathWithWait(5, "//*[@id=\"navbarSupportedContent\"]/ul/li[7]/a").click();	
-
+			WebElement ele = findByLinkTexthWithWait(5,"Logout");
+			jvs.executeScript("var elem=arguments[0]; setTimeout(function() {elem.click();},100)",ele);
 		} else {
-			findByXpathWithWait(5, "/html/body/app-root/"
-					+ "app-user-page/app-navbar-general/nav/div/div/ul/li[7]/a").click();			
+			WebElement ele = findByLinkTexthWithWait(5,"Logout");
+			jvs.executeScript("var elem=arguments[0]; setTimeout(function() {elem.click();},100)",ele);
 		}
 		waitForPageToLoad("login");
 

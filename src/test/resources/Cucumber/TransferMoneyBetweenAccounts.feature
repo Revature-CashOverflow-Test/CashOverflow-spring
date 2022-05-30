@@ -5,6 +5,7 @@ Feature: Transfer Money Between Accounts
   @TMBA1
   Scenario: Transfer money between accounts with Success
     Given the User is in homepage
+    And the First User 'testingExample' exists
     And the User logs in successfully
     And the User had previously created two accounts
     And the User had some fund in the "Checking" account
@@ -19,6 +20,7 @@ Feature: Transfer Money Between Accounts
   @TMBA2
   Scenario: Transfer money between accounts with insufficient funds
     Given the User is in homepage
+    And the First User 'testingExample' exists
     And the User logs in successfully
     And the User had previously created two accounts
     And the User had some fund in the "Checking" account

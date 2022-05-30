@@ -16,9 +16,12 @@ import org.openqa.selenium.support.ui.Wait;
 
 public class TransferMoneyBetweenAccountPage {
 	WebDriver driver;
+	Actions action;
 
 	public TransferMoneyBetweenAccountPage(WebDriver driver) {
 		this.driver = driver;
+		this.action = new Actions(driver);
+
 	}
 	
 
@@ -71,6 +74,7 @@ public class TransferMoneyBetweenAccountPage {
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
 				By.xpath("/html/body/div/div/div")));
 		String text = ele.getText().toString();
+		action.moveToElement(ele).perform();
 		return text.contains("Please verify your accounts have updated");
 	}
 	
@@ -82,6 +86,7 @@ public class TransferMoneyBetweenAccountPage {
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
 				By.xpath("//*[@id=\"toast-container\"]/div/div[1]")));
 		String text = ele.getAttribute("innerHTML");
+		action.moveToElement(ele).perform();
 		return text.contains("Something went wrong with the transfer, please try again");
 	}
 }

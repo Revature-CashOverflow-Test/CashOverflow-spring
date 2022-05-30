@@ -6,6 +6,7 @@ Feature: Request Money
     Given the User is in homepage
     And the Second User 'secondUser' exists
     And the User is in homepage
+    And the First User 'testingExample' exists
     And the User logs in successfully
     And the User had previously created one account
     When the User hovers on Transfer Money
@@ -19,6 +20,7 @@ Feature: Request Money
   
   Scenario: Request Money From Incorrect Account
     Given the User is in homepage
+		And the First User 'testingExample' exists
     And the User logs in successfully
     And the User had previously created one account
     When the User hovers on Transfer Money

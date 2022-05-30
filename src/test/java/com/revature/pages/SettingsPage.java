@@ -23,7 +23,7 @@ public class SettingsPage {
 		action = new Actions(driver);
 	}
 
-	public void turnonNotification() {
+	public void turnOnNotification() {
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
 				  .withTimeout(Duration.ofSeconds(5))
 				  .pollingEvery(Duration.ofMillis(250))
@@ -71,6 +71,7 @@ public class SettingsPage {
 				  .ignoring(NoSuchElementException.class);
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
 				By.xpath("/html/body/div/div/div")));
+		action.moveToElement(ele).perform();
 		String text = ele.getText().toString();
 		return text.contains("Password Changed");
 	}
@@ -83,6 +84,7 @@ public class SettingsPage {
 		  .ignoring(NoSuchElementException.class);
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
 				By.xpath("/html/body/app-root/app-settings/app-change-password/div/div/div/div/div/div/form/p")));
+		action.moveToElement(ele).perform();
 		String text = ele.getText().toString();
 		return text.contains("The current password doesnt match 5 attempts remaining");
 	}
@@ -94,6 +96,7 @@ public class SettingsPage {
 				  .ignoring(NoSuchElementException.class);
 		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
 				By.xpath("/html/body/div/div/div")));
+		action.moveToElement(ele).perform();
 		String text = ele.getText().toString();
 		return text.contains("Email Settings Changed");
 	}

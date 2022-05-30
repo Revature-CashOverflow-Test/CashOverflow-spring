@@ -4,6 +4,7 @@ Feature: Reset password
   @ResetPassword1
   Scenario: Reset password unsuccessfully
     Given the User is in homepage
+		And the First User 'testingExample' exists
 		And the User logs in successfully
     When the User clicks the settings button 
     And the User inputs "Password!1" to current password form
@@ -14,6 +15,7 @@ Feature: Reset password
   @ResetPassword2
   Scenario: Reset password successfully
     Given the User is in homepage
+		And the First User 'testingExample' exists
 		And the User logs in successfully
     When the User clicks the settings button 
     And the User inputs "Password!1" to current password form
