@@ -76,8 +76,14 @@ public class TransferMoneyWithOtherUsersPage {
 	}
 	
 	public void clickSubmit() {
-		this.driver.findElement(By.xpath("/html/body/app-root/app-bank-account-user-transfer/"
-				+ "app-transfer-money-between-users/div/div/div/div/div/div/form/div/button")).click();
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				  .withTimeout(Duration.ofSeconds(5))
+				  .pollingEvery(Duration.ofMillis(250))
+				  .ignoring(NoSuchElementException.class);
+		WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.xpath("/html/body/app-root/app-bank-account-user-transfer/"
+				+ "app-transfer-money-between-users/div/div/div/div/div/div/form/div/button")));
+		ele.click();
 	}
 	
 	public boolean transferSuccessNotification() {
