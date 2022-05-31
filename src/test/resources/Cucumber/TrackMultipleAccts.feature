@@ -16,6 +16,7 @@ Feature: Track Multiple Accounts
 	@TrackMultiAccounts2
 	Scenario: Create a Savings Account
 		Given the User is in homepage
+		And the First User 'testingExample' exists
 		And the User logs in successfully
 		When the User clicks on create a bank account in Navigation Bar
 		And the User inputs "Saving" into Name form
@@ -27,6 +28,7 @@ Feature: Track Multiple Accounts
 	@TrackMultiAccounts3
 	Scenario: Missing Form
 		Given the User is in homepage
+		And the First User 'testingExample' exists
 		And the User logs in successfully
 		When the User clicks on create a bank account in Navigation Bar
 		And the User clicks create account
@@ -35,6 +37,7 @@ Feature: Track Multiple Accounts
 	@TrackMultiAccounts4
 	Scenario: View Bank Account
 		Given the User is in homepage
+		And the First User 'testingExample' exists
 		And the User logs in successfully
 		When the User clicks on My Account
 		And the User clicks between accounts to access

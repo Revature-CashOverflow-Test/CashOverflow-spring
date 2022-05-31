@@ -163,7 +163,6 @@ class AccountControllerTest {
 		betweenDto.setTransferAccount(1);
 		betweenDto.setTransferAmount(5.00);
 
-
 		cont.completeTransfer(auth, betweenDto);
 
 

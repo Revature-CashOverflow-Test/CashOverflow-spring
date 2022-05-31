@@ -11,7 +11,7 @@ import com.revature.pages.PageController;
 
 public class SetUp {
 	WebDriver driver;
-	JavascriptExecutor js;	
+	JavascriptExecutor js;
 	public PageController pageController;
 	public SetUp() {
 		File file = new File("src/test/resources/chromedriver.exe");
@@ -19,5 +19,6 @@ public class SetUp {
 		driver = new ChromeDriver(); //default to find environmental variable 
 		js = (JavascriptExecutor)driver;
 		pageController = new PageController(driver);
+		
 	}
 }

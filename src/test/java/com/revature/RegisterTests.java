@@ -389,14 +389,22 @@ class RegisterTests {
 		SocialAccountDto socialAccountDto = Mockito.mock(SocialAccountDto.class);
 		UserAccount user = Mockito.mock(UserAccount.class);
 
+
+		UserSocialMedia social = Mockito.mock(UserSocialMedia.class);
+
+
 		String username = "test";
 
 		when(auth.getName()).thenReturn(username);
 		when(serv.getUserFromUsername(username)).thenReturn(user);
 		when(user.isAuthAccount()).thenReturn(true);
+
 		when(socialAccountDto.getUsername()).thenReturn(username);
 
 		regCont.addSocial(auth, socialAccountDto);
+
+
+		assertThrows(NullPointerException.class, () -> regCont.addSocial(auth, socialAccountDto));
 
 	}
 
