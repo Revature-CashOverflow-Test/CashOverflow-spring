@@ -12,7 +12,7 @@ public class PageController {
 	public static TransferMoneyBetweenAccountPage transferMoneyBetweenAccountPage;
 	public static SettingsPage settingsPage;
 	public static TransferMoneyWithOtherUsersPage transferMoneyWithOtherUsersPage;
-	
+
 	public PageController(WebDriver driver){
 		homePage = new HomePage(driver);
 		registerPage = new RegisterPage(driver);

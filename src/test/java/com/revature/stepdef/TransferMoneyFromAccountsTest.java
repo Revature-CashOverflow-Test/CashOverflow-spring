@@ -8,18 +8,23 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class TransferMoneyFromAccountsTest {
-	
+
 	public static SetUp setUp;
-	
 	double checking;
 	double saving;
 	
 	public TransferMoneyFromAccountsTest() {
-		
+
 	}
-	
+
 	public TransferMoneyFromAccountsTest(SetUp setUp) {
 		this.setUp = setUp;
+	}
+
+	@When("the User clicks on Manage Account Balance")
+	public void the_user_clicks_on_manage_account_balance() {
+		// Write code here that turns the phrase above into concrete actions
+		throw new io.cucumber.java.PendingException();
 	}
 
 	@When("the User selects account one in the send funds from")
@@ -51,7 +56,6 @@ public class TransferMoneyFromAccountsTest {
 	@Then("the app shows a red application that there is insufficient fund")
 	public void the_app_shows_a_red_application_that_there_is_insufficient_fund() {
 		assertTrue(this.setUp.pageController.transferMoneyBetweenAccountPage.transferErrorNotification());
-
 	}
 	@When("the User hovers on Transfer Money")
 	public void the_user_hovers_on_transfer_money() {
