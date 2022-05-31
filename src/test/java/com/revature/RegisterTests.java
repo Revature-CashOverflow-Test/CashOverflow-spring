@@ -385,7 +385,6 @@ class RegisterTests {
 
 	@Test
 	void addSocialTest(){
-		// mocking what we need
 		Authentication auth = Mockito.mock(Authentication.class);
 		SocialAccountDto socialAccountDto = Mockito.mock(SocialAccountDto.class);
 		UserAccount user = Mockito.mock(UserAccount.class);
